@@ -1,0 +1,6 @@
+.cache
+.idea
+*.pyc
+*.log
+tests/__pycache__
+tests/__pycache__/*
