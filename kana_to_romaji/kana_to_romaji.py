@@ -52,11 +52,12 @@ def translate_to_romaji(kana):
 
 
 def translate_soukon(j_str):
-    soukon_unicode_char = u"\u3063"
+    hirgana_soukon_unicode_char = u"\u3063"
+    katakana_soukon_unicode_char = u"\u30c3"
     prev_char = ""
 
     for c in reversed(j_str):
-        if c == soukon_unicode_char:  # assuming that soukon can't be last
+        if c == hirgana_soukon_unicode_char or c == katakana_soukon_unicode_char:  # assuming that soukon can't be last
             j_str = prev_char[0].join(j_str.rsplit(c, 1))
         prev_char = c
     return j_str
