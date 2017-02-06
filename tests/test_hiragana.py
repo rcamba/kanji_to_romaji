@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji import kana_to_romaji
+from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -18,24 +18,50 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
                        "Asaki yume mishi " \
                        "Wehi mo sesu"
         expected_result = iroha_romaji.lower()
-        self.assertEqual(kana_to_romaji.translate_to_romaji(iroha), expected_result)
+        self.assertEqual(translate_to_romaji(iroha), expected_result)
 
     def test_dakuten(self):
         g = u"が ぎ ぐ げ ご"
-        self.assertEqual(kana_to_romaji.translate_to_romaji(g), "ga gi gu ge go")
+        self.assertEqual(translate_to_romaji(g), "ga gi gu ge go")
 
         z = u"ざ じ ず ぜ ぞ"
-        self.assertEqual(kana_to_romaji.translate_to_romaji(z), "za ji zu ze zo")
+        self.assertEqual(translate_to_romaji(z), "za ji zu ze zo")
 
         t = u"だ ぢ づ で ど"
-        self.assertEqual(kana_to_romaji.translate_to_romaji(t), "da ji zu de do")
+        self.assertEqual(translate_to_romaji(t), "da ji zu de do")
 
         b = u"ば び ぶ べ ぼ"
-        self.assertEqual(kana_to_romaji.translate_to_romaji(b), "ba bi bu be bo")
+        self.assertEqual(translate_to_romaji(b), "ba bi bu be bo")
 
         p = u"ぱ ぴ ぷ ぺ ぽ"
-        self.assertEqual(kana_to_romaji.translate_to_romaji(p), "pa pi pu pe po")
+        self.assertEqual(translate_to_romaji(p), "pa pi pu pe po")
 
+    def test_youon(self):
+        k = u"きゃ きゅ きょ"
+        self.assertEqual(translate_youon(translate_to_romaji(k)), "kya kyu kyo")
+        g = u"ぎゃ ぎゅ ぎょ"
+        self.assertEqual(translate_youon(translate_to_romaji(g)), "gya gyu gyo")
+
+        s = u"しゃ しゅ しょ"
+        self.assertEqual(translate_youon(translate_to_romaji(s)), "sha shu sho")
+        j = u"じゃ じゅ じょ"
+        self.assertEqual(translate_youon(translate_to_romaji(j)), "ja ju jo")
+
+        h = u"ひゃ ひゅ ひょ"
+        self.assertEqual(translate_youon(translate_to_romaji(h)), "hya hyu hyo")
+        b = u"びゃ びゅ びょ"
+        self.assertEqual(translate_youon(translate_to_romaji(b)), "bya byu byo")
+        p = u"ぴゃ ぴゅ ぴょ"
+        self.assertEqual(translate_youon(translate_to_romaji(p)), "pya pyu pyo")
+
+        c = u"ちゃ ちゅ ちょ"
+        self.assertEqual(translate_youon(translate_to_romaji(c)), "cha chu cho")
+        n = u"にゃ にゅ にょ"
+        self.assertEqual(translate_youon(translate_to_romaji(n)), "nya nyu nyo")
+        m = u"みゃ みゅ みょ"
+        self.assertEqual(translate_youon(translate_to_romaji(m)), "mya myu myo")
+        r = u"りゃ りゅ りょ"
+        self.assertEqual(translate_youon(translate_to_romaji(r)), "rya ryu ryo")
 
 if __name__ == "__main__":
     unittest.main()

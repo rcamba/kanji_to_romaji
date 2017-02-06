@@ -71,24 +71,24 @@ def translate_youon(j_str):
         if c in [youon_ya_unicode_char, youon_yu_unicode_char, youon_yo_unicode_char]:
             t1, t2 = j_str.split(c, 1)
             if c == youon_ya_unicode_char:
-                if t1[-2] != "h" and t1[-2] != "j":
-                    replacement = "ya"
-                else:
+                if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
                     replacement = "a"
+                else:
+                    replacement = "ya"
                 j_str = t1[:-1] + replacement + t2
 
             elif c == youon_yo_unicode_char:
-                if t1[-2] != "h" and t1[-2] != "j":
-                    replacement = "yo"
-                else:
+                if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
                     replacement = "o"
+                else:
+                    replacement = "yo"
 
                 j_str = t1[:-1] + replacement + t2
             elif c == youon_yu_unicode_char:
-                if t1[-2] != "h" and t1[-2] != "j":
-                    replacement = "yu"
-                else:
+                if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
                     replacement = "u"
+                else:
+                    replacement = "yu"
 
                 j_str = t1[:-1] + replacement + t2
 
