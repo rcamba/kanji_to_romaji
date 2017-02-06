@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, main
+from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, main, translate_long_vowel
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -67,6 +67,11 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(main(u"チョット"), "chotto")
         self.assertEqual(main(u'マッテ'), "matte")
         self.assertEqual(main(u"ハッピョウケッカ"), "happyoukekka")
+
+    def test_long_vowel(self):
+        self.assertEqual(translate_long_vowel(translate_to_romaji(u"メール")), "meeru")
+        self.assertEqual(translate_long_vowel(translate_to_romaji(u"ケーキ")), "keeki")
+        self.assertEqual(translate_long_vowel(translate_to_romaji(u"コーヒー")), "koohii")
 
 if __name__ == "__main__":
     unittest.main()
