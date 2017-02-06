@@ -40,6 +40,8 @@ def convert_hiragana_to_katakana(hiragana):
     for c in hiragana:
         if hiragana_starting_unicode <= c <= hiragana_ending_unicode:
             converted_str += _convert_hiragana_to_katakana_char(c)
+        else:
+            converted_str += c.encode('utf-8')
     return converted_str
 
 
