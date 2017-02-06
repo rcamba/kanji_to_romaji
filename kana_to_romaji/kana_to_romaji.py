@@ -66,28 +66,34 @@ def translate_soukon(j_str):
 
 
 def translate_youon(j_str):
-    youon_ya_unicode_char = u"\u3083"
-    youon_yu_unicode_char = u"\u3085"
-    youon_yo_unicode_char = u"\u3087"
+    youon_ya_hiragana = u"\u3083"
+    youon_yu_hiragana = u"\u3085"
+    youon_yo_hiragana = u"\u3087"
+
+    youon_ya_katakana = u"\u30E3"
+    youon_yu_katakana = u"\u30E5"
+    youon_yo_katakana = u"\u30E7"
 
     for c in j_str:
-        if c in [youon_ya_unicode_char, youon_yu_unicode_char, youon_yo_unicode_char]:
+        if c in [youon_ya_hiragana, youon_yu_hiragana, youon_yo_hiragana,
+                 youon_ya_katakana, youon_yu_katakana, youon_yo_katakana]:
+
             t1, t2 = j_str.split(c, 1)
-            if c == youon_ya_unicode_char:
+            if c == youon_ya_hiragana or c == youon_ya_katakana:
                 if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
                     replacement = "a"
                 else:
                     replacement = "ya"
                 j_str = t1[:-1] + replacement + t2
 
-            elif c == youon_yo_unicode_char:
+            elif c == youon_yo_hiragana or c == youon_yo_katakana:
                 if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
                     replacement = "o"
                 else:
                     replacement = "yo"
 
                 j_str = t1[:-1] + replacement + t2
-            elif c == youon_yu_unicode_char:
+            elif c == youon_yu_hiragana or c == youon_yu_katakana:
                 if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
                     replacement = "u"
                 else:
