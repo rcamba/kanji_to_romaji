@@ -1,6 +1,7 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, main, translate_long_vowel
+from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, main, translate_long_vowel, \
+    translate_katakana_small_vowels
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -72,6 +73,66 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(translate_long_vowel(translate_to_romaji(u"メール")), "meeru")
         self.assertEqual(translate_long_vowel(translate_to_romaji(u"ケーキ")), "keeki")
         self.assertEqual(translate_long_vowel(translate_to_romaji(u"コーヒー")), "koohii")
+
+    def test_u_and_small_vowel(self):
+        def tksv_equal(c, e):
+            self.assertEqual(translate_katakana_small_vowels(c), e)
+        self.assertEqual(main(u"ハロウィーン"), "harowiin")
+        self.assertEqual(main(u"ソファ"), "sofa")
+        self.assertEqual(main(u"ウィンドウズ"), "windouzu")
+        self.assertEqual(main(u"チェック"), "chekku")
+        self.assertEqual(main(u"ディスニ"), "disuni")
+        self.assertEqual(main(u"ドゥラハン"), "durahan")
+        self.assertEqual(main(u"パーティー"), "paatii")
+        self.assertEqual(main(u"タトゥー"), "tatuu")
+        self.assertEqual(main(u"クァルテット"), "kwarutetto")
+
+        tksv_equal(u"ウィ", "wi")
+        tksv_equal(u"ウェ", "we")
+        tksv_equal(u"ウォ", "wo")
+
+        tksv_equal(u"ヴァ", "va")
+        tksv_equal(u"ヴィ", "vi")
+        tksv_equal(u"ヴェ", "ve")
+        tksv_equal(u"ヴォ", "vo")
+
+        tksv_equal(u"ファ", "fa")
+        tksv_equal(u"フィ", "fi")
+        tksv_equal(u"フェ", "fe")
+        tksv_equal(u"フォ", "fo")
+
+        tksv_equal(u"ティ", "ti")
+        tksv_equal(u"ディ", "di")
+        tksv_equal(u"トゥ", "tu")
+        tksv_equal(u"ドゥ", "du")
+
+        tksv_equal(u"クァ", "kwa")
+        tksv_equal(u"クィ", "kwi")
+        tksv_equal(u"クェ", "kwe")
+        tksv_equal(u"クォ", "kwo")
+        tksv_equal(u"キェ", "kye")
+
+        tksv_equal(u"グァ", "gwa")
+        tksv_equal(u"グィ", "gwi")
+        tksv_equal(u"グェ", "gwe")
+        tksv_equal(u"グォ", "gwo")
+        tksv_equal(u"ギェ", "gye")
+
+        tksv_equal(u"スィ", "si")
+        tksv_equal(u"ズィ", "zi")
+        tksv_equal(u"シェ", "she")
+        tksv_equal(u"ジェ", "je")
+        tksv_equal(u"チェ", "che")
+
+        tksv_equal(u"ツァ", "tsa")
+        tksv_equal(u"ツィ", "tsi")
+        tksv_equal(u"ツェ", "tse")
+        tksv_equal(u"ツォ", "tso")
+
+        tksv_equal(u"ホゥ", "hu")
+        tksv_equal(u"イィ", "yi")
+        tksv_equal(u"イェ", "ye")
+
 
 if __name__ == "__main__":
     unittest.main()

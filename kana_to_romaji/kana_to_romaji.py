@@ -112,11 +112,66 @@ def translate_long_vowel(partial_kana):
     return partial_kana
 
 
+def translate_katakana_small_vowels(partial_kana):
+    extra_sounds_mapping = {
+        u"\u30A6\u30A3": "wi",
+        u"\u30A6\u30A7": "we",
+        u"\u30A6\u30A9": "wo",
+
+        u"\u30F4\u30A1": "va",
+        u"\u30F4\u30A3": "vi",
+        u"\u30F4\u30A7": "ve",
+        u"\u30F4\u30A9": "vo",
+
+        u"\u30D5\u30A1": "fa",
+        u"\u30D5\u30A3": "fi",
+        u"\u30D5\u30A7": "fe",
+        u"\u30D5\u30A9": "fo",
+
+        u"\u30C6\u30A3": "ti",
+        u"\u30C7\u30A3": "di",
+        u"\u30C8\u30A5": "tu",
+        u"\u30C9\u30A5": "du",
+
+        u"\u30AF\u30A1": "kwa",
+        u"\u30AF\u30A3": "kwi",
+        u"\u30AF\u30A7": "kwe",
+        u"\u30AF\u30A9": "kwo",
+        u"\u30AD\u30A7": "kye",
+
+        u"\u30B0\u30A1": "gwa",
+        u"\u30B0\u30A3": "gwi",
+        u"\u30B0\u30A7": "gwe",
+        u"\u30B0\u30A9": "gwo",
+        u"\u30AE\u30A7": "gye",
+
+        u"\u30B9\u30A3": "si",
+        u"\u30BA\u30A3": "zi",
+        u"\u30B7\u30A7": "she",
+        u"\u30B8\u30A7": "je",
+        u"\u30C1\u30A7": "che",
+
+        u"\u30C4\u30A1": "tsa",
+        u"\u30C4\u30A3": "tsi",
+        u"\u30C4\u30A7": "tse",
+        u"\u30C4\u30A9": "tso",
+
+        u"\u30DB\u30A5": "hu",
+        u"\u30A4\u30A3": "yi",
+        u"\u30A4\u30A7": "ye"
+    }
+    for s in extra_sounds_mapping:
+        partial_kana = partial_kana.replace(s, extra_sounds_mapping[s])
+    return partial_kana
+
+
 def main(kana):
-    s1 = translate_to_romaji(kana)
-    s2 = translate_soukon(s1)
-    s3 = translate_youon(s2)
-    return s3
+    s1 = translate_katakana_small_vowels(kana)
+    s2 = translate_to_romaji(s1)
+    s3 = translate_long_vowel(s2)
+    s4 = translate_soukon(s3)
+    s5 = translate_youon(s4)
+    return s5
 
 
 if __name__ == "__main__":
