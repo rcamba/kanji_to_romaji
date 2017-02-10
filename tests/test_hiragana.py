@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, main
+from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, kana_to_romaji
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -64,9 +64,9 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(translate_youon(translate_to_romaji(r)), "rya ryu ryo")
 
     def test_soukon(self):
-        self.assertEqual(main(u"ちょっと"), "chotto")
-        self.assertEqual(main(u"まって"), "matte")
-        self.assertEqual(main(u"はっぴょうけっか"), "happyoukekka")
+        self.assertEqual(kana_to_romaji(u"ちょっと"), "chotto")
+        self.assertEqual(kana_to_romaji(u"まって"), "matte")
+        self.assertEqual(kana_to_romaji(u"はっぴょうけっか"), "happyoukekka")
 
     # def test_invalid_x(self):
 

@@ -102,7 +102,7 @@ def translate_youon(partial_kana):
 
 
 def translate_long_vowel(partial_kana):
-    long_vowel_mark = u"\u30FC"
+    long_vowel_mark = u"\u30FC"  # katakana
     prev_c = ""
     for c in partial_kana:
         if c == long_vowel_mark:
@@ -165,7 +165,7 @@ def translate_katakana_small_vowels(partial_kana):
     return partial_kana
 
 
-def main(kana):
+def kana_to_romaji(kana):
     s1 = translate_katakana_small_vowels(kana)
     s2 = translate_to_romaji(s1)
     s3 = translate_long_vowel(s2)
@@ -175,4 +175,4 @@ def main(kana):
 
 
 if __name__ == "__main__":
-    print main((sys.argv[1]).decode('unicode-escape'))
+    print kana_to_romaji((sys.argv[1]).decode('unicode-escape'))

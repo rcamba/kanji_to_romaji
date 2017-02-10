@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, main, translate_long_vowel, \
+from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, kana_to_romaji, translate_long_vowel, \
     translate_katakana_small_vowels
 
 
@@ -65,9 +65,9 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(translate_youon(translate_to_romaji(r)), "rya ryu ryo")
 
     def test_soukon(self):
-        self.assertEqual(main(u"チョット"), "chotto")
-        self.assertEqual(main(u'マッテ'), "matte")
-        self.assertEqual(main(u"ハッピョウケッカ"), "happyoukekka")
+        self.assertEqual(kana_to_romaji(u"チョット"), "chotto")
+        self.assertEqual(kana_to_romaji(u'マッテ'), "matte")
+        self.assertEqual(kana_to_romaji(u"ハッピョウケッカ"), "happyoukekka")
 
     def test_long_vowel(self):
         self.assertEqual(translate_long_vowel(translate_to_romaji(u"メール")), "meeru")
@@ -77,15 +77,15 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
     def test_u_and_small_vowel(self):
         def tksv_equal(c, e):
             self.assertEqual(translate_katakana_small_vowels(c), e)
-        self.assertEqual(main(u"ハロウィーン"), "harowiin")
-        self.assertEqual(main(u"ソファ"), "sofa")
-        self.assertEqual(main(u"ウィンドウズ"), "windouzu")
-        self.assertEqual(main(u"チェック"), "chekku")
-        self.assertEqual(main(u"ディスニ"), "disuni")
-        self.assertEqual(main(u"ドゥラハン"), "durahan")
-        self.assertEqual(main(u"パーティー"), "paatii")
-        self.assertEqual(main(u"タトゥー"), "tatuu")
-        self.assertEqual(main(u"クァルテット"), "kwarutetto")
+        self.assertEqual(kana_to_romaji(u"ハロウィーン"), "harowiin")
+        self.assertEqual(kana_to_romaji(u"ソファ"), "sofa")
+        self.assertEqual(kana_to_romaji(u"ウィンドウズ"), "windouzu")
+        self.assertEqual(kana_to_romaji(u"チェック"), "chekku")
+        self.assertEqual(kana_to_romaji(u"ディスニ"), "disuni")
+        self.assertEqual(kana_to_romaji(u"ドゥラハン"), "durahan")
+        self.assertEqual(kana_to_romaji(u"パーティー"), "paatii")
+        self.assertEqual(kana_to_romaji(u"タトゥー"), "tatuu")
+        self.assertEqual(kana_to_romaji(u"クァルテット"), "kwarutetto")
 
         tksv_equal(u"ウィ", "wi")
         tksv_equal(u"ウェ", "we")
