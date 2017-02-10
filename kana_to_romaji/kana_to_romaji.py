@@ -171,7 +171,7 @@ def main(kana):
     s3 = translate_long_vowel(s2)
     s4 = translate_soukon(s3)
     s5 = translate_youon(s4)
-    return s5
+    return s5.encode("unicode_escape")
 
 
 if __name__ == "__main__":
