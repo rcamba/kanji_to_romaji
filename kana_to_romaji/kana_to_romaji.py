@@ -1,6 +1,7 @@
 ﻿import os
 import sys
 import json
+from collections import OrderedDict
 
 
 PATH_TO_MODULE = os.path.dirname(__file__)
@@ -17,9 +18,9 @@ def load_single_mappings_dict():
 
 
 def load_double_mappings_dict():
-    unicode_romaji_double_mapping = {}
+    unicode_romaji_double_mapping = OrderedDict({})
     with open(os.path.join(JP_MAPPINGS_PATH, "partial_jukugo_romaji_mappings.json")) as data_file:
-        unicode_romaji_double_mapping.update(json.load(data_file))
+        unicode_romaji_double_mapping.update(json.load(data_file, object_pairs_hook=OrderedDict))
     return unicode_romaji_double_mapping
 
 
