@@ -7,13 +7,20 @@ PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
 
 
-def load_mappings_dict():
-    unicode_romaji_mapping = {}
+def load_single_mappings_dict():
+    unicode_romaji_single_mapping = {}
     for f in os.listdir(JP_MAPPINGS_PATH):
-        if os.path.splitext(f)[1] == ".json":
+        if os.path.splitext(f)[1] == ".json" and f != "partial_jukugo_romaji_mappings.json":
             with open(os.path.join(JP_MAPPINGS_PATH, f)) as data_file:
-                unicode_romaji_mapping.update(json.load(data_file))
-    return unicode_romaji_mapping
+                unicode_romaji_single_mapping.update(json.load(data_file))
+    return unicode_romaji_single_mapping
+
+
+def load_double_mappings_dict():
+    unicode_romaji_double_mapping = {}
+    with open(os.path.join(JP_MAPPINGS_PATH, "partial_jukugo_romaji_mappings.json")) as data_file:
+        unicode_romaji_double_mapping.update(json.load(data_file))
+    return unicode_romaji_double_mapping
 
 
 def _convert_hiragana_to_katakana_char(hiragana_char):
@@ -44,10 +51,16 @@ def convert_hiragana_to_katakana(hiragana):
 
 
 def translate_to_romaji(kana):
-    unicode_romaji_mapping = load_mappings_dict()
+    unicode_romaji_single_mapping = load_single_mappings_dict()
+    unicode_romaji_double_mapping = load_double_mappings_dict()
+
+    for u in unicode_romaji_double_mapping:
+        kana = kana.replace(u, unicode_romaji_double_mapping[u])
+
     for c in kana:
-        if c in unicode_romaji_mapping:
-            kana = kana.replace(c, unicode_romaji_mapping[c])
+        if c in unicode_romaji_single_mapping:
+            kana = kana.replace(c, unicode_romaji_single_mapping[c])
+
     return kana
 
 
