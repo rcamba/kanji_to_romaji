@@ -7,6 +7,11 @@ PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
 
 
+# noinspection PyClassHasNoInit
+class UnicodeRomajiMapping:  # caching
+    dict_ = {}
+
+
 def load_mappings_dict():
     unicode_romaji_mapping = {}
     for f in os.listdir(JP_MAPPINGS_PATH):
@@ -44,10 +49,11 @@ def convert_hiragana_to_katakana(hiragana):
 
 
 def translate_to_romaji(kana):
-    unicode_romaji_mapping = load_mappings_dict()
+    if len(UnicodeRomajiMapping.dict_) == 0:
+        UnicodeRomajiMapping.dict_ = load_mappings_dict()
     for c in kana:
-        if c in unicode_romaji_mapping:
-            kana = kana.replace(c, unicode_romaji_mapping[c])
+        if c in UnicodeRomajiMapping.dict_:
+            kana = kana.replace(c, UnicodeRomajiMapping.dict_[c])
     return kana
 
 
