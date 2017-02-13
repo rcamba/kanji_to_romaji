@@ -1,6 +1,7 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, kana_to_romaji
+from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, kana_to_romaji, \
+    convert_hiragana_to_katakana
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -70,6 +71,22 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         }
         for k in kana_expected_dict .keys():
             self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
+
+    def test_convert_hiragana_to_katakana(self):
+        iroha_h = u"いろ は にほへと ちりぬる を わ か よ たれ そ つね ならむ うゐ の おくやま けふ こえて あさき ゆめ みし ゑひ も せす"
+        iroha_k = u"イロ ハ ニホヘト チリヌル ヲ ワ カ ヨ タレ ソ ツネ ナラム ウヰ ノ オクヤマ ケフ コエテ アサキ ユメ ミシ ヱヒ モ セス"
+        self.assertEqual(convert_hiragana_to_katakana(iroha_h), iroha_k)
+        self.assertEqual(type(convert_hiragana_to_katakana(iroha_h)), unicode)
+
+        dakuten_hiragana = u"が ぎ ぐ げ ご ざ じ ず ぜ ぞ だ ぢ づ で ど ば び ぶ べ ぼ ぱ ぴ ぷ ぺ ぽ"
+        dakuten_katakana = u"ガ ギ グ ゲ ゴ ザ ジ ズ ゼ ゾ ダ ヂ ヅ デ ド バ ビ ブ ベ ボ パ ピ プ ペ ポ"
+        self.assertEqual(convert_hiragana_to_katakana(dakuten_hiragana), dakuten_katakana)
+
+        youon_hiragana = u"きゃ きゅ きょ ぎゃ ぎゅ ぎょ しゃ しゅ しょ じゃ じゅ じょ ひゃ ひゅ ひょ びゃ びゅ びょ ぴゃ ぴゅ ぴょ " \
+                         u"ちゃ ちゅ ちょ にゃ にゅ にょ みゃ みゅ みょ りゃ りゅ りょ"
+        youon_katakana = u"キャ キュ キョ ギャ ギュ ギョ シャ シュ ショ ジャ ジュ ジョ ヒャ ヒュ ヒョ ビャ ビュ ビョ ピャ ピュ ピョ " \
+                         u"チャ チュ チョ ニャ ニュ ニョ ミャ ミュ ミョ リャ リュ リョ"
+        self.assertEqual(convert_hiragana_to_katakana(youon_hiragana), youon_katakana)
 
 
 if __name__ == "__main__":

@@ -29,7 +29,7 @@ def convert_hiragana_to_katakana(hiragana):
     """
     hiragana unicode only has same matching katakana between u"\u3041" and u"\u3096";
     :param hiragana: unicode hiragana character
-    :return:
+    :return: katanana in unicode
     """
 
     converted_str = ""
@@ -40,7 +40,7 @@ def convert_hiragana_to_katakana(hiragana):
             converted_str += _convert_hiragana_to_katakana_char(c)
         else:
             converted_str += c.encode('utf-8')
-    return converted_str
+    return converted_str.decode("utf-8")
 
 
 def translate_to_romaji(kana):
