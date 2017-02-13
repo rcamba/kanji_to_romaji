@@ -188,14 +188,14 @@ def translate_soukon_ch(kana):
 
 def kana_to_romaji(kana):
     if type(kana) == str:
-        kana = unicode(kana)
+        kana = kana.decode("utf-8")
     pk = translate_soukon_ch(kana)
     pk = translate_katakana_small_vowels(pk)
     pk = translate_to_romaji(pk)
-    pk = translate_long_vowel(pk)
+    pk = translate_youon(pk)
     pk = translate_soukon(pk)
-    r = translate_youon(pk)
-    return r.encode("unicode_escape")
+    r = translate_long_vowel(pk)
+    return r
 
 
 if __name__ == "__main__":

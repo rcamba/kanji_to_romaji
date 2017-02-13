@@ -67,6 +67,16 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         for k in kana_expected_dict.keys():
             self.assertEqual(translate_long_vowel(translate_to_romaji(k)), kana_expected_dict[k])
 
+    def test_long_vowel_with_soukon(self):
+        kana_expected_dict = {
+            u"リュー": "ryuu",
+            u"ニュース": "nyuusu",
+            u"デビュー": "debyuu",
+            u"チュー": "chuu"
+        }
+        for k in kana_expected_dict.keys():
+            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
+
     def test_u_and_small_vowel(self):
         kana_expected_dict = {
             u"ハロウィーン": "harowiin",

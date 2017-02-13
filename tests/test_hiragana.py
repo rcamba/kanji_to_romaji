@@ -20,6 +20,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
                        "Wehi mo sesu"
         expected_result = iroha_romaji.lower()
         self.assertEqual(translate_to_romaji(iroha), expected_result)
+        self.assertEqual(type(kana_to_romaji(iroha)), unicode)
 
     def test_dakuten(self):
         kana_expected_dict = {
