@@ -21,54 +21,56 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(translate_to_romaji(iroha), expected_result)
 
     def test_dakuten(self):
-        g = u"が ぎ ぐ げ ご"
-        self.assertEqual(translate_to_romaji(g), "ga gi gu ge go")
+        kana_expected_dict = {
+            u"が ぎ ぐ げ ご": "ga gi gu ge go",
+            u"ざ じ ず ぜ ぞ": "za ji zu ze zo",
+            u"だ ぢ づ で ど": "da ji zu de do",
+            u"ば び ぶ べ ぼ": "ba bi bu be bo",
+            u"ぱ ぴ ぷ ぺ ぽ": "pa pi pu pe po"
+        }
 
-        z = u"ざ じ ず ぜ ぞ"
-        self.assertEqual(translate_to_romaji(z), "za ji zu ze zo")
-
-        t = u"だ ぢ づ で ど"
-        self.assertEqual(translate_to_romaji(t), "da ji zu de do")
-
-        b = u"ば び ぶ べ ぼ"
-        self.assertEqual(translate_to_romaji(b), "ba bi bu be bo")
-
-        p = u"ぱ ぴ ぷ ぺ ぽ"
-        self.assertEqual(translate_to_romaji(p), "pa pi pu pe po")
+        for k in kana_expected_dict .keys():
+            self.assertEqual(translate_to_romaji(k), kana_expected_dict[k])
 
     def test_youon(self):
-        k = u"きゃ きゅ きょ"
-        self.assertEqual(translate_youon(translate_to_romaji(k)), "kya kyu kyo")
-        g = u"ぎゃ ぎゅ ぎょ"
-        self.assertEqual(translate_youon(translate_to_romaji(g)), "gya gyu gyo")
+        kana_expected_dict = {
+            u"きゃ きゅ きょ": "kya kyu kyo",
+            u"ぎゃ ぎゅ ぎょ": "gya gyu gyo",
+            u"しゃ しゅ しょ": "sha shu sho",
+            u"じゃ じゅ じょ": "ja ju jo",
+            u"ひゃ ひゅ ひょ": "hya hyu hyo",
+            u"びゃ びゅ びょ": "bya byu byo",
+            u"ぴゃ ぴゅ ぴょ": "pya pyu pyo",
+            u"ちゃ ちゅ ちょ": "cha chu cho",
+            u"にゃ にゅ にょ": "nya nyu nyo",
+            u"みゃ みゅ みょ": "mya myu myo",
+            u"りゃ りゅ りょ": "rya ryu ryo"
+        }
 
-        s = u"しゃ しゅ しょ"
-        self.assertEqual(translate_youon(translate_to_romaji(s)), "sha shu sho")
-        j = u"じゃ じゅ じょ"
-        self.assertEqual(translate_youon(translate_to_romaji(j)), "ja ju jo")
-
-        h = u"ひゃ ひゅ ひょ"
-        self.assertEqual(translate_youon(translate_to_romaji(h)), "hya hyu hyo")
-        b = u"びゃ びゅ びょ"
-        self.assertEqual(translate_youon(translate_to_romaji(b)), "bya byu byo")
-        p = u"ぴゃ ぴゅ ぴょ"
-        self.assertEqual(translate_youon(translate_to_romaji(p)), "pya pyu pyo")
-
-        c = u"ちゃ ちゅ ちょ"
-        self.assertEqual(translate_youon(translate_to_romaji(c)), "cha chu cho")
-        n = u"にゃ にゅ にょ"
-        self.assertEqual(translate_youon(translate_to_romaji(n)), "nya nyu nyo")
-        m = u"みゃ みゅ みょ"
-        self.assertEqual(translate_youon(translate_to_romaji(m)), "mya myu myo")
-        r = u"りゃ りゅ りょ"
-        self.assertEqual(translate_youon(translate_to_romaji(r)), "rya ryu ryo")
+        for k in kana_expected_dict.keys():
+            self.assertEqual(translate_youon(kana_to_romaji(k)), kana_expected_dict[k])
 
     def test_soukon(self):
-        self.assertEqual(kana_to_romaji(u"ちょっと"), "chotto")
-        self.assertEqual(kana_to_romaji(u"まって"), "matte")
-        self.assertEqual(kana_to_romaji(u"はっぴょうけっか"), "happyoukekka")
+        kana_expected_dict = {
+            u"ちょっと": "chotto",
+            u"まって": "matte",
+            u"はっぴょうけっか": "happyoukekka",
+        }
 
-    # def test_invalid_x(self):
+        for k in kana_expected_dict .keys():
+            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
+
+    def test_soukon_ch(self):
+        kana_expected_dict = {
+            u"ぼっちゃん": "botchan",
+            u"こっち": "kotchi",
+            u"かっちょん": "katchon",
+            u"まっちゃ": "matcha",
+            u"みっつ": "mittsu"
+        }
+        for k in kana_expected_dict .keys():
+            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -22,116 +22,127 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(translate_to_romaji(iroha), expected_result)
 
     def test_dakuten(self):
-        g = u"ガ ギ グ ゲ ゴ"
-        self.assertEqual(translate_to_romaji(g), "ga gi gu ge go")
-
-        z = u"ザ ジ ズ ゼ ゾ"
-        self.assertEqual(translate_to_romaji(z), "za ji zu ze zo")
-
-        t = u"ダ ヂ ヅ デ ド"
-        self.assertEqual(translate_to_romaji(t), "da ji zu de do")
-
-        b = u"バ ビ ブ ベ ボ"
-        self.assertEqual(translate_to_romaji(b), "ba bi bu be bo")
-
-        p = u"パ ピ プ ペ ポ"
-        self.assertEqual(translate_to_romaji(p), "pa pi pu pe po")
+        kana_expected_dict = {
+            u"ガ ギ グ ゲ ゴ": "ga gi gu ge go",
+            u"ザ ジ ズ ゼ ゾ": "za ji zu ze zo",
+            u"ダ ヂ ヅ デ ド": "da ji zu de do",
+            u"バ ビ ブ ベ ボ": "ba bi bu be bo",
+            u"パ ピ プ ペ ポ": "pa pi pu pe po"
+        }
+        for k in kana_expected_dict.keys():
+            self.assertEqual(translate_to_romaji(k), kana_expected_dict[k])
 
     def test_youon(self):
-        k = u"キャ キュ キョ"
-        self.assertEqual(translate_youon(translate_to_romaji(k)), "kya kyu kyo")
-        g = u"ギャ ギュ ギョ"
-        self.assertEqual(translate_youon(translate_to_romaji(g)), "gya gyu gyo")
-
-        s = u"シャ シュ ショ"
-        self.assertEqual(translate_youon(translate_to_romaji(s)), "sha shu sho")
-        j = u"ジャ ジュ ジョ"
-        self.assertEqual(translate_youon(translate_to_romaji(j)), "ja ju jo")
-
-        h = u"ヒャ ヒュ ヒョ"
-        self.assertEqual(translate_youon(translate_to_romaji(h)), "hya hyu hyo")
-        b = u"ビャ ビュ ビョ"
-        self.assertEqual(translate_youon(translate_to_romaji(b)), "bya byu byo")
-        p = u"ピャ ピュ ピョ"
-        self.assertEqual(translate_youon(translate_to_romaji(p)), "pya pyu pyo")
-
-        c = u"チャ チュ チョ"
-        self.assertEqual(translate_youon(translate_to_romaji(c)), "cha chu cho")
-        n = u"ニャ ニュ ニョ"
-        self.assertEqual(translate_youon(translate_to_romaji(n)), "nya nyu nyo")
-        m = u"ミャ ミュ ミョ"
-        self.assertEqual(translate_youon(translate_to_romaji(m)), "mya myu myo")
-        r = u"リャ リュ リョ"
-        self.assertEqual(translate_youon(translate_to_romaji(r)), "rya ryu ryo")
+        kana_expected_dict = {
+            u"キャ キュ キョ": "kya kyu kyo",
+            u"ギャ ギュ ギョ": "gya gyu gyo",
+            u"シャ シュ ショ": "sha shu sho",
+            u"ジャ ジュ ジョ": "ja ju jo",
+            u"ヒャ ヒュ ヒョ": "hya hyu hyo",
+            u"ビャ ビュ ビョ": "bya byu byo",
+            u"ピャ ピュ ピョ": "pya pyu pyo",
+            u"チャ チュ チョ": "cha chu cho",
+            u"ニャ ニュ ニョ": "nya nyu nyo",
+            u"ミャ ミュ ミョ": "mya myu myo",
+            u"リャ リュ リョ": "rya ryu ryo"
+        }
+        for k in kana_expected_dict.keys():
+            self.assertEqual(translate_youon(translate_to_romaji(k)), kana_expected_dict[k])
 
     def test_soukon(self):
-        self.assertEqual(kana_to_romaji(u"チョット"), "chotto")
-        self.assertEqual(kana_to_romaji(u'マッテ'), "matte")
-        self.assertEqual(kana_to_romaji(u"ハッピョウケッカ"), "happyoukekka")
+        kana_expected_dict = {
+            u"チョット": "chotto",
+            u"マッテ": "matte",
+            u"ハッピョウケッカ": "happyoukekka",
+        }
+        for k in kana_expected_dict.keys():
+            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
 
     def test_long_vowel(self):
-        self.assertEqual(translate_long_vowel(translate_to_romaji(u"メール")), "meeru")
-        self.assertEqual(translate_long_vowel(translate_to_romaji(u"ケーキ")), "keeki")
-        self.assertEqual(translate_long_vowel(translate_to_romaji(u"コーヒー")), "koohii")
+        kana_expected_dict = {
+            u"メール": "meeru",
+            u"ケーキ": "keeki",
+            u"コーヒー": "koohii"
+        }
+        for k in kana_expected_dict.keys():
+            self.assertEqual(translate_long_vowel(translate_to_romaji(k)), kana_expected_dict[k])
 
     def test_u_and_small_vowel(self):
-        def tksv_equal(c, e):
-            self.assertEqual(translate_katakana_small_vowels(c), e)
-        self.assertEqual(kana_to_romaji(u"ハロウィーン"), "harowiin")
-        self.assertEqual(kana_to_romaji(u"ソファ"), "sofa")
-        self.assertEqual(kana_to_romaji(u"ウィンドウズ"), "windouzu")
-        self.assertEqual(kana_to_romaji(u"チェック"), "chekku")
-        self.assertEqual(kana_to_romaji(u"ディスニ"), "disuni")
-        self.assertEqual(kana_to_romaji(u"ドゥラハン"), "durahan")
-        self.assertEqual(kana_to_romaji(u"パーティー"), "paatii")
-        self.assertEqual(kana_to_romaji(u"タトゥー"), "tatuu")
-        self.assertEqual(kana_to_romaji(u"クァルテット"), "kwarutetto")
+        kana_expected_dict = {
+            u"ハロウィーン": "harowiin",
+            u"ソファ": "sofa",
+            u"ウィンドウズ": "windouzu",
+            u"チェック": "chekku",
+            u"ディスニ": "disuni",
+            u"ドゥラハン": "durahan",
+            u"パーティー": "paatii",
+            u"タトゥー": "tatuu",
+            u"クァルテット": "kwarutetto"
+        }
+        for k in kana_expected_dict.keys():
+            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
 
-        tksv_equal(u"ウィ", "wi")
-        tksv_equal(u"ウェ", "we")
-        tksv_equal(u"ウォ", "wo")
+        kana_expected_dict_s = {
+            u"ウィ": "wi",
+            u"ウェ": "we",
+            u"ウォ": "wo",
 
-        tksv_equal(u"ヴァ", "va")
-        tksv_equal(u"ヴィ", "vi")
-        tksv_equal(u"ヴェ", "ve")
-        tksv_equal(u"ヴォ", "vo")
+            u"ヴァ": "va",
+            u"ヴィ": "vi",
+            u"ヴェ": "ve",
+            u"ヴォ": "vo",
 
-        tksv_equal(u"ファ", "fa")
-        tksv_equal(u"フィ", "fi")
-        tksv_equal(u"フェ", "fe")
-        tksv_equal(u"フォ", "fo")
+            u"ファ": "fa",
+            u"フィ": "fi",
+            u"フェ": "fe",
+            u"フォ": "fo",
 
-        tksv_equal(u"ティ", "ti")
-        tksv_equal(u"ディ", "di")
-        tksv_equal(u"トゥ", "tu")
-        tksv_equal(u"ドゥ", "du")
+            u"ティ": "ti",
+            u"ディ": "di",
+            u"トゥ": "tu",
+            u"ドゥ": "du",
 
-        tksv_equal(u"クァ", "kwa")
-        tksv_equal(u"クィ", "kwi")
-        tksv_equal(u"クェ", "kwe")
-        tksv_equal(u"クォ", "kwo")
-        tksv_equal(u"キェ", "kye")
+            u"クァ": "kwa",
+            u"クィ": "kwi",
+            u"クェ": "kwe",
+            u"クォ": "kwo",
+            u"キェ": "kye",
 
-        tksv_equal(u"グァ", "gwa")
-        tksv_equal(u"グィ", "gwi")
-        tksv_equal(u"グェ", "gwe")
-        tksv_equal(u"グォ", "gwo")
-        tksv_equal(u"ギェ", "gye")
+            u"グァ": "gwa",
+            u"グィ": "gwi",
+            u"グェ": "gwe",
+            u"グォ": "gwo",
+            u"ギェ": "gye",
 
-        tksv_equal(u"スィ", "si")
-        tksv_equal(u"ズィ", "zi")
-        tksv_equal(u"シェ", "she")
-        tksv_equal(u"ジェ", "je")
-        tksv_equal(u"チェ", "che")
+            u"スィ": "si",
+            u"ズィ": "zi",
+            u"シェ": "she",
+            u"ジェ": "je",
+            u"チェ": "che",
 
-        tksv_equal(u"ツァ", "tsa")
-        tksv_equal(u"ツィ", "tsi")
-        tksv_equal(u"ツェ", "tse")
-        tksv_equal(u"ツォ", "tso")
+            u"ツァ": "tsa",
+            u"ツィ": "tsi",
+            u"ツェ": "tse",
+            u"ツォ": "tso",
 
-        tksv_equal(u"ホゥ", "hu")
-        tksv_equal(u"イィ", "yi")
-        tksv_equal(u"イェ", "ye")
+            u"ホゥ": "hu",
+            u"イィ": "yi",
+            u"イェ": "ye"
+        }
+
+        for k in kana_expected_dict_s.keys():
+            self.assertEqual(translate_katakana_small_vowels(k), kana_expected_dict_s[k])
+
+    def test_soukon_ch(self):
+        kana_expected_dict = {
+            u"ボッチャン": "botchan",
+            u"コッチ": "kotchi",
+            u"カッチョン": "katchon",
+            u"マッチャ": "matcha",
+            u"ミッツ": "mittsu"
+        }
+        for k in kana_expected_dict.keys():
+            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
 
 
 if __name__ == "__main__":

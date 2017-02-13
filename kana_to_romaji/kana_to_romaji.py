@@ -165,15 +165,31 @@ def translate_katakana_small_vowels(partial_kana):
     return partial_kana
 
 
+def translate_soukon_ch(kana):
+    hirgana_soukon_unicode_char = u"\u3063"
+    katakana_soukon_unicode_char = u"\u30c3"
+    prev_char = ""
+    hiragana_chi_unicode_char = u"\u3061"
+    katakana_chi_unicode_char = u"\u30C1"
+    partial_kana = kana
+    for c in reversed(kana):
+        if c == hirgana_soukon_unicode_char or c == katakana_soukon_unicode_char:  # assuming that soukon can't be last
+            if prev_char == hiragana_chi_unicode_char or prev_char == katakana_chi_unicode_char:
+                partial_kana = "t".join(partial_kana.rsplit(c, 1))
+        prev_char = c
+    return partial_kana
+
+
 def kana_to_romaji(kana):
     if type(kana) == str:
         kana = unicode(kana)
-    s1 = translate_katakana_small_vowels(kana)
-    s2 = translate_to_romaji(s1)
-    s3 = translate_long_vowel(s2)
-    s4 = translate_soukon(s3)
-    s5 = translate_youon(s4)
-    return s5.encode("unicode_escape")
+    pk = translate_soukon_ch(kana)
+    pk = translate_katakana_small_vowels(pk)
+    pk = translate_to_romaji(pk)
+    pk = translate_long_vowel(pk)
+    pk = translate_soukon(pk)
+    r = translate_youon(pk)
+    return r.encode("unicode_escape")
 
 
 if __name__ == "__main__":
