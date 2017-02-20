@@ -22,8 +22,15 @@ def load_mappings_dict():
 
 
 def _convert_hiragana_to_katakana_char(hiragana_char):
+    """
+    take second last hex character from unicode and add 6 hex to it to get katakana char
+    e.g hiragana u3041 -> 0x3041 + 0x6 = 0x30A1 -> katakana u30A1
+
+    :param hiragana_char: unicode hiragana character
+    :return:
+    """
     unicode_second_last_char = list(hiragana_char.encode("unicode_escape"))[-2]
-    katakana_suffix = hex(int(unicode_second_last_char) + 6)
+    katakana_suffix = hex(int(unicode_second_last_char, 16) + 6)
     char_list = list(hiragana_char.encode("unicode_escape"))
     char_list[-2] = katakana_suffix[-1]
     katakana_char = "".join(char_list).decode('unicode-escape').encode('utf-8')
@@ -33,7 +40,7 @@ def _convert_hiragana_to_katakana_char(hiragana_char):
 def convert_hiragana_to_katakana(hiragana):
     """
     hiragana unicode only has same matching katakana between u"\u3041" and u"\u3096";
-    :param hiragana: unicode hiragana character
+    :param hiragana: unicode hiragana characters
     :return: katanana in unicode
     """
 
@@ -172,6 +179,13 @@ def translate_katakana_small_vowels(partial_kana):
 
 
 def translate_soukon_ch(kana):
+    """
+    if soukon(mini-tsu) is followed by chi then soukon romaji becomes 't' sound
+    e.g: ko-soukon-chi -> kotchi instead of kocchi
+    :param kana:
+    :return:
+    """
+
     hirgana_soukon_unicode_char = u"\u3063"
     katakana_soukon_unicode_char = u"\u30c3"
     prev_char = ""
@@ -186,9 +200,46 @@ def translate_soukon_ch(kana):
     return partial_kana
 
 
+def _translate_dakuten_equivalent_char(kana_char):
+    dakuten_mapping = {U'\u3061': U'\u3062', U'\u3064': U'\u3065', U'\u3066': U'\u3067', U'\u3068': U'\u3069',
+                       U'\u304B': U'\u304C', U'\u304D': U'\u304E', U'\u304F': U'\u3050', U'\u3051': U'\u3052',
+                       U'\u3053': U'\u3054', U'\u3072': U'\u3073', U'\u3055': U'\u3056', U'\u306F': U'\u3070',
+                       U'\u3057': U'\u3058', U'\u3078': U'\u3079', U'\u3059': U'\u305A', U'\u3075': U'\u3076',
+                       U'\u305B': U'\u305C', U'\u305D': U'\u305E', U'\u307B': U'\u307C', U'\u305F': U'\u3060'}
+
+    dakuten_equiv = ""
+    if kana_char in dakuten_mapping:
+        dakuten_equiv = dakuten_mapping[kana_char]
+
+    return dakuten_equiv
+
+
+def translate_dakuten_equivalent(kana):
+    res = ""
+    for c in kana:
+        res += _translate_dakuten_equivalent_char(c)
+    return res
+
+
+def translate_iteration_mark(kana):
+    hiragana_iter_mark = u"\u309d"
+    hiragana_voiced_iter_mark = u"\u309e"
+    prev_char = ""
+    partial_kana = kana
+    for c in kana:
+        if c == hiragana_iter_mark:
+            partial_kana = prev_char.join(partial_kana.split(c, 1))
+        elif c == hiragana_voiced_iter_mark:
+            partial_kana = translate_dakuten_equivalent(prev_char).join(partial_kana.split(c, 1))
+        else:
+            prev_char = c
+    return partial_kana
+
+
 def kana_to_romaji(kana):
     if type(kana) == str:
         kana = kana.decode("utf-8")
+    # pk = translate_iteration_mark(kana)
     pk = translate_soukon_ch(kana)
     pk = translate_katakana_small_vowels(pk)
     pk = translate_to_romaji(pk)
