@@ -201,11 +201,17 @@ def translate_soukon_ch(kana):
 
 
 def _translate_dakuten_equivalent_char(kana_char):
-    dakuten_mapping = {U'\u3061': U'\u3062', U'\u3064': U'\u3065', U'\u3066': U'\u3067', U'\u3068': U'\u3069',
-                       U'\u304B': U'\u304C', U'\u304D': U'\u304E', U'\u304F': U'\u3050', U'\u3051': U'\u3052',
-                       U'\u3053': U'\u3054', U'\u3072': U'\u3073', U'\u3055': U'\u3056', U'\u306F': U'\u3070',
-                       U'\u3057': U'\u3058', U'\u3078': U'\u3079', U'\u3059': U'\u305A', U'\u3075': U'\u3076',
-                       U'\u305B': U'\u305C', U'\u305D': U'\u305E', U'\u307B': U'\u307C', U'\u305F': U'\u3060'}
+    dakuten_mapping = {u'\u3061': u'\u3062', u'\u3064': u'\u3065', u'\u3066': u'\u3067', u'\u3068': u'\u3069',
+                       u'\u304B': u'\u304C', u'\u304D': u'\u304E', u'\u304F': u'\u3050', u'\u3051': u'\u3052',
+                       u'\u3053': u'\u3054', u'\u3072': u'\u3073', u'\u3055': u'\u3056', u'\u306F': u'\u3070',
+                       u'\u3057': u'\u3058', u'\u3078': u'\u3079', u'\u3059': u'\u305A', u'\u3075': u'\u3076',
+                       u'\u305B': u'\u305C', u'\u305D': u'\u305E', u'\u307B': u'\u307C', u'\u305F': u'\u3060',
+
+                       U'\u30C1': U'\u30C2', U'\u30D5': U'\u30D6', U'\u30C4': U'\u30C5', U'\u30C6': U'\u30C7',
+                       u'\u30C8': u'\u30C9', u'\u30AB': u'\u30AC', u'\u30AD': u'\u30AE', u'\u30AF': u'\u30B0',
+                       u'\u30B1': u'\u30B2', u'\u30B3': u'\u30B4', u'\u30D2': u'\u30D3', u'\u30B5': u'\u30B6',
+                       u'\u30CF': u'\u30D0', u'\u30B7': u'\u30B8', u'\u30B9': u'\u30BA', u'\u30D8': u'\u30D9',
+                       u'\u30DB': u'\u30DC', u'\u30BD': u'\u30BE', u'\u30BB': u'\u30BC', u'\u30BF': u'\u30C0'}
 
     dakuten_equiv = ""
     if kana_char in dakuten_mapping:
@@ -222,14 +228,17 @@ def translate_dakuten_equivalent(kana):
 
 
 def translate_iteration_mark(kana):
-    hiragana_iter_mark = u"\u309d"
-    hiragana_voiced_iter_mark = u"\u309e"
+    hiragana_iter_mark = u"\u309D"
+    hiragana_voiced_iter_mark = u"\u309E"
+    katakana_iter_mark = u"\u30FD"
+    katakana_voiced_iter_mark = u"\u30FE"
+
     prev_char = ""
     partial_kana = kana
     for c in kana:
-        if c == hiragana_iter_mark:
+        if c == hiragana_iter_mark or c == katakana_iter_mark:
             partial_kana = prev_char.join(partial_kana.split(c, 1))
-        elif c == hiragana_voiced_iter_mark:
+        elif c == hiragana_voiced_iter_mark or c == katakana_voiced_iter_mark:
             partial_kana = translate_dakuten_equivalent(prev_char).join(partial_kana.split(c, 1))
         else:
             prev_char = c
@@ -239,8 +248,8 @@ def translate_iteration_mark(kana):
 def kana_to_romaji(kana):
     if type(kana) == str:
         kana = kana.decode("utf-8")
-    # pk = translate_iteration_mark(kana)
-    pk = translate_soukon_ch(kana)
+    pk = translate_iteration_mark(kana)
+    pk = translate_soukon_ch(pk)
     pk = translate_katakana_small_vowels(pk)
     pk = translate_to_romaji(pk)
     pk = translate_youon(pk)

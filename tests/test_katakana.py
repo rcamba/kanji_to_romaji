@@ -1,7 +1,7 @@
 # coding=utf-8
 import unittest
 from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, kana_to_romaji, translate_long_vowel, \
-    translate_katakana_small_vowels
+    translate_katakana_small_vowels, translate_iteration_mark, translate_dakuten_equivalent
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -149,11 +149,23 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             u"コッチ": "kotchi",
             u"カッチョン": "katchon",
             u"マッチャ": "matcha",
-            u"ミッツ": "mittsu"
+            u"ミッチ": "mitchi"
         }
         for k in kana_expected_dict.keys():
             self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
 
+    def test_translate_iteration_mark(self):
+        self.assertEqual(translate_iteration_mark(u"カヽキヽクヽケヽコヽ"), u"カカキキククケケココ")
+        self.assertEqual(translate_iteration_mark(u"カヾキヾクヾケヾコヾ"), u"カガキギクグケゲコゴ")
+
+        self.assertEqual(kana_to_romaji(u"カヾールッチ"), u"kagaarutchi")
+        self.assertEqual(kana_to_romaji(u"コヽーミッチヾ"), u"kokoomitchiji")
+
+    def test_translate_dakuten_equivalent(self):
+        self.assertEqual(
+            translate_dakuten_equivalent(u"カキクケコサシスセソタチツテトハヒフヘホ"),
+            u"ガギグゲゴザジズゼゾダヂヅデドバビブベボ")
+        self.assertEqual(translate_dakuten_equivalent(u"ガギグゲゴザジズゼゾダヂヅデドバビブベボ"), u"")
 
 if __name__ == "__main__":
     unittest.main()
