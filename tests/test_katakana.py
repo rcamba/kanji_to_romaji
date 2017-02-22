@@ -171,6 +171,9 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
                          u"チャ チュ チョ ニャ ニュ ニョ ミャ ミュ ミョ リャ リュ リョ"
         self.assertEqual(convert_katakana_to_hiragana(youon_katakana), youon_hiragana)
 
+        self.assertEqual(convert_katakana_to_hiragana(u"コヽーミッチヾ"), u"こゝーみっちゞ")
+        self.assertEqual(convert_katakana_to_hiragana(u"カヾールッチ"), u"かゞーるっち")
+
     def test_translate_iteration_mark(self):
         self.assertEqual(translate_iteration_mark(u"カヽキヽクヽケヽコヽ"), u"カカキキククケケココ")
         self.assertEqual(translate_iteration_mark(u"カヾキヾクヾケヾコヾ"), u"カガキギクグケゲコゴ")

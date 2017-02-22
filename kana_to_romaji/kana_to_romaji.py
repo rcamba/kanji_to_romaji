@@ -6,6 +6,11 @@ import json
 PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
 
+hiragana_iter_mark = u"\u309D"
+hiragana_voiced_iter_mark = u"\u309E"
+katakana_iter_mark = u"\u30FD"
+katakana_voiced_iter_mark = u"\u30FE"
+
 
 # noinspection PyClassHasNoInit
 class UnicodeRomajiMapping:  # caching
@@ -21,24 +26,24 @@ def load_mappings_dict():
     return unicode_romaji_mapping
 
 
-def _convert_hiragana_to_katakana_char(hiragana_char, h_to_k=True):
+def _convert_hira_kata_char(hira_or_kata_char, h_to_k=True):
     """
-    take second last hex character from unicode and add 6 hex to it to get katakana char
+    take second last hex character from unicode and add/subtract 6 hex to it to get hiragana/katakana char
     e.g hiragana u3041 -> 0x3041 + 0x6 = 0x30A1 -> katakana u30A1
 
-    :param hiragana_char: unicode hiragana character
+    :param hira_or_kata_char: unicode hiragana character
     :return:
     """
     if h_to_k:
         suffix_offset = 6
     else:
         suffix_offset = -6
-    unicode_second_last_char = list(hiragana_char.encode("unicode_escape"))[-2]
-    katakana_suffix = hex(int(unicode_second_last_char, 16) + suffix_offset)
-    char_list = list(hiragana_char.encode("unicode_escape"))
-    char_list[-2] = katakana_suffix[-1]
-    katakana_char = "".join(char_list).decode('unicode-escape').encode('utf-8')
-    return katakana_char
+    unicode_second_last_char = list(hira_or_kata_char.encode("unicode_escape"))[-2]
+    suffix = hex(int(unicode_second_last_char, 16) + suffix_offset)
+    char_list = list(hira_or_kata_char.encode("unicode_escape"))
+    char_list[-2] = suffix[-1]
+    result_char = "".join(char_list).decode('unicode-escape').encode('utf-8')
+    return result_char
 
 
 def convert_hiragana_to_katakana(hiragana):
@@ -51,9 +56,11 @@ def convert_hiragana_to_katakana(hiragana):
     converted_str = ""
     hiragana_starting_unicode = u"\u3041"
     hiragana_ending_unicode = u"\u3096"
+
     for c in hiragana:
-        if hiragana_starting_unicode <= c <= hiragana_ending_unicode:
-            converted_str += _convert_hiragana_to_katakana_char(c)
+        if (hiragana_starting_unicode <= c <= hiragana_ending_unicode) or \
+                        c == hiragana_iter_mark or c == hiragana_voiced_iter_mark:
+            converted_str += _convert_hira_kata_char(c)
         else:
             converted_str += c.encode('utf-8')
     return converted_str.decode("utf-8")
@@ -63,9 +70,11 @@ def convert_katakana_to_hiragana(katakana):
     converted_str = ""
     katakana_starting_unicode = u"\u30A1"
     katakana_ending_unicode = u"\u30F6"
+
     for c in katakana:
-        if katakana_starting_unicode <= c <= katakana_ending_unicode:
-            converted_str += _convert_hiragana_to_katakana_char(c, h_to_k=False)
+        if (katakana_starting_unicode <= c <= katakana_ending_unicode) or \
+                        c == katakana_iter_mark or c == katakana_voiced_iter_mark:
+            converted_str += _convert_hira_kata_char(c, h_to_k=False)
         else:
             converted_str += c.encode('utf-8')
     return converted_str.decode("utf-8")
@@ -244,11 +253,6 @@ def translate_dakuten_equivalent(kana):
 
 
 def translate_iteration_mark(kana):
-    hiragana_iter_mark = u"\u309D"
-    hiragana_voiced_iter_mark = u"\u309E"
-    katakana_iter_mark = u"\u30FD"
-    katakana_voiced_iter_mark = u"\u30FE"
-
     prev_char = ""
     partial_kana = kana
     for c in kana:
