@@ -291,7 +291,7 @@ def kana_to_romaji(kana):
     pk = translate_youon(pk)
     pk = translate_soukon(pk)
     r = translate_long_vowel(pk)
-    return r.encode("unicode_escape")
+    return r.encode("unicode_escape").replace("\\\\", "\\")
 
 
 if __name__ == "__main__":

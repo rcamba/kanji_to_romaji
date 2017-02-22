@@ -107,7 +107,6 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         for k in d.keys():
             self.assertEqual(kana_to_romaji(k), d[k])
             self.assertTrue(ord(kana_to_romaji(k)) < 127)
-            print ord(kana_to_romaji(k))
 
 
 if __name__ == "__main__":
