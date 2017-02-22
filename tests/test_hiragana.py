@@ -20,7 +20,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
                        "Wehi mo sesu"
         expected_result = iroha_romaji.lower()
         self.assertEqual(translate_to_romaji(iroha), expected_result)
-        self.assertEqual(type(kana_to_romaji(iroha)), unicode)
+        self.assertEqual(type(kana_to_romaji(iroha)), str)
 
     def test_dakuten(self):
         kana_expected_dict = {
@@ -104,6 +104,11 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             translate_dakuten_equivalent(u"かきくけこさしすせそたちつてとはひふへほ"),
             u"がぎぐげござじずぜぞだぢづでどばびぶべぼ")
         self.assertEqual(translate_dakuten_equivalent(u"がぎぐげござじずぜぞだぢづでどばびぶべぼ"), u"")
+
+    def test_unknown_character(self):
+        self.assertEqual(kana_to_romaji(u"駲"), "\u99f2")
+        self.assertEqual(kana_to_romaji(u"駲").decode("unicode_escape"), u"駲")
+        self.assertEqual("\u99f2".decode("unicode_escape"), u"駲")
 
 
 if __name__ == "__main__":
