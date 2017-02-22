@@ -68,7 +68,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             u"こっち": "kotchi",
             u"かっちょん": "katchon",
             u"まっちゃ": "matcha",
-            u"みっつ": "mittsu"
+            u"みっち": "mitchi"
         }
         for k in kana_expected_dict .keys():
             self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
@@ -92,6 +92,9 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
     def test_translate_iteration_mark(self):
         self.assertEqual(translate_iteration_mark(u"かゝきゝくゝけゝこゝ"), u"かかききくくけけここ")
         self.assertEqual(translate_iteration_mark(u"かゞきゞくゞけゞこゞ"), u"かがきぎくぐけげこご")
+
+        self.assertEqual(kana_to_romaji(u"かゞーるっち"), u"kagaarutchi")
+        self.assertEqual(kana_to_romaji(u"こゝーみっちゞ"), u"kokoomitchiji")
 
     def test_translate_dakuten_equivalent(self):
         self.assertEqual(
