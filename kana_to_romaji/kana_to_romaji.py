@@ -16,7 +16,7 @@ katakana_voiced_iter_mark = u"\u30FE"
 # noinspection PyClassHasNoInit
 class UnicodeRomajiMapping:  # caching
     single_mapping = {}
-    double_mapping = {}
+    multi_mapping = {}
 
 
 def load_single_mappings_dict():
@@ -92,11 +92,11 @@ def convert_katakana_to_hiragana(katakana):
 def translate_to_romaji(kana):
     if len(UnicodeRomajiMapping.single_mapping) == 0:
         UnicodeRomajiMapping.single_mapping = load_single_mappings_dict()
-    if len(UnicodeRomajiMapping.double_mapping) == 0:
-        UnicodeRomajiMapping.double_mapping = load_double_mappings_dict()
+    if len(UnicodeRomajiMapping.multi_mapping) == 0:
+        UnicodeRomajiMapping.multi_mapping = load_double_mappings_dict()
 
-    for u in UnicodeRomajiMapping.double_mapping:
-        kana = kana.replace(u, UnicodeRomajiMapping.double_mapping[u])
+    for u in UnicodeRomajiMapping.multi_mapping:
+        kana = kana.replace(u, UnicodeRomajiMapping.multi_mapping[u])
 
     for c in kana:
         if c in UnicodeRomajiMapping.single_mapping:
@@ -291,7 +291,7 @@ def kana_to_romaji(kana):
     pk = translate_youon(pk)
     pk = translate_soukon(pk)
     r = translate_long_vowel(pk)
-    return r
+    return r.encode("unicode_escape")
 
 
 if __name__ == "__main__":
