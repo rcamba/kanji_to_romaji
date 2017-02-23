@@ -28,11 +28,14 @@ def load_single_mappings_dict():
     return unicode_romaji_single_mapping
 
 
-def load_double_mappings_dict():
-    unicode_romaji_double_mapping = OrderedDict({})
+def load_multi_mappings_dict():
+    unicode_romaji_multi_mapping = OrderedDict({})
     with open(os.path.join(JP_MAPPINGS_PATH, "partial_jukugo_romaji_mappings.json")) as data_file:
-        unicode_romaji_double_mapping.update(json.load(data_file, object_pairs_hook=OrderedDict))
-    return unicode_romaji_double_mapping
+        unicode_romaji_multi_mapping.update(json.load(data_file, object_pairs_hook=OrderedDict))
+    unicode_romaji_multi_mapping = OrderedDict(sorted(unicode_romaji_multi_mapping.items(),
+                                                      key=lambda item: (len(item[0]), item[0]),
+                                                      reverse=True))
+    return unicode_romaji_multi_mapping
 
 
 def _convert_hira_kata_char(hira_or_kata_char, h_to_k=True):
@@ -93,7 +96,7 @@ def translate_to_romaji(kana):
     if len(UnicodeRomajiMapping.single_mapping) == 0:
         UnicodeRomajiMapping.single_mapping = load_single_mappings_dict()
     if len(UnicodeRomajiMapping.multi_mapping) == 0:
-        UnicodeRomajiMapping.multi_mapping = load_double_mappings_dict()
+        UnicodeRomajiMapping.multi_mapping = load_multi_mappings_dict()
 
     for u in UnicodeRomajiMapping.multi_mapping:
         kana = kana.replace(u, UnicodeRomajiMapping.multi_mapping[u])
