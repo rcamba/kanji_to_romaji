@@ -1,6 +1,8 @@
 {
   "日曜日": "nichiyoubi",
+  "日曜": "nichiyou",
   "曜日": "youbi",
+
   "今日": "kyou",
   "人日": "jinjitsu",
   "日記": "nikki",
@@ -22,7 +24,7 @@
   "日本": "Nihon",
   "日夜": "nichiya",
   "日用": "nichiyou",
-  "日曜": "nichiyou",
+
   "日輪": "nichirin",
   "日帰り": "higaeri",
   "日陰": "hikage",
@@ -41,5 +43,33 @@
   "昨日": "kinou",
   "明日": "ashita",
   "在日": "zainichi",
-  "尽日": "jinjitsu"
+  "尽日": "jinjitsu",
+
+  "灼熱": "shakunetsu",
+  "卓球": "takkyuu",
+  "通常": "tsuujou",
+
+  "無重": "mujuu",
+  "事変": "jihen",
+  "公約": "kouyaku",
+
+  "大学": "daigaku",
+  "大会": "taikai",
+  "大家": "ooya",
+  "大切": "taisetsu",
+  "大好き": "daisuki",
+  "大王": "daiou",
+
+  "今年": "kotoshi",
+  "去年": "kyonen",
+  "来年": "rainen",
+  "毎年": "maitoshi",
+
+  "中学校": "chuugakkou",
+  "中心": "chuushin",
+  "中古": "chuuko",
+  "中央": "chuuou",
+  "途中": "tochuu"
+
+
 }
