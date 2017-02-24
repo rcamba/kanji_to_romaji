@@ -98,8 +98,11 @@ def translate_to_romaji(kana):
     if len(UnicodeRomajiMapping.multi_mapping) == 0:
         UnicodeRomajiMapping.multi_mapping = load_multi_mappings_dict()
 
-    for u in UnicodeRomajiMapping.multi_mapping:
-        kana = kana.replace(u, UnicodeRomajiMapping.multi_mapping[u])
+    cjk_start_range = u"\u4E00"
+    cjk_end_range = u"\u9FD5"
+    if any([cjk_start_range <= k <= cjk_end_range for k in kana]):
+        for u in UnicodeRomajiMapping.multi_mapping:
+            kana = kana.replace(u, UnicodeRomajiMapping.multi_mapping[u])
 
     for c in kana:
         if c in UnicodeRomajiMapping.single_mapping:
