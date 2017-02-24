@@ -102,12 +102,13 @@ def translate_to_romaji(kana):
     cjk_end_range = u"\u9FD5"
     if any([cjk_start_range <= k <= cjk_end_range for k in kana]):
         for u in UnicodeRomajiMapping.multi_mapping:
-            kana = kana.replace(u, UnicodeRomajiMapping.multi_mapping[u])
+            kana = kana.replace(u, UnicodeRomajiMapping.multi_mapping[u] + " ")
 
     for c in kana:
         if c in UnicodeRomajiMapping.single_mapping:
             kana = kana.replace(c, UnicodeRomajiMapping.single_mapping[c])
 
+    kana = kana.replace(" ]", "]")
     return kana
 
 
