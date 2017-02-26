@@ -32,9 +32,6 @@ def load_multi_mappings_dict():
     unicode_romaji_multi_mapping = OrderedDict({})
     with open(os.path.join(JP_MAPPINGS_PATH, "partial_jukugo_romaji_mappings.json")) as data_file:
         unicode_romaji_multi_mapping.update(json.load(data_file, object_pairs_hook=OrderedDict))
-    unicode_romaji_multi_mapping = OrderedDict(sorted(unicode_romaji_multi_mapping.items(),
-                                                      key=lambda item: (len(item[0]), item[0]),
-                                                      reverse=True))
     return unicode_romaji_multi_mapping
 
 
