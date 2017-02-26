@@ -109,6 +109,7 @@ def translate_to_romaji(kana):
             kana = kana.replace(c, UnicodeRomajiMapping.single_mapping[c])
 
     kana = kana.replace(" ]", "]")
+    kana = " ".join(kana.split()).strip()
     return kana
 
 
