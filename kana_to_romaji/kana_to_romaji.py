@@ -14,31 +14,51 @@ katakana_voiced_iter_mark = u"\u30FE"
 
 # noinspection PyClassHasNoInit
 class UnicodeRomajiMapping:  # caching
-    single_mapping = {}
-    multi_mapping = {}
+    kana_mapping = {}
+    kanji_mapping = {}
 
 
 class JukugoBlock(str):
-    def __init__(self, jukugo_dict):
+    def __init__(self):
         super(JukugoBlock, self).__init__()
-        self.romaji = jukugo_dict["romaji"] + " "
-        self.w_type = jukugo_dict["w_type"]
+        self.jukugo = ""
+        self.romaji = ""
+        self.w_type = ""
+
+    @staticmethod
+    def create(jukugo, jukugo_dict):
+        j = JukugoBlock()
+        j.jukugo = jukugo
+        if len(jukugo) == 1:
+            j.romaji = jukugo_dict["romaji"]
+        else:
+            j.romaji = jukugo_dict["romaji"] + " "
+        j.w_type = jukugo_dict["w_type"]
+        return j
+
+    def __repr__(self):
+        return self.jukugo.encode("unicode_escape")
+
+    def __str__(self):
+        return self.jukugo
 
 
-def load_single_mappings_dict():
-    unicode_romaji_single_mapping = {}
+def load_kana_mappings_dict():
+    kana_romaji_mapping = {}
     for f in os.listdir(JP_MAPPINGS_PATH):
-        if os.path.splitext(f)[1] == ".json" and f != "partial_jukugo_romaji_mappings.json":
+        if os.path.splitext(f)[1] == ".json" and "kanji" not in f:
             with open(os.path.join(JP_MAPPINGS_PATH, f)) as data_file:
-                unicode_romaji_single_mapping.update(json.load(data_file))
-    return unicode_romaji_single_mapping
+                kana_romaji_mapping.update(json.load(data_file))
+    return kana_romaji_mapping
 
 
-def load_multi_mappings_dict():
-    unicode_romaji_multi_mapping = {}
-    with open(os.path.join(JP_MAPPINGS_PATH, "partial_jukugo_romaji_mappings.json")) as data_file:
-        unicode_romaji_multi_mapping.update(json.load(data_file))
-    return unicode_romaji_multi_mapping
+def load_kanji_mappings_dict():
+    kanji_romaji_mapping = {}
+    for f in os.listdir(JP_MAPPINGS_PATH):
+        if os.path.splitext(f)[1] == ".json" and "kanji" in f:
+            with open(os.path.join(JP_MAPPINGS_PATH, f)) as data_file:
+                kanji_romaji_mapping.update(json.load(data_file))
+    return kanji_romaji_mapping
 
 
 def _convert_hira_kata_char(hira_or_kata_char, h_to_k=True):
@@ -126,8 +146,8 @@ def translate_particles(kana_list):
     ni_hira_char = u"\u306B"
     for i in range(1, len(kana_list) - 1):
         if kana_list[i] == no_hira_char:
-            if (hasattr(kana_list[i - 1], "w_type") and kana_list[i - 1].w_type == "noun") and \
-                    (hasattr(kana_list[i + 1], "w_type") and kana_list[i + 1].w_type == "noun") or \
+            if ((hasattr(kana_list[i - 1], "w_type") and kana_list[i - 1].w_type == "noun") and
+                    (hasattr(kana_list[i + 1], "w_type") and kana_list[i + 1].w_type == "noun")) or \
                     (get_kana_type(kana_list[i - 1]) != get_kana_type(kana_list[i + 1])):  # null check?
                 kana_list[i] = " no "
 
@@ -149,8 +169,8 @@ def translate_particles(kana_list):
 
 def translate_jukugo(kana):
     if any([is_kanji(k) for k in kana]):
-        if len(UnicodeRomajiMapping.multi_mapping) == 0:
-            UnicodeRomajiMapping.multi_mapping = load_multi_mappings_dict()
+        if len(UnicodeRomajiMapping.kanji_mapping) == 0:
+            UnicodeRomajiMapping.kanji_mapping = load_kanji_mappings_dict()
 
         orig_start_pos = 0
         for k in kana:
@@ -160,17 +180,18 @@ def translate_jukugo(kana):
 
         max_char_len = 5
         kana_list = list(kana)
-        for char_len in range(max_char_len, 1, -1):
+
+        for char_len in range(max_char_len, 0, -1):
             start_pos = orig_start_pos
             while start_pos < len(kana_list) - char_len + 1:
-                curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
 
-                if curr_chars in UnicodeRomajiMapping.multi_mapping.keys():
+                curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
+                if curr_chars in UnicodeRomajiMapping.kanji_mapping:
                     for i in range(start_pos + char_len - 1, start_pos - 1, -1):
                         del kana_list[i]
 
-                    kana_list.insert(start_pos, JukugoBlock(UnicodeRomajiMapping.multi_mapping[curr_chars]))
-                    start_pos -= 1
+                    kana_list.insert(start_pos,
+                                     JukugoBlock.create(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
                 start_pos += 1
         translate_particles(kana_list)
 
@@ -184,14 +205,14 @@ def translate_jukugo(kana):
 
 
 def translate_to_romaji(kana):
-    if len(UnicodeRomajiMapping.single_mapping) == 0:
-        UnicodeRomajiMapping.single_mapping = load_single_mappings_dict()
+    if len(UnicodeRomajiMapping.kana_mapping) == 0:
+        UnicodeRomajiMapping.kana_mapping = load_kana_mappings_dict()
 
     kana = translate_jukugo(kana)
 
     for c in kana:
-        if c in UnicodeRomajiMapping.single_mapping:
-            kana = kana.replace(c, UnicodeRomajiMapping.single_mapping[c])
+        if c in UnicodeRomajiMapping.kana_mapping:
+            kana = kana.replace(c, UnicodeRomajiMapping.kana_mapping[c])
 
     kana = kana.replace(" ]", "]")
     kana = " ".join(kana.split()).strip()

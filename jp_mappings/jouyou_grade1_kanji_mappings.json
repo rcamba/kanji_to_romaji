@@ -1,0 +1,322 @@
+{
+  "音": {
+    "w_type": "noun", 
+    "romaji": "oto"
+  }, 
+  "青": {
+    "w_type": "noun", 
+    "romaji": "ao"
+  }, 
+  "雨": {
+    "w_type": "noun", 
+    "romaji": "ame"
+  }, 
+  "金": {
+    "w_type": "noun", 
+    "romaji": "kane"
+  }, 
+  "車": {
+    "w_type": "noun", 
+    "romaji": "kuruma"
+  }, 
+  "足": {
+    "w_type": "noun", 
+    "romaji": "ashi"
+  }, 
+  "赤": {
+    "w_type": "noun", 
+    "romaji": "aka"
+  }, 
+  "貝": {
+    "w_type": "noun", 
+    "romaji": "kai"
+  }, 
+  "見": {
+    "w_type": "noun", 
+    "romaji": "mi"
+  }, 
+  "虫": {
+    "w_type": "noun", 
+    "romaji": "mushi"
+  }, 
+  "草": {
+    "w_type": "noun", 
+    "romaji": "kusa"
+  }, 
+  "花": {
+    "w_type": "noun", 
+    "romaji": "hana"
+  }, 
+  "耳": {
+    "w_type": "noun", 
+    "romaji": "mimi"
+  }, 
+  "糸": {
+    "w_type": "noun", 
+    "romaji": "ito"
+  }, 
+  "竹": {
+    "w_type": "noun", 
+    "romaji": "take"
+  }, 
+  "立": {
+    "w_type": "noun", 
+    "romaji": "renritsu"
+  }, 
+  "空": {
+    "w_type": "noun", 
+    "romaji": "kara"
+  }, 
+  "石": {
+    "w_type": "noun", 
+    "romaji": "koku"
+  }, 
+  "目": {
+    "w_type": "noun", 
+    "romaji": "me"
+  }, 
+  "百": {
+    "w_type": "numeric", 
+    "romaji": "hyaku"
+  }, 
+  "白": {
+    "w_type": "noun", 
+    "romaji": "shiro"
+  }, 
+  "町": {
+    "w_type": "noun", 
+    "romaji": "machi"
+  }, 
+  "男": {
+    "w_type": "noun", 
+    "romaji": "otoko"
+  }, 
+  "田": {
+    "w_type": "noun", 
+    "romaji": "ta"
+  }, 
+  "生": {
+    "w_type": "noun", 
+    "romaji": "nama"
+  }, 
+  "王": {
+    "w_type": "noun", 
+    "romaji": "ou"
+  }, 
+  "玉": {
+    "w_type": "noun", 
+    "romaji": "tama"
+  }, 
+  "犬": {
+    "w_type": "noun", 
+    "romaji": "inu"
+  }, 
+  "火": {
+    "w_type": "noun", 
+    "romaji": "hi"
+  }, 
+  "水": {
+    "w_type": "noun", 
+    "romaji": "mizu"
+  }, 
+  "気": {
+    "w_type": "noun", 
+    "romaji": "ki"
+  }, 
+  "正": {
+    "w_type": "noun", 
+    "romaji": "sei"
+  }, 
+  "森": {
+    "w_type": "noun", 
+    "romaji": "mori"
+  }, 
+  "校": {
+    "w_type": "suffix", 
+    "romaji": "kou"
+  }, 
+  "林": {
+    "w_type": "noun", 
+    "romaji": "hayashi"
+  }, 
+  "村": {
+    "w_type": "noun", 
+    "romaji": "mura"
+  }, 
+  "本": {
+    "w_type": "noun", 
+    "romaji": "moto"
+  }, 
+  "木": {
+    "w_type": "noun", 
+    "romaji": "ki"
+  }, 
+  "月": {
+    "w_type": "noun", 
+    "romaji": "tsuki"
+  }, 
+  "早": {
+    "w_type": "noun", 
+    "romaji": "haya"
+  }, 
+  "日": {
+    "w_type": "noun", 
+    "romaji": "hi"
+  }, 
+  "文": {
+    "w_type": "noun", 
+    "romaji": "fumi"
+  }, 
+  "手": {
+    "w_type": "noun", 
+    "romaji": "te"
+  }, 
+  "年": {
+    "w_type": "noun", 
+    "romaji": "toshi"
+  }, 
+  "左": {
+    "w_type": "noun", 
+    "romaji": "hidari"
+  }, 
+  "川": {
+    "w_type": "noun", 
+    "romaji": "kawa"
+  }, 
+  "山": {
+    "w_type": "noun", 
+    "romaji": "yama"
+  }, 
+  "小": {
+    "w_type": "noun", 
+    "romaji": "shou"
+  }, 
+  "学": {
+    "w_type": "noun", 
+    "romaji": "gaku"
+  }, 
+  "字": {
+    "w_type": "noun", 
+    "romaji": "aza"
+  }, 
+  "子": {
+    "w_type": "noun", 
+    "romaji": "ko"
+  }, 
+  "女": {
+    "w_type": "noun", 
+    "romaji": "onna"
+  }, 
+  "天": {
+    "w_type": "noun", 
+    "romaji": "ten"
+  }, 
+  "大": {
+    "w_type": "prefix", 
+    "romaji": "oo"
+  }, 
+  "夕": {
+    "w_type": "noun", 
+    "romaji": "yuu"
+  }, 
+  "土": {
+    "w_type": "noun", 
+    "romaji": "tsuchi"
+  }, 
+  "四": {
+    "w_type": "numeric", 
+    "romaji": "yon"
+  }, 
+  "名": {
+    "w_type": "noun", 
+    "romaji": "na"
+  }, 
+  "右": {
+    "w_type": "noun", 
+    "romaji": "migi"
+  }, 
+  "口": {
+    "w_type": "noun", 
+    "romaji": "kuchi"
+  }, 
+  "千": {
+    "w_type": "numeric", 
+    "romaji": "sen"
+  }, 
+  "十": {
+    "w_type": "numeric", 
+    "romaji": "juu"
+  }, 
+  "力": {
+    "w_type": "noun", 
+    "romaji": "chikara"
+  }, 
+  "出": {
+    "w_type": "noun", 
+    "romaji": "de"
+  }, 
+  "円": {
+    "w_type": "noun", 
+    "romaji": "en"
+  }, 
+  "六": {
+    "w_type": "numeric", 
+    "romaji": "roku"
+  }, 
+  "八": {
+    "w_type": "numeric", 
+    "romaji": "hachi"
+  }, 
+  "入": {
+    "w_type": "suffix / counter", 
+    "romaji": "shio"
+  }, 
+  "先": {
+    "w_type": "noun", 
+    "romaji": "saki"
+  }, 
+  "休": {
+    "w_type": "noun", 
+    "romaji": "natsuyasumi"
+  }, 
+  "人": {
+    "w_type": "suffix", 
+    "romaji": "jin"
+  }, 
+  "五": {
+    "w_type": "numeric", 
+    "romaji": "go"
+  }, 
+  "二": {
+    "w_type": "numeric", 
+    "romaji": "ni"
+  }, 
+  "九": {
+    "w_type": "numeric", 
+    "romaji": "kyuu"
+  }, 
+  "中": {
+    "w_type": "noun", 
+    "romaji": "naka"
+  }, 
+  "下": {
+    "w_type": "adverb", 
+    "romaji": "moto"
+  }, 
+  "上": {
+    "w_type": "noun", 
+    "romaji": "ue"
+  }, 
+  "三": {
+    "w_type": "numeric", 
+    "romaji": "san"
+  }, 
+  "七": {
+    "w_type": "numeric", 
+    "romaji": "shichi"
+  }, 
+  "一": {
+    "w_type": "numeric / prefix", 
+    "romaji": "ichi"
+  }
+}

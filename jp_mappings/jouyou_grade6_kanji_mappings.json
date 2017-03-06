@@ -1,0 +1,722 @@
+{
+  "骨": {
+    "w_type": "noun", 
+    "romaji": "hone"
+  }, 
+  "頂": {
+    "w_type": "noun", 
+    "romaji": "itadaki"
+  }, 
+  "革": {
+    "w_type": "noun", 
+    "romaji": "kawa"
+  }, 
+  "難": {
+    "w_type": "noun", 
+    "romaji": "nan"
+  }, 
+  "障": {
+    "w_type": "noun", 
+    "romaji": "anzenhoshou"
+  }, 
+  "除": {
+    "w_type": "expression", 
+    "romaji": "nozoite"
+  }, 
+  "陛": {
+    "w_type": "noun", 
+    "romaji": "heika"
+  }, 
+  "降": {
+    "w_type": "noun", 
+    "romaji": "amakudari"
+  }, 
+  "閣": {
+    "w_type": "noun", 
+    "romaji": "kakugi"
+  }, 
+  "閉": {
+    "w_type": "noun", 
+    "romaji": "heisa"
+  }, 
+  "鋼": {
+    "w_type": "noun", 
+    "romaji": "hagane"
+  }, 
+  "針": {
+    "w_type": "noun", 
+    "romaji": "hari"
+  }, 
+  "郷": {
+    "w_type": "noun", 
+    "romaji": "kyou"
+  }, 
+  "郵": {
+    "w_type": "noun", 
+    "romaji": "yuuseishou"
+  }, 
+  "遺": {
+    "w_type": "noun", 
+    "romaji": "izoku"
+  }, 
+  "賃": {
+    "w_type": "noun", 
+    "romaji": "chin\\age"
+  }, 
+  "貴": {
+    "w_type": "suffix", 
+    "romaji": "ki"
+  }, 
+  "警": {
+    "w_type": "noun", 
+    "romaji": "kenkei"
+  }, 
+  "諸": {
+    "w_type": "prefix", 
+    "romaji": "sho"
+  }, 
+  "論": {
+    "w_type": "noun", 
+    "romaji": "ron"
+  }, 
+  "誤": {
+    "w_type": "expression", 
+    "romaji": "ayamatte"
+  }, 
+  "誠": {
+    "w_type": "noun", 
+    "romaji": "makoto"
+  }, 
+  "誕": {
+    "w_type": "noun", 
+    "romaji": "tanjou"
+  }, 
+  "認": {
+    "w_type": "noun", 
+    "romaji": "nintei"
+  }, 
+  "誌": {
+    "w_type": "noun", 
+    "romaji": "shi"
+  }, 
+  "詞": {
+    "w_type": "noun", 
+    "romaji": "shi"
+  }, 
+  "訳": {
+    "w_type": "noun", 
+    "romaji": "wake"
+  }, 
+  "訪": {
+    "w_type": "noun", 
+    "romaji": "hounichi"
+  }, 
+  "討": {
+    "w_type": "noun", 
+    "romaji": "kentou"
+  }, 
+  "覧": {
+    "w_type": "noun", 
+    "romaji": "tenrankai"
+  }, 
+  "視": {
+    "w_type": "prefix / suffix", 
+    "romaji": "shi"
+  }, 
+  "補": {
+    "w_type": "suffix", 
+    "romaji": "ho"
+  }, 
+  "裏": {
+    "w_type": "noun", 
+    "romaji": "ura"
+  }, 
+  "装": {
+    "w_type": "noun", 
+    "romaji": "sou"
+  }, 
+  "裁": {
+    "w_type": "noun", 
+    "romaji": "sai"
+  }, 
+  "衆": {
+    "w_type": "noun", 
+    "romaji": "shuu"
+  }, 
+  "蚕": {
+    "w_type": "noun", 
+    "romaji": "kaiko"
+  }, 
+  "蔵": {
+    "w_type": "noun", 
+    "romaji": "kura"
+  }, 
+  "蒸": {
+    "w_type": "noun", 
+    "romaji": "jouki"
+  }, 
+  "著": {
+    "w_type": "noun", 
+    "romaji": "cho"
+  }, 
+  "若": {
+    "w_type": "noun", 
+    "romaji": "waka"
+  }, 
+  "至": {
+    "w_type": "prefix", 
+    "romaji": "shi"
+  }, 
+  "臨": {
+    "w_type": "noun", 
+    "romaji": "rinshou"
+  }, 
+  "臓": {
+    "w_type": "noun", 
+    "romaji": "zou"
+  }, 
+  "腹": {
+    "w_type": "noun", 
+    "romaji": "hara"
+  }, 
+  "脳": {
+    "w_type": "noun", 
+    "romaji": "nou"
+  }, 
+  "胸": {
+    "w_type": "noun", 
+    "romaji": "mune"
+  }, 
+  "背": {
+    "w_type": "noun", 
+    "romaji": "sei"
+  }, 
+  "肺": {
+    "w_type": "noun", 
+    "romaji": "hai"
+  }, 
+  "聖": {
+    "w_type": "noun", 
+    "romaji": "sei"
+  }, 
+  "翌": {
+    "w_type": "prefix", 
+    "romaji": "yoku"
+  }, 
+  "署": {
+    "w_type": "noun", 
+    "romaji": "sho"
+  }, 
+  "縮": {
+    "w_type": "noun", 
+    "romaji": "shuku"
+  }, 
+  "縦": {
+    "w_type": "noun", 
+    "romaji": "tate"
+  }, 
+  "絹": {
+    "w_type": "noun", 
+    "romaji": "kinu"
+  }, 
+  "純": {
+    "w_type": "noun", 
+    "romaji": "jun"
+  }, 
+  "納": {
+    "w_type": "noun", 
+    "romaji": "nouzei"
+  }, 
+  "紅": {
+    "w_type": "noun", 
+    "romaji": "kurenai"
+  }, 
+  "系": {
+    "w_type": "noun", 
+    "romaji": "kei"
+  }, 
+  "糖": {
+    "w_type": "noun", 
+    "romaji": "tou"
+  }, 
+  "簡": {
+    "w_type": "noun", 
+    "romaji": "kan"
+  }, 
+  "策": {
+    "w_type": "noun", 
+    "romaji": "saku"
+  }, 
+  "筋": {
+    "w_type": "noun", 
+    "romaji": "suji"
+  }, 
+  "窓": {
+    "w_type": "noun", 
+    "romaji": "mado"
+  }, 
+  "穴": {
+    "w_type": "noun", 
+    "romaji": "ana"
+  }, 
+  "穀": {
+    "w_type": "noun", 
+    "romaji": "kokumotsu"
+  }, 
+  "秘": {
+    "w_type": "noun", 
+    "romaji": "hisho"
+  }, 
+  "私": {
+    "w_type": "noun", 
+    "romaji": "watashi"
+  }, 
+  "磁": {
+    "w_type": "noun", 
+    "romaji": "jiki"
+  }, 
+  "砂": {
+    "w_type": "noun", 
+    "romaji": "suna"
+  }, 
+  "看": {
+    "w_type": "noun", 
+    "romaji": "kangofu"
+  }, 
+  "盟": {
+    "w_type": "noun", 
+    "romaji": "renmei"
+  }, 
+  "盛": {
+    "w_type": "noun", 
+    "romaji": "mori"
+  }, 
+  "皇": {
+    "w_type": "noun", 
+    "romaji": "koutaishi"
+  }, 
+  "痛": {
+    "w_type": "interjection", 
+    "romaji": "ita"
+  }, 
+  "疑": {
+    "w_type": "noun", 
+    "romaji": "gi"
+  }, 
+  "異": {
+    "w_type": "noun", 
+    "romaji": "i"
+  }, 
+  "班": {
+    "w_type": "noun", 
+    "romaji": "han"
+  }, 
+  "片": {
+    "w_type": "prefix", 
+    "romaji": "kata"
+  }, 
+  "熟": {
+    "w_type": "noun", 
+    "romaji": "tsukuduku"
+  }, 
+  "灰": {
+    "w_type": "noun", 
+    "romaji": "hai"
+  }, 
+  "激": {
+    "w_type": "prefix", 
+    "romaji": "geki"
+  }, 
+  "潮": {
+    "w_type": "noun", 
+    "romaji": "shio"
+  }, 
+  "源": {
+    "w_type": "noun", 
+    "romaji": "minamoto"
+  }, 
+  "済": {
+    "w_type": "noun", 
+    "romaji": "zumi"
+  }, 
+  "派": {
+    "w_type": "noun", 
+    "romaji": "ha"
+  }, 
+  "洗": {
+    "w_type": "noun", 
+    "romaji": "sumashi"
+  }, 
+  "泉": {
+    "w_type": "noun", 
+    "romaji": "izumi"
+  }, 
+  "沿": {
+    "w_type": "expression", 
+    "romaji": "sotte"
+  }, 
+  "段": {
+    "w_type": "noun", 
+    "romaji": "dan"
+  }, 
+  "欲": {
+    "w_type": "noun", 
+    "romaji": "yoku"
+  }, 
+  "樹": {
+    "w_type": "noun", 
+    "romaji": "ki"
+  }, 
+  "権": {
+    "w_type": "noun", 
+    "romaji": "ken"
+  }, 
+  "模": {
+    "w_type": "noun", 
+    "romaji": "katagi"
+  }, 
+  "棒": {
+    "w_type": "noun", 
+    "romaji": "bou"
+  }, 
+  "株": {
+    "w_type": "noun", 
+    "romaji": "kabu"
+  }, 
+  "染": {
+    "w_type": "noun", 
+    "romaji": "some"
+  }, 
+  "枚": {
+    "w_type": "counter", 
+    "romaji": "mai"
+  }, 
+  "机": {
+    "w_type": "noun", 
+    "romaji": "tsukue"
+  }, 
+  "朗": {
+    "w_type": "noun", 
+    "romaji": "hogaraka"
+  }, 
+  "暮": {
+    "w_type": "noun", 
+    "romaji": "kure"
+  }, 
+  "暖": {
+    "w_type": "noun", 
+    "romaji": "dan"
+  }, 
+  "晩": {
+    "w_type": "noun", 
+    "romaji": "ban"
+  }, 
+  "映": {
+    "w_type": "noun", 
+    "romaji": "eiga"
+  }, 
+  "敬": {
+    "w_type": "noun", 
+    "romaji": "kei"
+  }, 
+  "操": {
+    "w_type": "noun", 
+    "romaji": "misao"
+  }, 
+  "揮": {
+    "w_type": "noun", 
+    "romaji": "shiki"
+  }, 
+  "推": {
+    "w_type": "noun", 
+    "romaji": "suishin"
+  }, 
+  "探": {
+    "w_type": "verb", 
+    "romaji": "sagashimawaru"
+  }, 
+  "捨": {
+    "w_type": "noun", 
+    "romaji": "sutego"
+  }, 
+  "拡": {
+    "w_type": "noun", 
+    "romaji": "kakusan"
+  }, 
+  "拝": {
+    "w_type": "noun", 
+    "romaji": "hai"
+  }, 
+  "担": {
+    "w_type": "noun", 
+    "romaji": "tantousha"
+  }, 
+  "批": {
+    "w_type": "noun", 
+    "romaji": "hijun"
+  }, 
+  "我": {
+    "w_type": "noun", 
+    "romaji": "ware"
+  }, 
+  "憲": {
+    "w_type": "noun", 
+    "romaji": "iken"
+  }, 
+  "忠": {
+    "w_type": "noun", 
+    "romaji": "chuu"
+  }, 
+  "忘": {
+    "w_type": "verb", 
+    "romaji": "wasureru"
+  }, 
+  "従": {
+    "w_type": "noun", 
+    "romaji": "juu"
+  }, 
+  "律": {
+    "w_type": "noun", 
+    "romaji": "ritsu"
+  }, 
+  "延": {
+    "w_type": "noun", 
+    "romaji": "nobiritsu"
+  }, 
+  "座": {
+    "w_type": "noun", 
+    "romaji": "za"
+  }, 
+  "庁": {
+    "w_type": "noun", 
+    "romaji": "chou"
+  }, 
+  "幼": {
+    "w_type": "noun", 
+    "romaji": "ito"
+  }, 
+  "干": {
+    "w_type": "noun", 
+    "romaji": "hoshi"
+  }, 
+  "幕": {
+    "w_type": "noun", 
+    "romaji": "maku"
+  }, 
+  "巻": {
+    "w_type": "noun", 
+    "romaji": "maki"
+  }, 
+  "己": {
+    "w_type": "noun", 
+    "romaji": "onore"
+  }, 
+  "層": {
+    "w_type": "noun", 
+    "romaji": "sou"
+  }, 
+  "展": {
+    "w_type": "suffix", 
+    "romaji": "ten"
+  }, 
+  "届": {
+    "w_type": "noun", 
+    "romaji": "todoke"
+  }, 
+  "尺": {
+    "w_type": "noun", 
+    "romaji": "shaku"
+  }, 
+  "就": {
+    "w_type": "noun", 
+    "romaji": "shuunin"
+  }, 
+  "尊": {
+    "w_type": "noun", 
+    "romaji": "son"
+  }, 
+  "将": {
+    "w_type": "noun", 
+    "romaji": "shou"
+  }, 
+  "射": {
+    "w_type": "noun", 
+    "romaji": "sha"
+  }, 
+  "専": {
+    "w_type": "noun", 
+    "romaji": "senmu"
+  }, 
+  "寸": {
+    "w_type": "noun", 
+    "romaji": "sun"
+  }, 
+  "密": {
+    "w_type": "noun", 
+    "romaji": "mitsu"
+  }, 
+  "宣": {
+    "w_type": "noun", 
+    "romaji": "sengen"
+  }, 
+  "宝": {
+    "w_type": "noun", 
+    "romaji": "takara"
+  }, 
+  "宙": {
+    "w_type": "noun", 
+    "romaji": "chuu"
+  }, 
+  "宗": {
+    "w_type": "noun", 
+    "romaji": "shuu"
+  }, 
+  "宇": {
+    "w_type": "counter", 
+    "romaji": "u"
+  }, 
+  "宅": {
+    "w_type": "noun", 
+    "romaji": "taku"
+  }, 
+  "孝": {
+    "w_type": "noun", 
+    "romaji": "kyou"
+  }, 
+  "存": {
+    "w_type": "noun", 
+    "romaji": "kison"
+  }, 
+  "姿": {
+    "w_type": "noun", 
+    "romaji": "sugata"
+  }, 
+  "奮": {
+    "w_type": "noun", 
+    "romaji": "koufun"
+  }, 
+  "奏": {
+    "w_type": "noun", 
+    "romaji": "ensou"
+  }, 
+  "城": {
+    "w_type": "noun", 
+    "romaji": "shiro"
+  }, 
+  "垂": {
+    "w_type": "noun", 
+    "romaji": "shide"
+  }, 
+  "困": {
+    "w_type": "noun", 
+    "romaji": "konnan"
+  }, 
+  "善": {
+    "w_type": "noun", 
+    "romaji": "zen"
+  }, 
+  "呼": {
+    "w_type": "verb", 
+    "romaji": "yobu"
+  }, 
+  "吸": {
+    "w_type": "noun", 
+    "romaji": "kokyuu"
+  }, 
+  "否": {
+    "w_type": "interjection", 
+    "romaji": "iie"
+  }, 
+  "后": {
+    "w_type": "noun", 
+    "romaji": "kisaki"
+  }, 
+  "収": {
+    "w_type": "noun", 
+    "romaji": "shuueki"
+  }, 
+  "厳": {
+    "w_type": "adverb", 
+    "romaji": "gen"
+  }, 
+  "卵": {
+    "w_type": "noun", 
+    "romaji": "tamago"
+  }, 
+  "危": {
+    "w_type": "noun", 
+    "romaji": "ki"
+  }, 
+  "勤": {
+    "w_type": "noun", 
+    "romaji": "kinmu"
+  }, 
+  "劇": {
+    "w_type": "noun", 
+    "romaji": "geki"
+  }, 
+  "創": {
+    "w_type": "noun", 
+    "romaji": "kizu"
+  }, 
+  "割": {
+    "w_type": "noun", 
+    "romaji": "wari"
+  }, 
+  "刻": {
+    "w_type": "noun", 
+    "romaji": "koku"
+  }, 
+  "処": {
+    "w_type": "noun", 
+    "romaji": "tokoro"
+  }, 
+  "冊": {
+    "w_type": "counter", 
+    "romaji": "satsu"
+  }, 
+  "党": {
+    "w_type": "noun", 
+    "romaji": "tou"
+  }, 
+  "優": {
+    "w_type": "prefix", 
+    "romaji": "yasa"
+  }, 
+  "傷": {
+    "w_type": "noun", 
+    "romaji": "kizu"
+  }, 
+  "値": {
+    "w_type": "noun", 
+    "romaji": "atai"
+  }, 
+  "俳": {
+    "w_type": "noun", 
+    "romaji": "haiyuu"
+  }, 
+  "供": {
+    "w_type": "noun", 
+    "romaji": "tomo"
+  }, 
+  "仁": {
+    "w_type": "noun", 
+    "romaji": "jin"
+  }, 
+  "亡": {
+    "w_type": "noun", 
+    "romaji": "shibou"
+  }, 
+  "乳": {
+    "w_type": "noun", 
+    "romaji": "chichi"
+  }, 
+  "乱": {
+    "w_type": "noun", 
+    "romaji": "ran"
+  }, 
+  "並": {
+    "w_type": "noun", 
+    "romaji": "nami"
+  }
+}
