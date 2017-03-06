@@ -167,7 +167,17 @@ def translate_particles(kana_list):
                 kana_list[i] = " ni "
 
 
-def translate_jukugo(kana):
+def translate_kanji_iteration_mark(kana_list):
+    unicode_kanji_iteration_mark = u"\u3005"
+
+    prev_c = ""
+    for i in range(0, len(kana_list)):
+        if kana_list[i] == unicode_kanji_iteration_mark:
+            kana_list[i] = prev_c.romaji
+        prev_c = kana_list[i]
+
+
+def translate_kanji(kana):
     if any([is_kanji(k) for k in kana]):
         if len(UnicodeRomajiMapping.kanji_mapping) == 0:
             UnicodeRomajiMapping.kanji_mapping = load_kanji_mappings_dict()
@@ -193,7 +203,9 @@ def translate_jukugo(kana):
                     kana_list.insert(start_pos,
                                      JukugoBlock.create(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
                 start_pos += 1
+
         translate_particles(kana_list)
+        translate_kanji_iteration_mark(kana_list)
 
         for i in range(0, len(kana_list)):
             if type(kana_list[i]) == JukugoBlock:
@@ -208,7 +220,7 @@ def translate_to_romaji(kana):
     if len(UnicodeRomajiMapping.kana_mapping) == 0:
         UnicodeRomajiMapping.kana_mapping = load_kana_mappings_dict()
 
-    kana = translate_jukugo(kana)
+    kana = translate_kanji(kana)
 
     for c in kana:
         if c in UnicodeRomajiMapping.kana_mapping:
@@ -384,7 +396,7 @@ def translate_dakuten_equivalent(kana):
     return res
 
 
-def translate_iteration_mark(kana):
+def translate_kana_iteration_mark(kana):
     prev_char = ""
     partial_kana = kana
     for c in kana:
@@ -400,7 +412,7 @@ def translate_iteration_mark(kana):
 def kana_to_romaji(kana):
     if type(kana) == str:
         kana = kana.decode("utf-8")
-    pk = translate_iteration_mark(kana)
+    pk = translate_kana_iteration_mark(kana)
     pk = translate_soukon_ch(pk)
     pk = translate_katakana_small_vowels(pk)
     pk = translate_to_romaji(pk)

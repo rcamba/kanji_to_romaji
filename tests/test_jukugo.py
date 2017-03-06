@@ -53,6 +53,19 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(kana_to_romaji(u"在日"), "zainichi")
         self.assertEqual(kana_to_romaji(u"尽日"), "jinjitsu")
 
+    def test_kanji_iteration_mark(self):
+        # regular
+        self.assertEqual(kana_to_romaji(u"若"), "waka")
+        self.assertEqual(kana_to_romaji(u"若々"), "wakawaka")
+
+        x = kana_to_romaji(u"在")
+        self.assertEqual(kana_to_romaji(u"在"), x)
+        self.assertEqual(kana_to_romaji(u"在々"), x * 2)
+
+        # irregular that has to be listed in dict
+        self.assertEqual(kana_to_romaji(u"精々"), "seizei")
+        self.assertEqual(kana_to_romaji(u"日々"), "hibi")
+
 
 if __name__ == "__main__":
     unittest.main()

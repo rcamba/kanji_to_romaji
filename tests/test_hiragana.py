@@ -1,7 +1,7 @@
 # coding=utf-8
 import unittest
 from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, kana_to_romaji, \
-    convert_hiragana_to_katakana, translate_iteration_mark, translate_dakuten_equivalent
+    convert_hiragana_to_katakana, translate_kana_iteration_mark, translate_dakuten_equivalent
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -93,8 +93,8 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(convert_hiragana_to_katakana(u"かゞーるっち"), u"カヾールッチ")
 
     def test_translate_iteration_mark(self):
-        self.assertEqual(translate_iteration_mark(u"かゝきゝくゝけゝこゝ"), u"かかききくくけけここ")
-        self.assertEqual(translate_iteration_mark(u"かゞきゞくゞけゞこゞ"), u"かがきぎくぐけげこご")
+        self.assertEqual(translate_kana_iteration_mark(u"かゝきゝくゝけゝこゝ"), u"かかききくくけけここ")
+        self.assertEqual(translate_kana_iteration_mark(u"かゞきゞくゞけゞこゞ"), u"かがきぎくぐけげこご")
 
         self.assertEqual(kana_to_romaji(u"かゞーるっち"), u"kagaarutchi")
         self.assertEqual(kana_to_romaji(u"こゝーみっちゞ"), u"kokoomitchiji")
