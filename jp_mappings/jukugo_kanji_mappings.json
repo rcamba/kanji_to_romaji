@@ -27,10 +27,6 @@
     "w_type": "verb",
     "romaji": "moushiageru"
   },
-  "朝日奈丸佳": {
-    "w_type": "noun",
-    "romaji": "Asahina Madoka"
-  },
   "日常茶飯事": {
     "w_type": "noun",
     "romaji": "nichijousahanji"
@@ -90,10 +86,6 @@
   "高等学校": {
     "w_type": "noun",
     "romaji": "koutougakkou"
-  },
-  "高海千歌": {
-    "w_type": "noun",
-    "romaji": "Takami Chika"
   },
   "飛騨探訪": {
     "w_type": "",
@@ -278,10 +270,6 @@
   "梅雨入り": {
     "w_type": "noun",
     "romaji": "nyuubai"
-  },
-  "桜内梨子": {
-    "w_type": "noun",
-    "romaji": "Sakurauchi Riko"
   },
   "株式会社": {
     "w_type": "noun",
@@ -1195,10 +1183,6 @@
     "w_type": "noun",
     "romaji": "onsenkyou"
   },
-  "渡辺曜": {
-    "w_type": "",
-    "romaji": "Watanabe You"
-  },
   "渡り鳥": {
     "w_type": "noun",
     "romaji": "wataridori"
@@ -1839,6 +1823,10 @@
     "w_type": "verb",
     "romaji": "hajimeru"
   },
+  "始めた": {
+    "w_type": "verb",
+    "romaji": "hajimeta"
+  },
   "始まる": {
     "w_type": "verb",
     "romaji": "hajimaru"
@@ -2086,10 +2074,6 @@
   "厳しい": {
     "w_type": "adjective",
     "romaji": "kibishii"
-  },
-  "原由実": {
-    "w_type": "",
-    "romaji": "Hara Yumi"
   },
   "危うく": {
     "w_type": "adverb",
@@ -2683,6 +2667,10 @@
     "w_type": "noun",
     "romaji": "shokuzai"
   },
+  "食戟": {
+    "w_type": "noun",
+    "romaji": "shokugeki"
+  },
   "食塩": {
     "w_type": "noun",
     "romaji": "shokuen"
@@ -2738,6 +2726,10 @@
   "願い": {
     "w_type": "noun",
     "romaji": "negai"
+  },
+  "顕主": {
+    "w_type": "noun",
+    "romaji": "arawa-nushi"
   },
   "顔色": {
     "w_type": "noun",
@@ -3978,6 +3970,10 @@
   "走る": {
     "w_type": "verb",
     "romaji": "hashiru"
+  },
+  "走り": {
+    "w_type": "verb",
+    "romaji": "hashiri"
   },
   "赤松": {
     "w_type": "noun",
@@ -14203,6 +14199,10 @@
     "w_type": "noun",
     "romaji": "kaiin"
   },
+  "会い": {
+    "w_type": "verb",
+    "romaji": "ai"
+  },
   "休耕": {
     "w_type": "noun",
     "romaji": "kyuukou"
@@ -15058,13 +15058,5 @@
   "1日": {
     "w_type": "",
     "romaji": "1nichi"
-  },
-  "顕主": {
-    "w_type": "noun",
-    "romaji": "arawa-nushi"
-  },
-  "食戟": {
-    "w_type": "noun",
-    "romaji": "shokugeki"
   }
 }

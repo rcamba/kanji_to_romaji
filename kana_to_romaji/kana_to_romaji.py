@@ -18,29 +18,32 @@ class UnicodeRomajiMapping:  # caching
     kanji_mapping = {}
 
 
-class JukugoBlock(str):
+class KanjiBlock(str):
     def __init__(self):
-        super(JukugoBlock, self).__init__()
-        self.jukugo = ""
+        super(KanjiBlock, self).__init__()
+        self.kanji = ""
         self.romaji = ""
         self.w_type = ""
 
     @staticmethod
-    def create(jukugo, jukugo_dict):
-        j = JukugoBlock()
-        j.jukugo = jukugo
-        if len(jukugo) == 1:
-            j.romaji = jukugo_dict["romaji"]
+    def create(kanji, kanji_dict):
+        k = KanjiBlock()
+        k.kanji = kanji
+        if len(kanji) == 1:
+            k.romaji = kanji_dict["romaji"]
         else:
-            j.romaji = jukugo_dict["romaji"] + " "
-        j.w_type = jukugo_dict["w_type"]
-        return j
+            if kanji_dict["w_type"] == "verb":
+                k.romaji = kanji_dict["romaji"]
+            else:
+                k.romaji = kanji_dict["romaji"] + " "
+        k.w_type = kanji_dict["w_type"]
+        return k
 
     def __repr__(self):
-        return self.jukugo.encode("unicode_escape")
+        return self.kanji.encode("unicode_escape")
 
     def __str__(self):
-        return self.jukugo
+        return self.romaji.encode("utf-8")
 
 
 def load_kana_mappings_dict():
@@ -140,30 +143,38 @@ def get_kana_type(c):
 
 
 def translate_particles(kana_list):
+    def is_noun(k_block):
+        return hasattr(k_block, "w_type") and k_block.w_type == "noun"
+
+    def type_changes(p, n):
+        if p == " " or n == " ":
+            return False
+        else:
+            return get_kana_type(p) != get_kana_type(n)
+
     no_hira_char = u"\u306E"
     ha_hira_char = u"\u306F"
     to_hira_char = u"\u3068"
     ni_hira_char = u"\u306B"
+
     for i in range(1, len(kana_list) - 1):
+        prev_c = kana_list[i - 1]
+        next_c = kana_list[i + 1]
+
         if kana_list[i] == no_hira_char:
-            if ((hasattr(kana_list[i - 1], "w_type") and kana_list[i - 1].w_type == "noun") and
-                    (hasattr(kana_list[i + 1], "w_type") and kana_list[i + 1].w_type == "noun")) or \
-                    (get_kana_type(kana_list[i - 1]) != get_kana_type(kana_list[i + 1])):  # null check?
+            if (is_noun(prev_c) and is_noun(next_c)) or type_changes(prev_c, next_c):
                 kana_list[i] = " no "
 
         elif kana_list[i] == ha_hira_char:
-            if (hasattr(kana_list[i - 1], "w_type") and kana_list[i - 1].w_type == "noun") \
-                    and type(kana_list[i + 1]) == JukugoBlock:
+            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
                 kana_list[i] = " wa "
 
         elif kana_list[i] == to_hira_char:
-            if (hasattr(kana_list[i - 1], "w_type") and kana_list[i - 1].w_type == "noun") \
-                    and (hasattr(kana_list[i + 1], "w_type") and kana_list[i + 1].w_type == "noun"):
+            if (is_noun(prev_c) and is_noun(next_c)) or type_changes(prev_c, next_c):
                 kana_list[i] = " to "
 
         elif kana_list[i] == ni_hira_char:
-            if (hasattr(kana_list[i - 1], "w_type") and kana_list[i - 1].w_type == "noun") \
-                    and (hasattr(kana_list[i + 1], "w_type") and kana_list[i + 1].w_type == "noun"):
+            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
                 kana_list[i] = " ni "
 
 
@@ -177,57 +188,64 @@ def translate_kanji_iteration_mark(kana_list):
         prev_c = kana_list[i]
 
 
-def translate_kanji(kana):
+def prepare_kana_list(kana):
+    if len(UnicodeRomajiMapping.kanji_mapping) == 0:
+        UnicodeRomajiMapping.kanji_mapping = load_kanji_mappings_dict()
+
+    orig_start_pos = 0
+    for k in kana:
+        if is_kanji(k):
+            orig_start_pos = kana.index(k)
+            break
+
+    max_char_len = 5
+    kana_list = list(kana)
+
+    for char_len in range(max_char_len, 0, -1):
+        start_pos = orig_start_pos
+        while start_pos < len(kana_list) - char_len + 1:
+
+            curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
+            if curr_chars in UnicodeRomajiMapping.kanji_mapping:
+                for i in range(start_pos + char_len - 1, start_pos - 1, -1):
+                    del kana_list[i]
+
+                kana_list.insert(start_pos,
+                                 KanjiBlock.create(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
+            start_pos += 1
+
+    return kana_list
+
+
+def translate_kanji(kana_list):
+    for i in range(0, len(kana_list)):
+        if type(kana_list[i]) == KanjiBlock:
+            kana_list[i] = kana_list[i].romaji
+
+    kana = "".join(kana_list)
+    kana = " ".join(kana.split()).strip()
+    return kana
+
+
+def prep_kanji(kana):
+    kana_list = list(kana)
     if any([is_kanji(k) for k in kana]):
-        if len(UnicodeRomajiMapping.kanji_mapping) == 0:
-            UnicodeRomajiMapping.kanji_mapping = load_kanji_mappings_dict()
+        kana_list = prepare_kana_list(kana)
 
-        orig_start_pos = 0
-        for k in kana:
-            if is_kanji(k):
-                orig_start_pos = kana.index(k)
-                break
-
-        max_char_len = 5
-        kana_list = list(kana)
-
-        for char_len in range(max_char_len, 0, -1):
-            start_pos = orig_start_pos
-            while start_pos < len(kana_list) - char_len + 1:
-
-                curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
-                if curr_chars in UnicodeRomajiMapping.kanji_mapping:
-                    for i in range(start_pos + char_len - 1, start_pos - 1, -1):
-                        del kana_list[i]
-
-                    kana_list.insert(start_pos,
-                                     JukugoBlock.create(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
-                start_pos += 1
-
-        translate_particles(kana_list)
         translate_kanji_iteration_mark(kana_list)
 
-        for i in range(0, len(kana_list)):
-            if type(kana_list[i]) == JukugoBlock:
-                kana_list[i] = kana_list[i].romaji
-
-        kana = "".join(kana_list)
-
-    return kana
+    return kana_list
 
 
 def translate_to_romaji(kana):
     if len(UnicodeRomajiMapping.kana_mapping) == 0:
         UnicodeRomajiMapping.kana_mapping = load_kana_mappings_dict()
 
-    kana = translate_kanji(kana)
-
     for c in kana:
         if c in UnicodeRomajiMapping.kana_mapping:
             kana = kana.replace(c, UnicodeRomajiMapping.kana_mapping[c])
 
     kana = kana.replace(" ]", "]")
-    kana = " ".join(kana.split()).strip()
     return kana
 
 
@@ -415,6 +433,9 @@ def kana_to_romaji(kana):
     pk = translate_kana_iteration_mark(kana)
     pk = translate_soukon_ch(pk)
     pk = translate_katakana_small_vowels(pk)
+    pk_list = prep_kanji(pk)
+    translate_particles(pk_list)
+    pk = translate_kanji(pk_list)
     pk = translate_to_romaji(pk)
     pk = translate_youon(pk)
     pk = translate_soukon(pk)

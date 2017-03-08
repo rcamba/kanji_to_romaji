@@ -66,6 +66,45 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(kana_to_romaji(u"精々"), "seizei")
         self.assertEqual(kana_to_romaji(u"日々"), "hibi")
 
+    def test_no_particle(self):
+        test_and_expected = {
+            u"災厄の時代": u"saiyaku no jidai",  # noun followed by KanjiBlock/noun
+            u"私のパーティー": u"watashi no paatii",  # type change between no character  (hira no kata)
+            u"さいやくのじだい": u"saiyakunojidai"  # no KanjiBlocks and no change in type
+        }
+
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+
+    def test_wa_particle(self):
+        test_and_expected = {
+            u"私は嬉": u"watashi wa ureshii",  # noun followed by KanjiBlock/adjective
+            u"わたしはロバート": u"watashi wa robaato",  # type change between ha character (hira ha kata)
+            u"わたしはうれしい": u"watashihaureshii"  # no KanjiBlocks and no change in type
+        }
+
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+
+    def test_to_particle(self):
+        test_and_expected = {
+            u"私と猫-ちゃん": u"watashi to neko-chan",  # noun followed by KanjiBlock
+            u"運命という": u"unmei to iu",  # type change between to character (kanji to hira)
+            u"わたしとねこ-ちゃん": u"watashitoneko-chan"  # no KanjiBlocks and no change in type
+        }
+
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+
+    def test_ni_particle(self):
+        test_and_expected = {
+            u"友達に会いました": u"tomodachi ni aimashita",  # noun followed by KanjiBlock/verb
+            u"ともだちにあいました": u"tomodachiniaimashita"  # no KanjiBlocks and no change in type
+        }
+
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -9,7 +9,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         print "\nStarting " + self.__module__ + ": " + self._testMethodName
 
     def test_basic_hiragana(self):
-        iroha = u"いろ は にほへと ちりぬる を わ か よ たれ そ つね ならむ うゐ の おくやま けふ こえて あさき ゆめ みし ゑひ も せす"
+        iroha = u"いろ は にほへと ちりぬるをわ か よ たれ そ つね ならむ うゐ の おくやま けふ こえて あさき ゆめ みし ゑひ も せす"
         iroha_romaji = "Iro ha nihoheto " \
                        "Chirinuru wo " \
                        "Wa ka yo tare so " \
