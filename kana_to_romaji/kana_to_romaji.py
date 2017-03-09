@@ -19,25 +19,21 @@ class UnicodeRomajiMapping:  # caching
 
 
 class KanjiBlock(str):
-    def __init__(self):
-        super(KanjiBlock, self).__init__()
-        self.kanji = ""
-        self.romaji = ""
-        self.w_type = ""
+    def __new__(cls, *args, **kwargs):
+        obj = str.__new__(cls, "@")
+        kanji = args[0]
+        kanji_dict = args[1]
 
-    @staticmethod
-    def create(kanji, kanji_dict):
-        k = KanjiBlock()
-        k.kanji = kanji
+        obj.kanji = kanji
         if len(kanji) == 1:
-            k.romaji = kanji_dict["romaji"]
+            obj.romaji = kanji_dict["romaji"]
         else:
             if kanji_dict["w_type"] == "verb":
-                k.romaji = kanji_dict["romaji"]
+                obj.romaji = kanji_dict["romaji"]
             else:
-                k.romaji = kanji_dict["romaji"] + " "
-        k.w_type = kanji_dict["w_type"]
-        return k
+                obj.romaji = kanji_dict["romaji"] + " "
+        obj.w_type = kanji_dict["w_type"]
+        return obj
 
     def __repr__(self):
         return self.kanji.encode("unicode_escape")
@@ -204,22 +200,13 @@ def prepare_kana_list(kana):
     for char_len in range(max_char_len, 0, -1):
         start_pos = orig_start_pos
         while start_pos < len(kana_list) - char_len + 1:
-
-            curr_chars = ""
-            for i in range(start_pos, start_pos + char_len):
-                if isinstance(kana_list[i], KanjiBlock):
-                    curr_chars += "?"
-                else:
-                    curr_chars += kana_list[i]
-
+            curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
             if curr_chars in UnicodeRomajiMapping.kanji_mapping:
                 for i in range(start_pos + char_len - 1, start_pos - 1, -1):
                     del kana_list[i]
-
                 kana_list.insert(start_pos,
-                                 KanjiBlock.create(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
+                                 KanjiBlock(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
             start_pos += 1
-
     return kana_list
 
 
