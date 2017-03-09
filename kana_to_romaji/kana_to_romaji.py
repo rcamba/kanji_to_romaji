@@ -205,7 +205,13 @@ def prepare_kana_list(kana):
         start_pos = orig_start_pos
         while start_pos < len(kana_list) - char_len + 1:
 
-            curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
+            curr_chars = ""
+            for i in range(start_pos, start_pos + char_len):
+                if isinstance(kana_list[i], KanjiBlock):
+                    curr_chars += "?"
+                else:
+                    curr_chars += kana_list[i]
+
             if curr_chars in UnicodeRomajiMapping.kanji_mapping:
                 for i in range(start_pos + char_len - 1, start_pos - 1, -1):
                     del kana_list[i]
