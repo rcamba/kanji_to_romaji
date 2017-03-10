@@ -105,6 +105,9 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         for key in test_and_expected.keys():
             self.assertEqual(kana_to_romaji(key), test_and_expected[key])
 
+    def test_type_changes(self):
+        self.assertEqual(kana_to_romaji(u"ごと."), "goto.")
+
     def test_kanjiblock_curr_chars_rep(self):
         self.assertEqual(kana_to_romaji(u"食べる存在"), "taberusonzai")
 

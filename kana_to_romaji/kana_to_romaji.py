@@ -1,7 +1,6 @@
 ﻿import os
 import sys
 import json
-import string
 
 
 PATH_TO_MODULE = os.path.dirname(__file__)
@@ -124,7 +123,10 @@ def is_katakana(c):
 def is_kanji(c):
     cjk_start_range = u"\u4E00"
     cjk_end_range = u"\u9FD5"
-    return cjk_start_range <= c <= cjk_end_range
+    if isinstance(c, KanjiBlock):
+        return True
+    else:
+        return cjk_start_range <= c <= cjk_end_range
 
 
 def get_kana_type(c):
@@ -144,10 +146,10 @@ def translate_particles(kana_list):
         return hasattr(k_block, "w_type") and k_block.w_type == "noun"
 
     def type_changes(p, n):
-        if p == " " or n == " ":
-            return False
-        else:
+        if get_kana_type(p) is not None and get_kana_type(n) is not None:
             return get_kana_type(p) != get_kana_type(n)
+        else:
+            return False
 
     no_hira_char = u"\u306E"
     ha_hira_char = u"\u306F"

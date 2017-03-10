@@ -152,7 +152,7 @@
   "ヵ": "ka",
   "ヶ": "ke",
   "ヺ": "vo",
-  "・": ".",
+  "・": " ",
   "ヽ": "iteration_mark",
   "ヾ": "voiced_iteration_mark",
   "ヿ": "koto"
