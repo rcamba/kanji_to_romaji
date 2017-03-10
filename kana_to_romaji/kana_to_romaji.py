@@ -1,6 +1,7 @@
 ﻿import os
 import sys
 import json
+import string
 
 
 PATH_TO_MODULE = os.path.dirname(__file__)
@@ -166,7 +167,7 @@ def translate_particles(kana_list):
                 kana_list[i] = " wa "
 
         elif kana_list[i] == to_hira_char:
-            if (is_noun(prev_c) and is_noun(next_c)) or type_changes(prev_c, next_c):
+            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
                 kana_list[i] = " to "
 
         elif kana_list[i] == ni_hira_char:
@@ -216,7 +217,6 @@ def translate_kanji(kana_list):
             kana_list[i] = kana_list[i].romaji
 
     kana = "".join(kana_list)
-    kana = " ".join(kana.split()).strip()
     return kana
 
 
@@ -242,15 +242,18 @@ def translate_to_romaji(kana):
             curr_chars = kana[start_pos: (start_pos + char_len)]
             if curr_chars in UnicodeRomajiMapping.kana_mapping:
                 kana = kana.replace(curr_chars, UnicodeRomajiMapping.kana_mapping[curr_chars], 1)
+                if len(UnicodeRomajiMapping.kana_mapping[curr_chars]) == 0:
+                    start_pos -= 1
             start_pos += 1
 
     kana = kana.replace(" ]", "]")
+    kana = " ".join(kana.split()).strip()
     return kana
 
 
 def translate_soukon(partial_kana):
     hirgana_soukon_unicode_char = u"\u3063"
-    katakana_soukon_unicode_char = u"\u30c3"
+    katakana_soukon_unicode_char = u"\u30C3"
     prev_char = ""
 
     for c in reversed(partial_kana):
