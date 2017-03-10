@@ -234,9 +234,15 @@ def translate_to_romaji(kana):
     if len(UnicodeRomajiMapping.kana_mapping) == 0:
         UnicodeRomajiMapping.kana_mapping = load_kana_mappings_dict()
 
-    for c in kana:
-        if c in UnicodeRomajiMapping.kana_mapping:
-            kana = kana.replace(c, UnicodeRomajiMapping.kana_mapping[c])
+    max_char_len = 2
+
+    for char_len in range(max_char_len, 0, -1):
+        start_pos = 0
+        while start_pos < len(kana) - char_len + 1:
+            curr_chars = kana[start_pos: (start_pos + char_len)]
+            if curr_chars in UnicodeRomajiMapping.kana_mapping:
+                kana = kana.replace(curr_chars, UnicodeRomajiMapping.kana_mapping[curr_chars], 1)
+            start_pos += 1
 
     kana = kana.replace(" ]", "]")
     return kana
@@ -254,44 +260,6 @@ def translate_soukon(partial_kana):
     return partial_kana
 
 
-def translate_youon(partial_kana):
-    youon_ya_hiragana = u"\u3083"
-    youon_yu_hiragana = u"\u3085"
-    youon_yo_hiragana = u"\u3087"
-
-    youon_ya_katakana = u"\u30E3"
-    youon_yu_katakana = u"\u30E5"
-    youon_yo_katakana = u"\u30E7"
-
-    for c in partial_kana:
-        if c in [youon_ya_hiragana, youon_yu_hiragana, youon_yo_hiragana,
-                 youon_ya_katakana, youon_yu_katakana, youon_yo_katakana]:
-
-            t1, t2 = partial_kana.split(c, 1)
-            if c == youon_ya_hiragana or c == youon_ya_katakana:
-                if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
-                    replacement = "a"
-                else:
-                    replacement = "ya"
-                partial_kana = t1[:-1] + replacement + t2
-
-            elif c == youon_yo_hiragana or c == youon_yo_katakana:
-                if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
-                    replacement = "o"
-                else:
-                    replacement = "yo"
-
-                partial_kana = t1[:-1] + replacement + t2
-            elif c == youon_yu_hiragana or c == youon_yu_katakana:
-                if t1[-3:] == "chi" or t1[-3:] == "shi" or t1[-2] == "j":
-                    replacement = "u"
-                else:
-                    replacement = "yu"
-
-                partial_kana = t1[:-1] + replacement + t2
-    return partial_kana
-
-
 def translate_long_vowel(partial_kana):
     long_vowel_mark = u"\u30FC"  # katakana
     prev_c = ""
@@ -302,59 +270,6 @@ def translate_long_vowel(partial_kana):
             else:
                 partial_kana = partial_kana.replace(c, "", 1)
         prev_c = c
-    return partial_kana
-
-
-def translate_katakana_small_vowels(partial_kana):
-    extra_sounds_mapping = {
-        u"\u30A6\u30A3": "wi",
-        u"\u30A6\u30A7": "we",
-        u"\u30A6\u30A9": "wo",
-
-        u"\u30F4\u30A1": "va",
-        u"\u30F4\u30A3": "vi",
-        u"\u30F4\u30A7": "ve",
-        u"\u30F4\u30A9": "vo",
-
-        u"\u30D5\u30A1": "fa",
-        u"\u30D5\u30A3": "fi",
-        u"\u30D5\u30A7": "fe",
-        u"\u30D5\u30A9": "fo",
-
-        u"\u30C6\u30A3": "ti",
-        u"\u30C7\u30A3": "di",
-        u"\u30C8\u30A5": "tu",
-        u"\u30C9\u30A5": "du",
-
-        u"\u30AF\u30A1": "kwa",
-        u"\u30AF\u30A3": "kwi",
-        u"\u30AF\u30A7": "kwe",
-        u"\u30AF\u30A9": "kwo",
-        u"\u30AD\u30A7": "kye",
-
-        u"\u30B0\u30A1": "gwa",
-        u"\u30B0\u30A3": "gwi",
-        u"\u30B0\u30A7": "gwe",
-        u"\u30B0\u30A9": "gwo",
-        u"\u30AE\u30A7": "gye",
-
-        u"\u30B9\u30A3": "si",
-        u"\u30BA\u30A3": "zi",
-        u"\u30B7\u30A7": "she",
-        u"\u30B8\u30A7": "je",
-        u"\u30C1\u30A7": "che",
-
-        u"\u30C4\u30A1": "tsa",
-        u"\u30C4\u30A3": "tsi",
-        u"\u30C4\u30A7": "tse",
-        u"\u30C4\u30A9": "tso",
-
-        u"\u30DB\u30A5": "hu",
-        u"\u30A4\u30A3": "yi",
-        u"\u30A4\u30A7": "ye"
-    }
-    for s in extra_sounds_mapping:
-        partial_kana = partial_kana.replace(s, extra_sounds_mapping[s])
     return partial_kana
 
 
@@ -425,12 +340,10 @@ def kana_to_romaji(kana):
         kana = kana.decode("utf-8")
     pk = translate_kana_iteration_mark(kana)
     pk = translate_soukon_ch(pk)
-    pk = translate_katakana_small_vowels(pk)
     pk_list = prep_kanji(pk)
     translate_particles(pk_list)
     pk = translate_kanji(pk_list)
     pk = translate_to_romaji(pk)
-    pk = translate_youon(pk)
     pk = translate_soukon(pk)
     r = translate_long_vowel(pk)
     return r.encode("unicode_escape").replace("\\\\", "\\")

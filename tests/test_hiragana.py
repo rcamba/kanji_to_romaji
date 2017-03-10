@@ -1,7 +1,7 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import translate_to_romaji, translate_youon, kana_to_romaji, \
-    convert_hiragana_to_katakana, translate_kana_iteration_mark, translate_dakuten_equivalent
+from kana_to_romaji.kana_to_romaji import translate_to_romaji, kana_to_romaji, convert_hiragana_to_katakana, \
+    translate_kana_iteration_mark, translate_dakuten_equivalent
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -50,7 +50,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         }
 
         for k in kana_expected_dict.keys():
-            self.assertEqual(translate_youon(kana_to_romaji(k)), kana_expected_dict[k])
+            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
 
     def test_soukon(self):
         kana_expected_dict = {
