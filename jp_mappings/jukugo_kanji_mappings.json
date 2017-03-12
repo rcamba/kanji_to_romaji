@@ -47,6 +47,10 @@
     "w_type": "noun",
     "romaji": "tennoutanjoubi"
   },
+  "変わらない": {
+    "w_type": "adjective",
+    "romaji": "kawaranai"
+  },
   "問い合わせ": {
     "w_type": "noun",
     "romaji": "toiawase"
@@ -58,6 +62,10 @@
   "吹き荒れる": {
     "w_type": "verb",
     "romaji": "fukiareru"
+  },
+  "吹き抜ける": {
+    "w_type": "verb",
+    "romaji": "fukinukeru"
   },
   "厚かましい": {
     "w_type": "adjective",
@@ -751,6 +759,10 @@
     "w_type": "noun",
     "romaji": "kichouhin"
   },
+  "貴公子": {
+    "w_type": "noun",
+    "romaji": "kikoushi"
+  },
   "貯水池": {
     "w_type": "noun",
     "romaji": "chosuichi"
@@ -870,6 +882,10 @@
   "苦しい": {
     "w_type": "adjective",
     "romaji": "kurushii"
+  },
+  "芽吹く": {
+    "w_type": "verb",
+    "romaji": "mebuku"
   },
   "色褪せ": {
     "w_type": "verb",
@@ -1059,6 +1075,10 @@
     "w_type": "adverb",
     "romaji": "tadachini"
   },
+  "目指す": {
+    "w_type": "verb",
+    "romaji": "mezasu"
+  },
   "皿洗い": {
     "w_type": "noun",
     "romaji": "saraarai"
@@ -1214,6 +1234,10 @@
   "消極的": {
     "w_type": "noun",
     "romaji": "shoukyokuteki"
+  },
+  "消えた": {
+    "w_type": "noun",
+    "romaji": "kieta"
   },
   "海鳴り": {
     "w_type": "noun",
@@ -1371,6 +1395,10 @@
     "w_type": "noun",
     "romaji": "hogaraka"
   },
+  "最低な": {
+    "w_type": "noun",
+    "romaji": "saiteina"
+  },
   "暴れる": {
     "w_type": "verb",
     "romaji": "abareru"
@@ -1486,6 +1514,10 @@
   "新幹線": {
     "w_type": "noun",
     "romaji": "shinkansen"
+  },
+  "新たな": {
+    "w_type": "adjective",
+    "romaji": "aratana"
   },
   "新しい": {
     "w_type": "adjective",
@@ -1641,7 +1673,7 @@
   },
   "御神体": {
     "w_type": "noun",
-    "romaji": "goshintai"
+    "romaji": "gojintai"
   },
   "従業員": {
     "w_type": "noun",
@@ -1771,6 +1803,10 @@
     "w_type": "noun",
     "romaji": "shounika"
   },
+  "小さな": {
+    "w_type": "adjective",
+    "romaji": "chiisana"
+  },
   "小さい": {
     "w_type": "adjective",
     "romaji": "chiisai"
@@ -1850,6 +1886,10 @@
   "太平洋": {
     "w_type": "noun",
     "romaji": "taiheiyou"
+  },
+  "天然色": {
+    "w_type": "noun",
+    "romaji": "tennenshoku"
   },
   "大黒柱": {
     "w_type": "noun",
@@ -2367,10 +2407,6 @@
     "w_type": "verb",
     "romaji": "noseru"
   },
-  "久美子": {
-    "w_type": "",
-    "romaji": "Kumiko"
-  },
   "久しい": {
     "w_type": "adjective",
     "romaji": "hisashii"
@@ -2434,6 +2470,10 @@
   "上り坂": {
     "w_type": "noun",
     "romaji": "noborizaka"
+  },
+  "上げる": {
+    "w_type": "verb",
+    "romaji": "ageru"
   },
   "三日月": {
     "w_type": "noun",
@@ -2622,6 +2662,10 @@
   "香港": {
     "w_type": "noun",
     "romaji": "honkon"
+  },
+  "香り": {
+    "w_type": "noun",
+    "romaji": "kaori"
   },
   "首都": {
     "w_type": "noun",
@@ -3487,6 +3531,10 @@
     "w_type": "noun",
     "romaji": "sentaku"
   },
+  "選抜": {
+    "w_type": "noun",
+    "romaji": "senbatsu"
+  },
   "選手": {
     "w_type": "noun",
     "romaji": "senshu"
@@ -4247,6 +4295,10 @@
     "w_type": "noun",
     "romaji": "keibi"
   },
+  "謳歌": {
+    "w_type": "noun",
+    "romaji": "ouka"
+  },
   "謝罪": {
     "w_type": "noun",
     "romaji": "shazai"
@@ -4415,9 +4467,17 @@
     "w_type": "noun",
     "romaji": "yuudou"
   },
+  "誘い": {
+    "w_type": "noun",
+    "romaji": "sasoi"
+  },
   "誕生": {
     "w_type": "noun",
     "romaji": "tanjou"
+  },
+  "誓い": {
+    "w_type": "noun",
+    "romaji": "chikai"
   },
   "認識": {
     "w_type": "noun",
@@ -4954,6 +5014,10 @@
   "虫歯": {
     "w_type": "noun",
     "romaji": "mushiba"
+  },
+  "虚数": {
+    "w_type": "noun",
+    "romaji": "kyosuu"
   },
   "虐殺": {
     "w_type": "noun",
@@ -5803,6 +5867,10 @@
     "w_type": "adjective",
     "romaji": "hosoi"
   },
+  "細々": {
+    "w_type": "",
+    "romaji": "komagoma"
+  },
   "紡績": {
     "w_type": "noun",
     "romaji": "bouseki"
@@ -6114,6 +6182,10 @@
   "積む": {
     "w_type": "verb",
     "romaji": "tsumu"
+  },
+  "積み": {
+    "w_type": "noun",
+    "romaji": "tsumi"
   },
   "穀類": {
     "w_type": "noun",
@@ -6819,6 +6891,10 @@
     "w_type": "noun",
     "romaji": "byouki"
   },
+  "病名": {
+    "w_type": "noun",
+    "romaji": "byoumei"
+  },
   "病む": {
     "w_type": "verb",
     "romaji": "yamu"
@@ -7182,6 +7258,10 @@
   "牧場": {
     "w_type": "noun",
     "romaji": "bokujou"
+  },
+  "牛込": {
+    "w_type": "noun",
+    "romaji": "ushigome"
   },
   "牛肉": {
     "w_type": "noun",
@@ -8671,6 +8751,10 @@
     "w_type": "noun",
     "romaji": "kijou"
   },
+  "本選": {
+    "w_type": "noun",
+    "romaji": "honsen"
+  },
   "本箱": {
     "w_type": "noun",
     "romaji": "honbako"
@@ -8726,6 +8810,10 @@
   "木材": {
     "w_type": "noun",
     "romaji": "mokuzai"
+  },
+  "木々": {
+    "w_type": "noun",
+    "romaji": "kigi"
   },
   "期限": {
     "w_type": "noun",
@@ -9063,6 +9151,10 @@
     "w_type": "noun",
     "romaji": "soushun"
   },
+  "早々": {
+    "w_type": "",
+    "romaji": "hayabaya"
+  },
   "旧知": {
     "w_type": "noun",
     "romaji": "kyuuchi"
@@ -9172,7 +9264,7 @@
     "romaji": "nicchuu"
   },
   "日々": {
-    "w_type": "noun",
+    "w_type": "",
     "romaji": "hibi"
   },
   "旗手": {
@@ -9226,6 +9318,10 @@
   "方向": {
     "w_type": "noun",
     "romaji": "houkou"
+  },
+  "方々": {
+    "w_type": "noun",
+    "romaji": "katagata"
   },
   "新鮮": {
     "w_type": "noun",
@@ -9979,6 +10075,10 @@
     "w_type": "noun",
     "romaji": "senshi"
   },
+  "戦場": {
+    "w_type": "noun",
+    "romaji": "senjou"
+  },
   "戦争": {
     "w_type": "noun",
     "romaji": "sensou"
@@ -10131,6 +10231,10 @@
     "w_type": "noun",
     "romaji": "souzou"
   },
+  "想い": {
+    "w_type": "noun",
+    "romaji": "omoi"
+  },
   "惑星": {
     "w_type": "noun",
     "romaji": "wakusei"
@@ -10218,6 +10322,10 @@
   "恋愛": {
     "w_type": "noun",
     "romaji": "renai"
+  },
+  "恋人": {
+    "w_type": "noun",
+    "romaji": "koibito"
   },
   "怪獣": {
     "w_type": "noun",
@@ -10851,6 +10959,10 @@
     "w_type": "noun",
     "romaji": "suuhai"
   },
+  "島々": {
+    "w_type": "noun",
+    "romaji": "shimajima"
+  },
   "峡谷": {
     "w_type": "noun",
     "romaji": "kyoukoku"
@@ -11190,6 +11302,10 @@
   "寄る": {
     "w_type": "verb",
     "romaji": "yoru"
+  },
+  "寄せ": {
+    "w_type": "noun",
+    "romaji": "yose"
   },
   "宿題": {
     "w_type": "noun",
@@ -11903,6 +12019,10 @@
     "w_type": "verb",
     "romaji": "uru"
   },
+  "声色": {
+    "w_type": "noun",
+    "romaji": "kowairo"
+  },
   "声明": {
     "w_type": "noun",
     "romaji": "seimei"
@@ -12170,6 +12290,10 @@
   "国内": {
     "w_type": "noun",
     "romaji": "kokunai"
+  },
+  "国々": {
+    "w_type": "noun",
+    "romaji": "kuniguni"
   },
   "固有": {
     "w_type": "noun",
@@ -12559,6 +12683,10 @@
     "w_type": "noun",
     "romaji": "kanou"
   },
+  "叫べ": {
+    "w_type": "verb",
+    "romaji": "sakebe"
+  },
   "古希": {
     "w_type": "noun",
     "romaji": "koki"
@@ -12599,6 +12727,10 @@
     "w_type": "noun",
     "romaji": "koukei"
   },
+  "口々": {
+    "w_type": "adverb",
+    "romaji": "kuchiguchi"
+  },
   "受験": {
     "w_type": "noun",
     "romaji": "juken"
@@ -12618,6 +12750,10 @@
   "取る": {
     "w_type": "verb",
     "romaji": "toru"
+  },
+  "取り": {
+    "w_type": "noun",
+    "romaji": "tori"
   },
   "収録": {
     "w_type": "noun",
@@ -13263,10 +13399,6 @@
     "w_type": "noun",
     "romaji": "handan"
   },
-  "初音": {
-    "w_type": "noun",
-    "romaji": "hatsune"
-  },
   "初級": {
     "w_type": "noun",
     "romaji": "shokyuu"
@@ -13754,6 +13886,10 @@
   "先日": {
     "w_type": "noun",
     "romaji": "senjitsu"
+  },
+  "先々": {
+    "w_type": "noun",
+    "romaji": "sakizaki"
   },
   "兆候": {
     "w_type": "noun",
@@ -14435,6 +14571,10 @@
     "w_type": "noun",
     "romaji": "hitoduma"
   },
+  "人々": {
+    "w_type": "noun",
+    "romaji": "hitobito"
+  },
   "京都": {
     "w_type": "noun",
     "romaji": "kyouto"
@@ -14462,6 +14602,10 @@
   "交換": {
     "w_type": "noun",
     "romaji": "koukan"
+  },
+  "交差": {
+    "w_type": "noun",
+    "romaji": "kousa"
   },
   "亡命": {
     "w_type": "noun",
@@ -14622,6 +14766,10 @@
   "乗る": {
     "w_type": "verb",
     "romaji": "noru"
+  },
+  "久々": {
+    "w_type": "noun",
+    "romaji": "hisabisa"
   },
   "乃至": {
     "w_type": "conjunction",
@@ -14971,6 +15119,10 @@
     "w_type": "noun",
     "romaji": "ichimai"
   },
+  "一時": {
+    "w_type": "noun",
+    "romaji": "ichiji"
+  },
   "一昔": {
     "w_type": "noun",
     "romaji": "hitomukashi"
@@ -15003,6 +15155,10 @@
     "w_type": "noun",
     "romaji": "ittei"
   },
+  "一分": {
+    "w_type": "noun",
+    "romaji": "ippun"
+  },
   "一億": {
     "w_type": "noun",
     "romaji": "ichioku"
@@ -15029,7 +15185,7 @@
   },
   "お酒": {
     "w_type": "noun",
-    "romaji": "goshu"
+    "romaji": "osake"
   },
   "お菜": {
     "w_type": "noun",

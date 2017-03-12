@@ -22,5 +22,29 @@
   "原由実": {
     "w_type": "",
     "romaji": "Hara Yumi"
+  },
+  "久美子": {
+    "w_type": "noun",
+    "romaji": "Kumiko"
+  },
+  "奥寺": {
+    "w_type": "noun",
+    "romaji": "Okudera"
+  },
+  "山吹沙綾": {
+    "w_type": "noun",
+    "romaji": "Yamabuki Saaya"
+  },
+  "初音ミク": {
+    "w_type": "noun",
+    "romaji": "Hatsune Miku"
+  },
+  "鏡音リン": {
+    "w_type": "noun",
+    "romaji": "Kagamine Rin"
+  },
+  "鏡音レン": {
+    "w_type": "noun",
+    "romaji": "Kagamine Len"
   }
 }
