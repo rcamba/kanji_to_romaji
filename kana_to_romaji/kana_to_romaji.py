@@ -42,6 +42,14 @@ class KanjiBlock(str):
         return self.romaji.encode("utf-8")
 
 
+class Particle(str):
+    def __new__(cls, *args, **kwargs):
+        particle_str = args[0]
+        obj = str.__new__(cls, " " + particle_str + " ")
+        obj.pname = particle_str
+        return obj
+
+
 def load_kana_mappings_dict():
     kana_romaji_mapping = {}
     for f in os.listdir(JP_MAPPINGS_PATH):
@@ -151,11 +159,34 @@ def translate_particles(kana_list):
         else:
             return False
 
+    def particle_imm_follows(prev_c_, valid_prev_particles):
+        """
+        check if prev_c is a Particle object
+        check that prev_c is one of the valid_prev_particles
+        e.g: wa particle can't be followed by wa particle again but ni particle can be followed by wa.
+        :param prev_c_: previous character compared to current character in the iteration
+        :param valid_prev_particles: list of previous particles that can be followed by current character.
+        :return:
+        """
+        return isinstance(prev_c_, Particle) and prev_c_ in valid_prev_particles
+
     no_hira_char = u"\u306E"
     ha_hira_char = u"\u306F"
     he_hira_char = u"\u3078"
     to_hira_char = u"\u3068"
     ni_hira_char = u"\u306B"
+    de_hira_char = u"\u3067"
+    mo_hira_char = u"\u3082"
+    ga_hira_char = u"\u304C"
+
+    no_prtcle = Particle("no")
+    wa_prtcle = Particle("wa")
+    e_prtcle = Particle("e")
+    to_prtcle = Particle("to")
+    ni_prtcle = Particle("ni")
+    de_prtcle = Particle("de")
+    mo_prtcle = Particle("mo")
+    ga_prtcle = Particle("ga")
 
     for i in range(1, len(kana_list) - 1):
         prev_c = kana_list[i - 1]
@@ -163,23 +194,33 @@ def translate_particles(kana_list):
 
         if kana_list[i] == no_hira_char:
             if (is_noun(prev_c) and is_noun(next_c)) or type_changes(prev_c, next_c):
-                kana_list[i] = " no "
+                kana_list[i] = no_prtcle
 
         elif kana_list[i] == ha_hira_char:
-            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
-                kana_list[i] = " wa "
+            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c) or \
+                    particle_imm_follows(prev_c, [e_prtcle, to_prtcle, ni_prtcle, de_prtcle]):
+                kana_list[i] = wa_prtcle
 
-        elif kana_list[i] == he_hira_char:
-            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
-                kana_list[i] = " e "
+        elif kana_list[i] == mo_hira_char:
+            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c) or \
+                    particle_imm_follows(prev_c, [ni_prtcle, de_prtcle]):
+                kana_list[i] = mo_prtcle
 
-        elif kana_list[i] == to_hira_char:
-            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
-                kana_list[i] = " to "
+        elif (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
+            if kana_list[i] == he_hira_char:
+                kana_list[i] = e_prtcle
 
-        elif kana_list[i] == ni_hira_char:
-            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
-                kana_list[i] = " ni "
+            elif kana_list[i] == to_hira_char:
+                kana_list[i] = to_prtcle
+
+            elif kana_list[i] == ni_hira_char:
+                kana_list[i] = ni_prtcle
+
+            elif kana_list[i] == de_hira_char:
+                kana_list[i] = de_prtcle
+
+            elif kana_list[i] == ga_hira_char:
+                kana_list[i] = ga_prtcle
 
 
 def translate_kanji_iteration_mark(kana_list):

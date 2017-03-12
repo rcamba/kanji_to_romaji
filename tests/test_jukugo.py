@@ -121,8 +121,20 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(kana_to_romaji(u"食べる存在"), "taberusonzai")
 
     def test_particle_followed_by_particle(self):
-        pass
-        # 特別とは何なのだろう
+        test_and_expected = {
+            u"アメリカでは何語が話されていますか": "amerika DE WA nanigo ga hanashisareteimasuka".lower(),
+            u"車には一人分の空きがあった": "kuruma NI WA hitori bun no sorakigaatta".lower(),
+            u"ボタンとはなんですか": "botan TO WA nandesuka".lower(),
+
+            u"僕にも責任があるんだ": "boku NI MO sekinin ga arunda".lower(),
+            u"どんな子供でもそのくらい答えられる": "donnakodomo DE MO sonokuraikotae rareru".lower(),
+
+            u"部屋にははいります": "heya NI WA HAirimasu".lower(),
+            u"私にはにだいめ": "watashi NI WA NIdaime".lower()
+        }
+
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
 
 
 if __name__ == "__main__":
