@@ -86,6 +86,15 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         for key in test_and_expected.keys():
             self.assertEqual(kana_to_romaji(key), test_and_expected[key])
 
+    def test_he_particle(self):
+        test_and_expected = {
+            u"部屋へ帰る": u"heya e kaeru",  # noun followed by KanjiBlock/adjective
+            u"アパートへくる": u"apaato e kuru",  # type change between he character (kata he hira)
+            u"へやへかえる": u"heyahekaeru"  # no KanjiBlocks and no change in type
+        }
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+
     def test_to_particle(self):
         test_and_expected = {
             u"私と猫-ちゃん": u"watashi to neko-chan",  # noun followed by KanjiBlock
@@ -110,6 +119,10 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
 
     def test_kanjiblock_curr_chars_rep(self):
         self.assertEqual(kana_to_romaji(u"食べる存在"), "taberusonzai")
+
+    def test_particle_followed_by_particle(self):
+        pass
+        # 特別とは何なのだろう
 
 
 if __name__ == "__main__":

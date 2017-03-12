@@ -153,6 +153,7 @@ def translate_particles(kana_list):
 
     no_hira_char = u"\u306E"
     ha_hira_char = u"\u306F"
+    he_hira_char = u"\u3078"
     to_hira_char = u"\u3068"
     ni_hira_char = u"\u306B"
 
@@ -167,6 +168,10 @@ def translate_particles(kana_list):
         elif kana_list[i] == ha_hira_char:
             if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
                 kana_list[i] = " wa "
+
+        elif kana_list[i] == he_hira_char:
+            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
+                kana_list[i] = " e "
 
         elif kana_list[i] == to_hira_char:
             if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
