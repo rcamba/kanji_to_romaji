@@ -1,7 +1,9 @@
 ﻿import os
 import sys
 import json
-
+from models import UnicodeRomajiMapping
+from models import KanjiBlock
+from models import Particle
 
 PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
@@ -10,44 +12,6 @@ hiragana_iter_mark = u"\u309D"
 hiragana_voiced_iter_mark = u"\u309E"
 katakana_iter_mark = u"\u30FD"
 katakana_voiced_iter_mark = u"\u30FE"
-
-
-# noinspection PyClassHasNoInit
-class UnicodeRomajiMapping:  # caching
-    kana_mapping = {}
-    kanji_mapping = {}
-
-
-class KanjiBlock(str):
-    def __new__(cls, *args, **kwargs):
-        obj = str.__new__(cls, "@")
-        kanji = args[0]
-        kanji_dict = args[1]
-
-        obj.kanji = kanji
-        if len(kanji) == 1:
-            obj.romaji = kanji_dict["romaji"]
-        else:
-            if kanji_dict["w_type"] == "verb":
-                obj.romaji = kanji_dict["romaji"]
-            else:
-                obj.romaji = kanji_dict["romaji"] + " "
-        obj.w_type = kanji_dict["w_type"]
-        return obj
-
-    def __repr__(self):
-        return self.kanji.encode("unicode_escape")
-
-    def __str__(self):
-        return self.romaji.encode("utf-8")
-
-
-class Particle(str):
-    def __new__(cls, *args, **kwargs):
-        particle_str = args[0]
-        obj = str.__new__(cls, " " + particle_str + " ")
-        obj.pname = particle_str
-        return obj
 
 
 def load_kana_mappings_dict():
