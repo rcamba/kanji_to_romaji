@@ -8,7 +8,7 @@ class KanjiBlock(str):
         if len(kanji) == 1:
             obj.romaji = kanji_dict["romaji"]
         else:
-            if kanji_dict["w_type"] == "verb":
+            if "conjugated verb" in kanji_dict["w_type"]:
                 obj.romaji = kanji_dict["romaji"]
             else:
                 obj.romaji = kanji_dict["romaji"] + " "
