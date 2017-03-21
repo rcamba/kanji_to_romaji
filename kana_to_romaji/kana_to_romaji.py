@@ -207,7 +207,7 @@ def prepare_kana_list(kana):
             orig_start_pos = kana.index(k)
             break
 
-    max_char_len = 5
+    max_char_len = len(kana) - orig_start_pos
     kana_list = list(kana)
 
     for char_len in range(max_char_len, 0, -1):
