@@ -145,5 +145,5 @@ if __name__ == "__main__":
     ordered_kanji_dict = OrderedDict(sorted(ajd.items(),
                                             key=lambda item: (len(item[0]), item[0]), reverse=True))
     okd_str = json.dumps(ordered_kanji_dict, indent=2, ensure_ascii=False, encoding="utf-8", separators=(',', ': '))
-    with open("C:\\Users\\Kevin\\kana_to_romaji\\jp_mappings\\jm_dict_autod_kanji.json", 'w') as writer:
+    with open(os.path.join(JP_MAPPINGS_PATH, "jm_dict_autod_kanji.json"), 'w') as writer:
         writer.write(str(okd_str.encode("utf-8")))

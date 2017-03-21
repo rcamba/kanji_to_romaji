@@ -5,6 +5,10 @@ from collections import OrderedDict
 from kana_to_romaji.kana_to_romaji import kana_to_romaji
 
 
+PATH_TO_MODULE = os.path.dirname(__file__)
+JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
+
+
 def _godan_i_stem(godan):
     u_i_mapping = {
         u"う": u"い",
@@ -361,7 +365,7 @@ def conjugate_godan_polite_imperative_negative(godan):
 
 
 if __name__ == "__main__":
-    f = "C:\\Users\\Kevin\\kana_to_romaji\\jp_mappings\\jm_dict_autod_kanji.json"
+    f = os.path.join(JP_MAPPINGS_PATH, "jm_dict_autod_kanji.json")
     with open(os.path.join(f)) as data_file:
         jukugo_dict = json.load(data_file)
 
@@ -397,5 +401,5 @@ if __name__ == "__main__":
     okd_str = json.dumps(conjugated_mappings, indent=2, ensure_ascii=False, encoding="utf-8",
                          separators=(',', ': '))
 
-    with open("C:\\Users\\Kevin\\kana_to_romaji\\jp_mappings\\conjugated_godan_kanji.json", 'w') as writer:
+    with open(os.path.join(JP_MAPPINGS_PATH, "conjugated_godan_kanji.json"), 'w') as writer:
         writer.write(str(okd_str.encode("utf-8")))
