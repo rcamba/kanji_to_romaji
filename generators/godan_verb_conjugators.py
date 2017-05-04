@@ -114,7 +114,7 @@ def get_godan_a_stem(godan):
 
 
 def _godan_o_stem(godan):
-    u_a_mapping = {
+    u_o_mapping = {
         u"う": u"お",
         u"く": u"こ",
         u"ぐ": u"ご",
@@ -130,14 +130,14 @@ def _godan_o_stem(godan):
         u"る": u"ろ"
     }
 
-    if godan[-1] in u_a_mapping:
-        return godan[:-1] + u_a_mapping[godan[-1]]
+    if godan[-1] in u_o_mapping:
+        return godan[:-1] + u_o_mapping[godan[-1]]
     else:
         raise Exception("Not a valid godan ending: " + godan[-1])
 
 
 def _godan_o_stem_romaji(godan_romaji, godan_type):
-    u_a_mapping_romaji = {
+    u_o_mapping_romaji = {
         "u": "o",
         "ku": "ko",
         "gu": "go",
@@ -153,7 +153,7 @@ def _godan_o_stem_romaji(godan_romaji, godan_type):
         "ru": "ro"
     }
 
-    return u_a_mapping_romaji[godan_type].join(godan_romaji.rsplit(godan_type, 1))
+    return u_o_mapping_romaji[godan_type].join(godan_romaji.rsplit(godan_type, 1))
 
 
 def get_godan_o_stem(godan):
@@ -166,7 +166,7 @@ def get_godan_o_stem(godan):
 
 
 def _godan_e_stem(godan):
-    u_a_mapping = {
+    u_e_mapping = {
         u"う": u"え",
         u"く": u"け",
         u"ぐ": u"げ",
@@ -182,14 +182,14 @@ def _godan_e_stem(godan):
         u"る": u"れ"
     }
 
-    if godan[-1] in u_a_mapping:
-        return godan[:-1] + u_a_mapping[godan[-1]]
+    if godan[-1] in u_e_mapping:
+        return godan[:-1] + u_e_mapping[godan[-1]]
     else:
         raise Exception("Not a valid godan ending: " + godan[-1])
 
 
 def _godan_e_stem_romaji(godan_romaji, godan_type):
-    u_a_mapping_romaji = {
+    u_e_mapping_romaji = {
         "u": "e",
         "ku": "ke",
         "gu": "ge",
@@ -204,7 +204,7 @@ def _godan_e_stem_romaji(godan_romaji, godan_type):
         "mu": "me",
         "ru": "re"
     }
-    return u_a_mapping_romaji[godan_type].join(godan_romaji.rsplit(godan_type, 1))
+    return u_e_mapping_romaji[godan_type].join(godan_romaji.rsplit(godan_type, 1))
 
 
 def get_godan_e_stem(godan):
