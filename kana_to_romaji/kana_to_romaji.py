@@ -115,7 +115,7 @@ def get_kana_type(c):
 
 def translate_particles(kana_list):
     def is_noun(k_block):
-        return hasattr(k_block, "w_type") and k_block.w_type == "noun"
+        return hasattr(k_block, "w_type") and (k_block.w_type == "noun" or k_block.w_type == "pronoun")
 
     def type_changes(p, n):
         if get_kana_type(p) is not None and get_kana_type(n) is not None:
@@ -224,6 +224,8 @@ def prepare_kana_list(kana):
 
 
 def translate_kanji(kana_list):
+    # detect if verb kanji - try to conjugate on the fly without storing
+    # i.e conjugate found verb and add to dict
     for i in range(0, len(kana_list)):
         if type(kana_list[i]) == KanjiBlock:
             kana_list[i] = kana_list[i].romaji

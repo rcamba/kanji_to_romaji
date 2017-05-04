@@ -47,6 +47,8 @@ def strip_pos(pos_type):
     res = pos_type
     if "adjectival" in pos_type or "adjective" in pos_type:
         res = "adjective"
+    elif "pronoun" in pos_type:
+        res = "pronoun"
     elif "noun" in pos_type:
         res = "noun"
     elif "adverb" in pos_type:
@@ -62,6 +64,41 @@ def strip_pos(pos_type):
     return res
 
 
+def get_most_common_reading(e):
+    most_common_reading = "no_reading " + e.iterfind("ent_seq").next().text
+    curr_top_weight = -2
+    index_ = 0
+    for r_ele in e.iterfind("r_ele"):
+        for r_ in r_ele.iterfind("reb"):
+            weight = 0
+            re_pris = [rp.text for rp in r_ele.iterfind("re_pri")]
+
+            if index_ == 0:  # give more weight to first reading
+                weight += 1.5
+
+            if "ichi1" in re_pris or "ichi2" in re_pris:
+                weight += 1
+            if "news1" in re_pris or "news2" in re_pris:
+                weight += 1
+            if "spec1" in re_pris or "spec2" in re_pris:
+                weight += 1
+            if len([r[-2:] for r in re_pris if "nf" in r]) > 0:
+                weight += 5.0 / int([r[-2:] for r in re_pris if "nf" in r][0])
+
+            if len([k_ele for k_ele in e.iterfind("r_ele")]) == 1:
+                weight += 0.5
+            if "suffix" in [p.text for p in e.iterfind("sense").next().iterfind("pos")]:
+                weight -= 1
+
+            if weight > curr_top_weight:
+                curr_top_weight = weight
+                most_common_reading = r_.text
+
+        index_ += 1
+
+    return most_common_reading, curr_top_weight
+
+
 def main():
     """
     iterate through each entry of JM_DICT
@@ -75,7 +112,7 @@ def main():
     entries = root.findall("entry")
 
     for e in entries:
-        first_romaji_reading = e.iterfind("r_ele").next().iterfind("reb").next().text
+        most_common_reading, freq_counter = get_most_common_reading(e)
         raw_first_pos = e.iterfind("sense").next().iterfind("pos").next().text
         misc = [m.text for m in e.iterfind("sense").next().iterfind("misc")]
         stripped_first_pos = strip_pos(raw_first_pos)
@@ -85,32 +122,23 @@ def main():
                 for k_ in k_ele.iterfind("keb"):
                     if k_.text in auto_jm_dict:
                         try:
-                            ke_pris = [kp.text for kp in k_ele.iterfind("ke_pri")]
-                            if ("ichi1" in ke_pris or "ichi2" in ke_pris) and \
-                                    auto_jm_dict[k_.text]["ichi"] is False:
+                            if freq_counter > 0 and freq_counter > auto_jm_dict[k_.text]["freq"]:
                                 auto_jm_dict[k_.text] = {
-                                    "romaji": kana_to_romaji(first_romaji_reading),
+                                    "romaji": kana_to_romaji(most_common_reading),
                                     "w_type": stripped_first_pos,
-                                    "ichi": True
+                                    "freq": freq_counter
                                 }
                         except IndexError:
                             if k_.text in auto_jm_dict:
                                 del auto_jm_dict[k_.text]
                                 print k_.text
 
-                        except StopIteration:
-                            pass
-
                     else:
                         try:
-                            is_ichi = "ichi" in k_ele.iterfind("ke_pri").next().text
-                        except StopIteration:
-                            is_ichi = False
-                        try:
                             auto_jm_dict[k_.text] = {
-                                    "romaji": kana_to_romaji(first_romaji_reading),
+                                    "romaji": kana_to_romaji(most_common_reading),
                                     "w_type": stripped_first_pos,
-                                    "ichi": is_ichi
+                                    "freq": freq_counter
                                 }
                         except IndexError:
                             if k_.text in auto_jm_dict:
@@ -122,25 +150,11 @@ def main():
     return auto_jm_dict
 
 
-def load_kanji_mappings_dict_no_jm_autod():
-    kanji_romaji_mapping = {}
-    for f in os.listdir(JP_MAPPINGS_PATH):
-        if os.path.splitext(f)[1] == ".json" and "kanji" in f and "jm_dict_autod_kanji" not in f:
-            with open(os.path.join(JP_MAPPINGS_PATH, f)) as data_file:
-                kanji_romaji_mapping.update(json.load(data_file))
-    return kanji_romaji_mapping
-
-
 if __name__ == "__main__":
-    knj = load_kanji_mappings_dict_no_jm_autod()
-
     ajd = main()
 
     for k in ajd.keys():
-        if k in knj:
-            del ajd[k]
-        else:
-            del ajd[k]["ichi"]
+        del ajd[k]["freq"]
 
     ordered_kanji_dict = OrderedDict(sorted(ajd.items(),
                                             key=lambda item: (len(item[0]), item[0]), reverse=True))

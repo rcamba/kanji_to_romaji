@@ -7,57 +7,20 @@ class TestKanji(unittest.TestCase):
     def setUp(self):
         print "\nStarting " + self.__module__ + ": " + self._testMethodName
 
-    # test_日
-    def test_u65E5(self):
-        self.assertEqual(kana_to_romaji(u"曜日"), "youbi")
-        self.assertEqual(kana_to_romaji(u"今日"), "kyou")
-        self.assertEqual(kana_to_romaji(u"人日"), "ninnichi")
-        self.assertEqual(kana_to_romaji(u"日記"), "nikki")
-        self.assertEqual(kana_to_romaji(u"日給"), "nikkyuu")
-        self.assertEqual(kana_to_romaji(u"日系"), "nikkei")
-        self.assertEqual(kana_to_romaji(u"日月"), "jitsugetsu")
-        self.assertEqual(kana_to_romaji(u"日銀"), "nichigin")
-        self.assertEqual(kana_to_romaji(u"日光"), "nikkou")
-        self.assertEqual(kana_to_romaji(u"日照"), "nisshou")
-        self.assertEqual(kana_to_romaji(u"日章旗"), "nisshouki")
-        self.assertEqual(kana_to_romaji(u"日進月歩"), "nisshingeppo")
-        self.assertEqual(kana_to_romaji(u"日中"), "nitchuu")
-        self.assertEqual(kana_to_romaji(u"日常"), "nichijou")
-        self.assertEqual(kana_to_romaji(u"日常茶飯事"), "nichijousahanji")
-        self.assertEqual(kana_to_romaji(u"日程"), "nittei")
-        self.assertEqual(kana_to_romaji(u"日々"), "hibi")
-        self.assertEqual(kana_to_romaji(u"日暮れ"), "higure")
-        self.assertEqual(kana_to_romaji(u"日没"), "nichibotsu")
-        self.assertEqual(kana_to_romaji(u"日本"), "nihon")
-        self.assertEqual(kana_to_romaji(u"日夜"), "nichiya")
-        self.assertEqual(kana_to_romaji(u"日用"), "nichiyou")
-        self.assertEqual(kana_to_romaji(u"日曜"), "nichiyou")
-        self.assertEqual(kana_to_romaji(u"日曜日"), "nichiyoubi")
-        self.assertEqual(kana_to_romaji(u"日輪"), "nichirin")
-        self.assertEqual(kana_to_romaji(u"日帰り"), "higaeri")
-        self.assertEqual(kana_to_romaji(u"日陰"), "hikage")
-        self.assertEqual(kana_to_romaji(u"日影"), "hikage")
-        self.assertEqual(kana_to_romaji(u"日傘"), "higasa")
-        self.assertEqual(kana_to_romaji(u"日柄"), "higara")
-        self.assertEqual(kana_to_romaji(u"日時計"), "hidokei")
-        self.assertEqual(kana_to_romaji(u"日付"), "hizuke")
-        self.assertEqual(kana_to_romaji(u"日付変更線"), "hizukehenkousen")
-        self.assertEqual(kana_to_romaji(u"日向"), "hinata")
-        self.assertEqual(kana_to_romaji(u"日読み"), "hiyomi")
-        self.assertEqual(kana_to_romaji(u"日和"), "hiyori")
-        self.assertEqual(kana_to_romaji(u"日和見"), "hiyorimi")
-        self.assertEqual(kana_to_romaji(u"毎日"), "mainichi")
-        self.assertEqual(kana_to_romaji(u"先日"), "senjitsu")
-        self.assertEqual(kana_to_romaji(u"昨日"), "kinou")
-        self.assertEqual(kana_to_romaji(u"明日"), "ashita")
-        self.assertEqual(kana_to_romaji(u"在日"), "zainichi")
-        self.assertEqual(kana_to_romaji(u"尽日"), "jinjitsu")
-
     def test_arbit_common(self):
         test_and_expected = {
             u"私": "watashi",
             u"僕": "boku",
-            u"君": "kimi"
+            u"君": "kimi",
+            u"早々": "sousou",
+            u"河": "kawa",
+            u"曜日": "youbi",
+            u"今日": "kyou",
+            u"日記": "nikki",
+            u"日本": "nihon",
+            u"日和": "hiyori",
+            u"明日": "ashita",
+            u"昨日": "kinou"
         }
 
         for key in test_and_expected.keys():
@@ -118,6 +81,15 @@ class TestKanji(unittest.TestCase):
     def test_ni_particle(self):
         test_and_expected = {
             u"友達に会いました": u"tomodachi ni aimashita",  # noun followed by KanjiBlock/verb
+            u"ともだちにあいました": u"tomodachiniaimashita"  # no KanjiBlocks and no change in type
+        }
+
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+
+    def test_mo_particle(self):
+        test_and_expected = {
+            u"背中を押すもの": u"senaka wo osu mo no",  # type change (押す) is Kanji to hiragana の
             u"ともだちにあいました": u"tomodachiniaimashita"  # no KanjiBlocks and no change in type
         }
 
