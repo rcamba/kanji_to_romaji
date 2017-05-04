@@ -152,25 +152,39 @@ def translate_particles(kana_list):
     mo_prtcle = Particle("mo")
     ga_prtcle = Particle("ga")
 
-    for i in range(1, len(kana_list) - 1):
+    for i in range(1, len(kana_list)):
+        is_last_char = False
         prev_c = kana_list[i - 1]
-        next_c = kana_list[i + 1]
+        if i == len(kana_list) - 1:
+            is_last_char = True
+            next_c = ""
+        else:
+            next_c = kana_list[i + 1]
 
         if kana_list[i] == no_hira_char:
-            if (is_noun(prev_c) and is_noun(next_c)) or type_changes(prev_c, next_c):
+            if (is_noun(prev_c) and is_noun(next_c)) or \
+                    type_changes(prev_c, next_c) or \
+                    is_noun(prev_c) and is_last_char:
                 kana_list[i] = no_prtcle
 
         elif kana_list[i] == ha_hira_char:
-            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c) or \
-                    particle_imm_follows(prev_c, [e_prtcle, to_prtcle, ni_prtcle, de_prtcle]):
+            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or \
+                    type_changes(prev_c, next_c) or \
+                    particle_imm_follows(prev_c, [e_prtcle, to_prtcle, ni_prtcle, de_prtcle]) or \
+                    is_noun(prev_c) and is_last_char:
                 kana_list[i] = wa_prtcle
 
         elif kana_list[i] == mo_hira_char:
-            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c) or \
-                    particle_imm_follows(prev_c, [ni_prtcle, de_prtcle]):
+            if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or \
+                    type_changes(prev_c, next_c) or \
+                    particle_imm_follows(prev_c, [ni_prtcle, de_prtcle]) or \
+                    is_noun(prev_c) and is_last_char:
                 kana_list[i] = mo_prtcle
 
-        elif (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or type_changes(prev_c, next_c):
+        elif (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or \
+                type_changes(prev_c, next_c) or \
+                is_noun(prev_c) and is_last_char:
+
             if kana_list[i] == he_hira_char:
                 kana_list[i] = e_prtcle
 

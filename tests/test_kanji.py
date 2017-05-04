@@ -43,7 +43,8 @@ class TestKanji(unittest.TestCase):
         test_and_expected = {
             u"災厄の時代": u"saiyaku no jidai",  # noun followed by KanjiBlock/noun
             u"私のパーティー": u"watashi no paatii",  # type change between no character  (hira no kata)
-            u"さいやくのじだい": u"saiyakunojidai"  # no KanjiBlocks and no change in type
+            u"さいやくのじだい": u"saiyakunojidai",  # no KanjiBlocks and no change in type
+            u"俺の": u"ore no"  # is last character and previous is noun
         }
 
         for key in test_and_expected.keys():
@@ -53,7 +54,8 @@ class TestKanji(unittest.TestCase):
         test_and_expected = {
             u"私は嬉": u"watashi wa ureshii",  # noun followed by KanjiBlock/adjective
             u"わたしはロバート": u"watashi wa robaato",  # type change between ha character (hira ha kata)
-            u"わたしはうれしい": u"watashihaureshii"  # no KanjiBlocks and no change in type
+            u"わたしはうれしい": u"watashihaureshii",  # no KanjiBlocks and no change in type
+            u"君の名は": u"kimi no na wa"  # is last character and previous is noun
         }
 
         for key in test_and_expected.keys():
@@ -63,7 +65,8 @@ class TestKanji(unittest.TestCase):
         test_and_expected = {
             u"部屋へ帰る": u"heya e kaeru",  # noun followed by KanjiBlock/adjective
             u"アパートへくる": u"apaato e kuru",  # type change between he character (kata he hira)
-            u"へやへかえる": u"heyahekaeru"  # no KanjiBlocks and no change in type
+            u"へやへかえる": u"heyahekaeru",  # no KanjiBlocks and no change in type
+            u"更に向こうへ": u"sarani mukou e"  # is last character and previous is noun
         }
         for key in test_and_expected.keys():
             self.assertEqual(kana_to_romaji(key), test_and_expected[key])
@@ -81,7 +84,8 @@ class TestKanji(unittest.TestCase):
     def test_ni_particle(self):
         test_and_expected = {
             u"友達に会いました": u"tomodachi ni aimashita",  # noun followed by KanjiBlock/verb
-            u"ともだちにあいました": u"tomodachiniaimashita"  # no KanjiBlocks and no change in type
+            u"ともだちにあいました": u"tomodachiniaimashita",  # no KanjiBlocks and no change in type
+            u"会いました友達に": u"aimashita tomodachi ni"  # is last character and previous is noun
         }
 
         for key in test_and_expected.keys():
@@ -90,7 +94,7 @@ class TestKanji(unittest.TestCase):
     def test_mo_particle(self):
         test_and_expected = {
             u"背中を押すもの": u"senaka wo osu mo no",  # type change (押す) is Kanji to hiragana の
-            u"ともだちにあいました": u"tomodachiniaimashita"  # no KanjiBlocks and no change in type
+            u"私も": u"watashi mo"  # is last character and previous is noun
         }
 
         for key in test_and_expected.keys():
