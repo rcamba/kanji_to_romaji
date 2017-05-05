@@ -1,8 +1,4 @@
 {
-  "逢坂大河": {
-    "w_type": "noun",
-    "romaji": "Aisaka Taiga"
-  },
   "朝日奈丸佳": {
     "w_type": "noun",
     "romaji": "Asahina Madoka"
@@ -11,25 +7,25 @@
     "w_type": "noun",
     "romaji": "Takami Chika"
   },
+  "鏡音レン": {
+    "w_type": "noun",
+    "romaji": "Kagamine Len"
+  },
+  "鏡音リン": {
+    "w_type": "noun",
+    "romaji": "Kagamine Rin"
+  },
+  "逢坂大河": {
+    "w_type": "noun",
+    "romaji": "Aisaka Taiga"
+  },
+  "水樹奈々": {
+    "w_type": "noun",
+    "romaji": "Mizuki Nana"
+  },
   "桜内梨子": {
     "w_type": "noun",
     "romaji": "Sakurauchi Riko"
-  },
-  "渡辺曜": {
-    "w_type": "",
-    "romaji": "Watanabe You"
-  },
-  "原由実": {
-    "w_type": "",
-    "romaji": "Hara Yumi"
-  },
-  "久美子": {
-    "w_type": "noun",
-    "romaji": "Kumiko"
-  },
-  "奥寺": {
-    "w_type": "noun",
-    "romaji": "Okudera"
   },
   "山吹沙綾": {
     "w_type": "noun",
@@ -39,16 +35,40 @@
     "w_type": "noun",
     "romaji": "Hatsune Miku"
   },
-  "鏡音リン": {
+  "渡辺曜": {
     "w_type": "noun",
-    "romaji": "Kagamine Rin"
+    "romaji": "Watanabe You"
   },
-  "鏡音レン": {
+  "原由実": {
     "w_type": "noun",
-    "romaji": "Kagamine Len"
+    "romaji": "Hara Yumi"
   },
-  "水樹奈々": {
+  "北宇治": {
     "w_type": "noun",
-    "romaji": "Mizuki Nana"
+    "romaji": "Kita Uji"
+  },
+  "六本木": {
+    "w_type": "noun",
+    "romaji": "Roppongi"
+  },
+  "久美子": {
+    "w_type": "noun",
+    "romaji": "Kumiko"
+  },
+  "政宗": {
+    "w_type": "noun",
+    "romaji": "Masamune"
+  },
+  "小林": {
+    "w_type": "noun",
+    "romaji": "Kobayashi"
+  },
+  "奥寺": {
+    "w_type": "noun",
+    "romaji": "Okudera"
+  },
+  "佐藤": {
+    "w_type": "noun",
+    "romaji": "Satou"
   }
 }

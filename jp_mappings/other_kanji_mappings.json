@@ -87,17 +87,9 @@
     "w_type": "",
     "romaji": "dai gaman"
   },
-  "北宇治": {
-    "w_type": "",
-    "romaji": "Kita Uji"
-  },
   "冒険記": {
     "w_type": "",
     "romaji": "bouken-ki"
-  },
-  "六本木": {
-    "w_type": "noun",
-    "romaji": "Roppongi"
   },
   "ひろ美": {
     "w_type": "",
@@ -155,14 +147,6 @@
     "w_type": "",
     "romaji": "kyoku dai"
   },
-  "政宗": {
-    "w_type": "",
-    "romaji": "Masamune"
-  },
-  "小林": {
-    "w_type": "",
-    "romaji": "Kobayashi"
-  },
   "天鏡": {
     "w_type": "",
     "romaji": "amekagami"
@@ -178,10 +162,6 @@
   "何気": {
     "w_type": "adverb",
     "romaji": "nanigenaku"
-  },
-  "佐藤": {
-    "w_type": "",
-    "romaji": "Satou"
   },
   "会い": {
     "w_type": "verb",
