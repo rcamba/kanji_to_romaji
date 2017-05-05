@@ -215,17 +215,11 @@ def prepare_kana_list(kana):
     if len(UnicodeRomajiMapping.kanji_mapping) == 0:
         UnicodeRomajiMapping.kanji_mapping = load_kanji_mappings_dict()
 
-    orig_start_pos = 0
-    for k in kana:
-        if is_kanji(k):
-            orig_start_pos = kana.index(k)
-            break
-
-    max_char_len = len(kana) - orig_start_pos
+    max_char_len = len(kana)
     kana_list = list(kana)
 
     for char_len in range(max_char_len, 0, -1):
-        start_pos = orig_start_pos
+        start_pos = 0
         while start_pos < len(kana_list) - char_len + 1:
             curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
             if curr_chars in UnicodeRomajiMapping.kanji_mapping:

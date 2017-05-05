@@ -26,6 +26,15 @@ class TestKanji(unittest.TestCase):
         for key in test_and_expected.keys():
             self.assertEqual(kana_to_romaji(key), test_and_expected[key])
 
+    def test_match_starting_at_full(self):
+        test_and_expected = {
+            u"のけ反る": "nokezoru",
+            u"反る": "kaeru",
+        }
+
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+
     def test_kanji_iteration_mark(self):
         # regular
         self.assertEqual(kana_to_romaji(u"若"), "waka")
