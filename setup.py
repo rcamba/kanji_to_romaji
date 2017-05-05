@@ -13,5 +13,8 @@ setup(
     author_email='rcamba@users.noreply.github.com',
     description='Translate Kana to Romaji with some weak support for some Kanji.',
     data_files=[("jp_mappings", [os.path.join("jp_mappings", f)
-                                 for f in os.listdir(os.path.join(PATH_TO_MODULE, "jp_mappings"))])]
+                                 for f in os.listdir(os.path.join(PATH_TO_MODULE, "jp_mappings"))])],
+    extras_require={
+        'fasterjson': ["simplejson>=3.10.0"],
+    }
 )

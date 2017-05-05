@@ -1,9 +1,15 @@
 ﻿import os
 import sys
-import json
+try:
+    # noinspection PyPackageRequirements
+    import simplejson as json
+except ImportError:
+    import json
+
 from models import UnicodeRomajiMapping
 from models import KanjiBlock
 from models import Particle
+
 
 PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
