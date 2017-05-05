@@ -9,6 +9,13 @@ PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
 
 
+def set_global_godan(gr, gtr):
+    global godan_romaji
+    global godan_type_romaji
+    godan_romaji = gr
+    godan_type_romaji = gtr
+
+
 def _godan_i_stem(godan):
     u_i_mapping = {
         u"う": u"い",
@@ -32,7 +39,7 @@ def _godan_i_stem(godan):
         raise Exception("Not a valid godan ending: " + godan[-1])
 
 
-def _godan_i_stem_romaji(godan_romaji, godan_type):
+def _godan_i_stem_romaji(godan_romaji_, godan_type):
     u_i_mapping_romaji = {
         "u": "i",
         "ku": "ki",
@@ -49,13 +56,10 @@ def _godan_i_stem_romaji(godan_romaji, godan_type):
         "ru": "ri"
     }
 
-    return u_i_mapping_romaji[godan_type].join(godan_romaji.rsplit(godan_type, 1))
+    return u_i_mapping_romaji[godan_type].join(godan_romaji_.rsplit(godan_type, 1))
 
 
 def get_godan_i_stem(godan):
-    godan_type_romaji = kana_to_romaji(godan[-1])
-    godan_romaji = kana_to_romaji(godan)
-
     godan_stem_romaji = _godan_i_stem_romaji(godan_romaji, godan_type_romaji)
     godan_stem = _godan_i_stem(godan)
     return godan_stem, godan_stem_romaji
@@ -84,7 +88,7 @@ def _godan_a_stem(godan):
         raise Exception("Not a valid godan ending: " + godan[-1])
 
 
-def _godan_a_stem_romaji(godan_romaji, godan_type):
+def _godan_a_stem_romaji(godan_romaji_, godan_type):
     u_a_mapping_romaji = {
         "u": "wa",
         "ku": "ka",
@@ -101,13 +105,10 @@ def _godan_a_stem_romaji(godan_romaji, godan_type):
         "ru": "ra"
     }
 
-    return u_a_mapping_romaji[godan_type].join(godan_romaji.rsplit(godan_type, 1))
+    return u_a_mapping_romaji[godan_type].join(godan_romaji_.rsplit(godan_type, 1))
 
 
 def get_godan_a_stem(godan):
-    godan_type_romaji = kana_to_romaji(godan[-1])
-    godan_romaji = kana_to_romaji(godan)
-
     godan_stem_romaji = _godan_a_stem_romaji(godan_romaji, godan_type_romaji)
     godan_stem = _godan_a_stem(godan)
     return godan_stem, godan_stem_romaji
@@ -136,7 +137,7 @@ def _godan_o_stem(godan):
         raise Exception("Not a valid godan ending: " + godan[-1])
 
 
-def _godan_o_stem_romaji(godan_romaji, godan_type):
+def _godan_o_stem_romaji(godan_romaji_, godan_type):
     u_o_mapping_romaji = {
         "u": "o",
         "ku": "ko",
@@ -153,13 +154,10 @@ def _godan_o_stem_romaji(godan_romaji, godan_type):
         "ru": "ro"
     }
 
-    return u_o_mapping_romaji[godan_type].join(godan_romaji.rsplit(godan_type, 1))
+    return u_o_mapping_romaji[godan_type].join(godan_romaji_.rsplit(godan_type, 1))
 
 
 def get_godan_o_stem(godan):
-    godan_type_romaji = kana_to_romaji(godan[-1])
-    godan_romaji = kana_to_romaji(godan)
-
     godan_stem_romaji = _godan_o_stem_romaji(godan_romaji, godan_type_romaji)
     godan_stem = _godan_o_stem(godan)
     return godan_stem, godan_stem_romaji
@@ -188,7 +186,7 @@ def _godan_e_stem(godan):
         raise Exception("Not a valid godan ending: " + godan[-1])
 
 
-def _godan_e_stem_romaji(godan_romaji, godan_type):
+def _godan_e_stem_romaji(godan_romaji_, godan_type):
     u_e_mapping_romaji = {
         "u": "e",
         "ku": "ke",
@@ -204,13 +202,10 @@ def _godan_e_stem_romaji(godan_romaji, godan_type):
         "mu": "me",
         "ru": "re"
     }
-    return u_e_mapping_romaji[godan_type].join(godan_romaji.rsplit(godan_type, 1))
+    return u_e_mapping_romaji[godan_type].join(godan_romaji_.rsplit(godan_type, 1))
 
 
 def get_godan_e_stem(godan):
-    godan_type_romaji = kana_to_romaji(godan[-1])
-    godan_romaji = kana_to_romaji(godan)
-
     godan_stem_romaji = _godan_e_stem_romaji(godan_romaji, godan_type_romaji)
     godan_stem = _godan_e_stem(godan)
     return godan_stem, godan_stem_romaji
@@ -239,8 +234,8 @@ def conjugate_godan_polite_present_negative(godan):
 
 def conjugate_godan_plain_past(godan):
     godan_last_syllable_removed = godan[:-1]
-    godan_last_syllable_romaji = kana_to_romaji(godan[-1])
-    godan_last_syllable_removed_romaji = "".join(kana_to_romaji(godan).rsplit(godan_last_syllable_romaji, 1))
+    godan_last_syllable_romaji = godan_type_romaji
+    godan_last_syllable_removed_romaji = "".join(godan_romaji.rsplit(godan_last_syllable_romaji, 1))
 
     group_mapping = {
         u"く": (u"いた", "ita"),
@@ -283,9 +278,9 @@ def conjugate_godan_polite_past_negative(godan):
 
 
 def conjugate_godan_plain_te_form(godan):
-    godan_last_syllable_romaji = kana_to_romaji(godan[-1])
+    godan_last_syllable_romaji = godan_type_romaji
     godan_last_syllable_removed = godan[:-1]
-    godan_last_syllable_removed_romaji = "".join(kana_to_romaji(godan).rsplit(godan_last_syllable_romaji, 1))
+    godan_last_syllable_removed_romaji = "".join(godan_romaji.rsplit(godan_last_syllable_romaji, 1))
 
     if godan == u"行く":
         godan_type = u"う"
@@ -391,6 +386,7 @@ if __name__ == "__main__":
     conjugated_mappings = OrderedDict({})
     for k in jukugo_dict.keys():
         if jukugo_dict[k]["w_type"] == "godan verb":
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             for c_func in conjugator_funcs:
                 ck, cr = c_func(k)
                 conjugated_mappings[ck] = {

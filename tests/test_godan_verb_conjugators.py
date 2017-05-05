@@ -1,11 +1,13 @@
 # coding=utf-8
 import unittest
+from kana_to_romaji.kana_to_romaji import kana_to_romaji
 from generators.godan_verb_conjugators import conjugate_godan_plain_te_form, conjugate_godan_plain_te_form_negative, \
     conjugate_godan_plain_volitional, conjugate_godan_polite_volitional, conjugate_godan_plain_imperative, \
     conjugate_godan_polite_imperative, conjugate_godan_polite_present_affirmative, conjugate_godan_plain_negative, \
     conjugate_godan_polite_present_negative, conjugate_godan_polite_past, conjugate_godan_plain_past, \
     conjugate_godan_polite_past_negative, conjugate_godan_plain_past_negative, \
-    conjugate_godan_polite_imperative_negative, conjugate_godan_polite_te_form, conjugate_godan_polite_te_form_negative
+    conjugate_godan_polite_imperative_negative, conjugate_godan_polite_te_form, \
+    conjugate_godan_polite_te_form_negative, set_global_godan
 
 
 class TestGodanVerbConjugators(unittest.TestCase):
@@ -27,6 +29,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_present_affirmative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -45,6 +48,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_plain_negative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -63,6 +67,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_present_negative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -81,6 +86,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_plain_past(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -99,6 +105,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_past(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -117,6 +124,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_plain_past_negative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -135,6 +143,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_past_negative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -153,6 +162,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_plain_te_form(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -171,6 +181,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_te_form(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -189,6 +200,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_plain_te_form_negative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -207,6 +219,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_te_form_negative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -225,6 +238,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_plain_volitional(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -243,6 +257,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_volitional(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -261,6 +276,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_plain_imperative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -279,6 +295,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_imperative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
@@ -297,6 +314,7 @@ class TestGodanVerbConjugators(unittest.TestCase):
         }
 
         for k in godan_expected.keys():
+            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             ck, cr = conjugate_godan_polite_imperative_negative(k)
             self.assertEqual(godan_expected[k], (ck, cr))
 
