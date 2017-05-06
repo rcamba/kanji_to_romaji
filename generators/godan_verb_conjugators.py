@@ -362,7 +362,7 @@ def conjugate_godan_polite_imperative_negative(godan):
 if __name__ == "__main__":
     f = os.path.join(JP_MAPPINGS_PATH, "jm_dict_autod_kanji.json")
     with open(os.path.join(f)) as data_file:
-        jukugo_dict = json.load(data_file)
+        jm_dict = json.load(data_file)
 
     conjugator_funcs = [
         conjugate_godan_polite_present_affirmative,
@@ -384,8 +384,8 @@ if __name__ == "__main__":
     ]
 
     conjugated_mappings = OrderedDict({})
-    for k in jukugo_dict.keys():
-        if jukugo_dict[k]["w_type"] == "godan verb":
+    for k in jm_dict.keys():
+        if jm_dict[k]["w_type"] == "godan verb":
             set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             for c_func in conjugator_funcs:
                 ck, cr = c_func(k)

@@ -1,6 +1,8 @@
 # coding=utf-8
 import os
 import json
+from collections import OrderedDict
+
 from kana_to_romaji.kana_to_romaji import kana_to_romaji
 
 PATH_TO_MODULE = os.path.dirname(__file__)
@@ -138,7 +140,7 @@ if __name__ == "__main__":
         conjugate_ichidan_polite_imperative_negative
     ]
 
-    conjugated_mappings = {}
+    conjugated_mappings = OrderedDict({})
     for k in jm_dict.keys():
         if jm_dict[k]["w_type"] == "ichidan verb":
             set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
