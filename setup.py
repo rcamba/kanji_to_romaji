@@ -1,9 +1,9 @@
-from distutils.core import setup
 import os
+import setuptools
 
 PATH_TO_MODULE = os.path.dirname(__file__)
 
-setup(
+setuptools.setup(
     name='Kana_to_Romaji',
     version='1.0',
     packages=['kana_to_romaji', 'models', 'jp_mappings'],
