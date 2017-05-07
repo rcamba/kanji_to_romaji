@@ -365,22 +365,13 @@ if __name__ == "__main__":
         jm_dict = json.load(data_file)
 
     conjugator_funcs = [
-        conjugate_godan_polite_present_affirmative,
-        conjugate_godan_plain_negative,
-        conjugate_godan_polite_present_negative,
+        get_godan_a_stem,
+        get_godan_i_stem,
+        get_godan_e_stem,
+        get_godan_o_stem,
+
         conjugate_godan_plain_past,
-        conjugate_godan_polite_past,
-        conjugate_godan_plain_past_negative,
-        conjugate_godan_polite_past_negative,
-        conjugate_godan_plain_te_form,
-        conjugate_godan_polite_te_form,
-        conjugate_godan_plain_te_form_negative,
-        conjugate_godan_polite_te_form_negative,
-        conjugate_godan_plain_volitional,
-        conjugate_godan_polite_volitional,
-        conjugate_godan_plain_imperative,
-        conjugate_godan_polite_imperative,
-        conjugate_godan_polite_imperative_negative
+        conjugate_godan_plain_te_form
     ]
 
     conjugated_mappings = OrderedDict({})
@@ -389,10 +380,12 @@ if __name__ == "__main__":
             set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
             for c_func in conjugator_funcs:
                 ck, cr = c_func(k)
-                conjugated_mappings[ck] = {
-                    "romaji": cr,
-                    "w_type": "conjugated godan verb"
-                }
+                # assume first is a more common reading and second/others will have alt readings
+                if ck not in conjugated_mappings:
+                    conjugated_mappings[ck] = {
+                        "romaji": cr,
+                        "w_type": "godan verb stem"
+                    }
 
     okd_str = json.dumps(conjugated_mappings, indent=2, ensure_ascii=False, encoding="utf-8",
                          separators=(',', ': '))

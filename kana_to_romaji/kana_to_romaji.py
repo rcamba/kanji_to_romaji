@@ -1,5 +1,7 @@
-﻿import os
+﻿# coding=utf-8
+import os
 import sys
+from collections import OrderedDict
 try:
     # noinspection PyPackageRequirements
     import simplejson as json
@@ -30,11 +32,45 @@ def load_kana_mappings_dict():
 
 
 def load_kanji_mappings_dict():
+    """
+    read through all json files that contain "kanji" in filename
+    load json data from files to kanji_romaji_mapping dictionary
+    if the key(kanji char) has already been added to kanji_romaji_mapping then create "other_readings" key
+        "other_readings" will consist of w_type for its key and the new romaji reading for it
+        e.g:
+            {u"係り":
+                'w_type': 'noun',
+                'romaji': 'kakari',
+                {'other_readings': {'godan verb stem': 'kakawari'}
+            }
+    :return: dict - kanji to romaji mapping
+    """
+
     kanji_romaji_mapping = {}
-    for f in os.listdir(JP_MAPPINGS_PATH):
+    f_list = os.listdir(JP_MAPPINGS_PATH)
+    f_list.remove("conjugated_godan_kanji.json")
+    f_list.remove("conjugated_ichidan_kanji.json")
+    f_list.append("conjugated_godan_kanji.json")
+    f_list.append("conjugated_ichidan_kanji.json")
+
+    for f in f_list:
         if os.path.splitext(f)[1] == ".json" and "kanji" in f:
             with open(os.path.join(JP_MAPPINGS_PATH, f)) as data_file:
-                kanji_romaji_mapping.update(json.load(data_file))
+                data_file_dict = json.load(data_file)
+                for k in data_file_dict.keys():
+                    if k in kanji_romaji_mapping and \
+                                    data_file_dict[k]["w_type"] != kanji_romaji_mapping[k]["w_type"]:
+                        # if "other_readings" in kanji_romaji_mapping[k] and \
+                        #                 data_file_dict[k]["w_type"] in kanji_romaji_mapping[k]["other_readings"]:
+                        #     raise
+
+                        if "other_readings" not in kanji_romaji_mapping[k]:
+                            kanji_romaji_mapping[k]["other_readings"] = {}
+
+                        kanji_romaji_mapping[k]["other_readings"][data_file_dict[k]["w_type"]] = \
+                            data_file_dict[k]["romaji"]
+                    else:
+                        kanji_romaji_mapping[k] = data_file_dict[k]
     return kanji_romaji_mapping
 
 
@@ -121,7 +157,7 @@ def get_kana_type(c):
 
 def translate_particles(kana_list):
     def is_noun(k_block):
-        return hasattr(k_block, "w_type") and (k_block.w_type == "noun" or k_block.w_type == "pronoun")
+        return hasattr(k_block, "w_type") and ("noun" in k_block.w_type or "pronoun" in k_block.w_type)
 
     def type_changes(p, n):
         if get_kana_type(p) is not None and get_kana_type(n) is not None:
@@ -217,6 +253,80 @@ def translate_kanji_iteration_mark(kana_list):
         prev_c = kana_list[i]
 
 
+def get_romaji_from_kanji(kana_list, curr_chars, start_pos, char_len):
+    """
+    if the given curr_chars has a verb stem reading then try to match it with an one of the listed verb endings
+    otherwise return/use its .romaji property
+
+    e.g:
+    kana_list = [KanjiBlock(灯り), ま, し, た]
+    curr_chars = 灯り can be verb stem reading
+    try and match 灯り with an ending within kana_list
+    灯り + ました matches
+    romaji is tomori + mashita (this modifies kana_list to remove matched ending)
+    kana_list = [tomorimashita]
+
+    kana_list = [KanjiBlock(灯り), を, 見ます]
+    curr_chars = 灯り can be verb stem reading
+    try and match 灯り with an ending within kana_list
+    no matching ending
+    romaji is akari
+    kana_list = [akari, を, 見ます]
+
+    :param kana_list:
+    :param curr_chars: KanjiBlock current characters to parse out of entire kana_list
+    :param start_pos:
+    :param char_len:
+    :return:
+    """
+    endings = OrderedDict({})
+    endings[u"ませんでした"] = "masen deshita"
+    endings[u"ませんで"] = "masende"
+    endings[u"なさるな"] = "nasaruna"
+    endings[u"なかった"] = "nakatta"
+    endings[u"れて"] = "rete"
+    endings[u"ましょう"] = "mashou"
+    endings[u"ました"] = "mashita"
+    endings[u"まして"] = "mashite"
+    endings[u"ません"] = "masen"
+    endings[u"ないで"] = "naide"
+    endings[u"なさい"] = "nasai"
+    endings[u"ます"] = "masu"
+    endings[u"よう"] = "you"  # ichidan
+    endings[u"ない"] = "nai"
+    endings[u"ろ"] = "ro"  # ichidan
+    endings[u"う"] = "u"
+
+    dict_entry = None
+    romaji = curr_chars.romaji
+
+    if "verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["w_type"]:
+        dict_entry = UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]
+
+    elif "other_readings" in UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]:
+
+        if "godan verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["other_readings"]:
+            dict_entry = {
+                "romaji": UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["other_readings"]["godan verb stem"]
+            }
+        elif "ichidan verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["other_readings"]:
+            dict_entry = {
+                "romaji": UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["other_readings"]["ichidan verb stem"]
+            }
+
+    if dict_entry is not None:
+        for e in endings.keys():
+            possible_conj = curr_chars.kanji + e
+            actual_conj = curr_chars.kanji + "".join(kana_list[start_pos + 1: (start_pos + char_len + len(e) - 1)])
+            if possible_conj == actual_conj:
+                for i in range(start_pos + char_len - 1 + len(e) - 1, start_pos, -1):
+                    del kana_list[i]
+                romaji = dict_entry["romaji"] + endings[e] + " "
+                break
+
+    return romaji
+
+
 def prepare_kana_list(kana):
     if len(UnicodeRomajiMapping.kanji_mapping) == 0:
         UnicodeRomajiMapping.kanji_mapping = load_kanji_mappings_dict()
@@ -238,11 +348,11 @@ def prepare_kana_list(kana):
 
 
 def translate_kanji(kana_list):
-    # detect if verb kanji - try to conjugate on the fly without storing
-    # i.e conjugate found verb and add to dict
-    for i in range(0, len(kana_list)):
+    i = 0
+    while i < len(kana_list):
         if type(kana_list[i]) == KanjiBlock:
-            kana_list[i] = kana_list[i].romaji
+            kana_list[i] = get_romaji_from_kanji(kana_list, kana_list[i], i, len(kana_list[i].kanji))
+        i += 1
 
     kana = "".join(kana_list)
     return kana

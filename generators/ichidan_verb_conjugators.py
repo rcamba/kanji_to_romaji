@@ -121,35 +121,13 @@ if __name__ == "__main__":
     with open(os.path.join(f)) as data_file:
         jm_dict = json.load(data_file)
 
-    conjugator_funcs = [
-        conjugate_ichidan_polite_present_affirmative,
-        conjugate_ichidan_plain_negative,
-        conjugate_ichidan_polite_present_negative,
-        conjugate_ichidan_plain_past,
-        conjugate_ichidan_polite_past,
-        conjugate_ichidan_plain_past_negative,
-        conjugate_ichidan_polite_past_negative,
-        conjugate_ichidan_plain_te_form,
-        conjugate_ichidan_polite_te_form,
-        conjugate_ichidan_plain_te_form_negative,
-        conjugate_ichidan_polite_te_form_negative,
-        conjugate_ichidan_plain_volitional,
-        conjugate_ichidan_polite_volitional,
-        conjugate_ichidan_plain_imperative,
-        conjugate_ichidan_polite_imperative,
-        conjugate_ichidan_polite_imperative_negative
-    ]
-
     conjugated_mappings = OrderedDict({})
     for k in jm_dict.keys():
         if jm_dict[k]["w_type"] == "ichidan verb":
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
-            for c_func in conjugator_funcs:
-                ck, cr = c_func()
-                conjugated_mappings[ck] = {
-                    "romaji": cr,
-                    "w_type": "conjugated ichidan verb"
-                }
+            conjugated_mappings[k[:-1]] = {
+                "romaji": kana_to_romaji(k)[:-2],
+                "w_type": "ichidan verb stem"
+            }
 
     okd_str = json.dumps(conjugated_mappings, indent=2, ensure_ascii=False, encoding="utf-8",
                          separators=(',', ': '))

@@ -1,9 +1,11 @@
 # coding=utf-8
 import unittest
 from kana_to_romaji.kana_to_romaji import kana_to_romaji
-from generators.ichidan_verb_conjugators import conjugate_ichidan_plain_te_form, conjugate_ichidan_plain_te_form_negative, \
+from generators.ichidan_verb_conjugators import conjugate_ichidan_plain_te_form, \
+    conjugate_ichidan_plain_te_form_negative, \
     conjugate_ichidan_plain_volitional, conjugate_ichidan_polite_volitional, conjugate_ichidan_plain_imperative, \
-    conjugate_ichidan_polite_imperative, conjugate_ichidan_polite_present_affirmative, conjugate_ichidan_plain_negative, \
+    conjugate_ichidan_polite_imperative, conjugate_ichidan_polite_present_affirmative, \
+    conjugate_ichidan_plain_negative, \
     conjugate_ichidan_polite_present_negative, conjugate_ichidan_polite_past, conjugate_ichidan_plain_past, \
     conjugate_ichidan_polite_past_negative, conjugate_ichidan_plain_past_negative, \
     conjugate_ichidan_polite_imperative_negative, conjugate_ichidan_polite_te_form, \

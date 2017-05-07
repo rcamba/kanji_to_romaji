@@ -117,7 +117,7 @@ class TestKanji(unittest.TestCase):
 
     def test_particle_followed_by_particle(self):
         test_and_expected = {
-            u"アメリカでは何語が話されていますか": "amerika DE WA nanigo ga hanashisareteimasuka".lower(),
+            u"アメリカでは何語が話されていますか": "amerika DE WA nanigo ga hanasarete imasuka".lower(),
             u"車には一人分の空きがあった": "kuruma NI WA hitoribun no aki ga atta".lower(),
             u"ボタンとはなんですか": "botan TO WA nandesuka".lower(),
 
@@ -127,9 +127,44 @@ class TestKanji(unittest.TestCase):
             u"部屋にははいります": "heya NI WA HAirimasu".lower(),
             u"私にはにだいめ": "watashi NI WA NIdaime".lower()
         }
-
         for key in test_and_expected.keys():
             self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+
+    def test_godan_conjugations(self):
+        self.assertEqual(kana_to_romaji(u"遊びます"), "asobimasu")
+        self.assertEqual(kana_to_romaji(u"遊ばない"), "asobanai")
+        self.assertEqual(kana_to_romaji(u"遊びません"), "asobimasen")
+        self.assertEqual(kana_to_romaji(u"遊んだ"), "asonda")
+        self.assertEqual(kana_to_romaji(u"遊びました"), "asobimashita")
+        self.assertEqual(kana_to_romaji(u"遊ばなかった"), "asobanakatta")
+        self.assertEqual(kana_to_romaji(u"遊びませんでした"), "asobimasen deshita")
+        self.assertEqual(kana_to_romaji(u"遊んで"), "asonde")
+        self.assertEqual(kana_to_romaji(u"遊びまして"), "asobimashite")
+        self.assertEqual(kana_to_romaji(u"遊ばないで"), "asobanaide")
+        self.assertEqual(kana_to_romaji(u"遊びませんで"), "asobimasende")
+        self.assertEqual(kana_to_romaji(u"遊ぼう"), "asobou")
+        self.assertEqual(kana_to_romaji(u"遊びましょう"), "asobimashou")
+        self.assertEqual(kana_to_romaji(u"遊べ"), "asobe")
+        self.assertEqual(kana_to_romaji(u"遊びなさい"), "asobinasai")
+        self.assertEqual(kana_to_romaji(u"遊びなさるな"), "asobinasaruna")
+
+    def test_ichidan_conjugations(self):
+        self.assertEqual(kana_to_romaji(u"食べます"), "tabemasu")
+        self.assertEqual(kana_to_romaji(u"食べない"), "tabenai")
+        self.assertEqual(kana_to_romaji(u"食べません"), "tabemasen")
+        self.assertEqual(kana_to_romaji(u"食べた"), "tabeta")
+        self.assertEqual(kana_to_romaji(u"食べました"), "tabemashita")
+        self.assertEqual(kana_to_romaji(u"食べなかった"), "tabenakatta")
+        self.assertEqual(kana_to_romaji(u"食べませんでした"), "tabemasen deshita")
+        self.assertEqual(kana_to_romaji(u"食べて"), "tabete")
+        self.assertEqual(kana_to_romaji(u"食べまして"), "tabemashite")
+        self.assertEqual(kana_to_romaji(u"食べないで"), "tabenaide")
+        self.assertEqual(kana_to_romaji(u"食べませんで"), "tabemasende")
+        self.assertEqual(kana_to_romaji(u"食べよう"), "tabeyou")
+        self.assertEqual(kana_to_romaji(u"食べましょう"), "tabemashou")
+        self.assertEqual(kana_to_romaji(u"食べろ"), "tabero")
+        self.assertEqual(kana_to_romaji(u"食べなさい"), "tabenasai")
+        self.assertEqual(kana_to_romaji(u"食べなさるな"), "tabenasaruna")
 
 
 if __name__ == "__main__":

@@ -8,11 +8,18 @@ class KanjiBlock(str):
         if len(kanji) == 1:
             obj.romaji = kanji_dict["romaji"]
         else:
-            if "conjugated verb" in kanji_dict["w_type"]:
+            if "verb stem" in kanji_dict["w_type"]:
                 obj.romaji = kanji_dict["romaji"]
             else:
                 obj.romaji = kanji_dict["romaji"] + " "
-        obj.w_type = kanji_dict["w_type"]
+
+        if "other_readings" in kanji_dict:
+            obj.w_type = [kanji_dict["w_type"]]
+            obj.w_type.extend(
+                [k for k in kanji_dict["other_readings"].keys()]
+            )
+        else:
+            obj.w_type = kanji_dict["w_type"]
         return obj
 
     def __repr__(self):
