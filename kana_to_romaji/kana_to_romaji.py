@@ -2,6 +2,7 @@
 import os
 import sys
 from collections import OrderedDict
+
 try:
     # noinspection PyPackageRequirements
     import simplejson as json
@@ -253,7 +254,22 @@ def translate_kanji_iteration_mark(kana_list):
         prev_c = kana_list[i]
 
 
-def get_romaji_from_kanji(kana_list, curr_chars, start_pos, char_len):
+def get_type_if_verb_stem(curr_chars):
+    v_type = None
+
+    if "verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars]["w_type"]:
+        v_type = UnicodeRomajiMapping.kanji_mapping[curr_chars]["w_type"]
+
+    elif "other_readings" in UnicodeRomajiMapping.kanji_mapping[curr_chars]:
+        if "godan verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars]["other_readings"]:
+            v_type = "godan verb"
+        elif "ichidan verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars]["other_readings"]:
+            v_type = "ichidan verb"
+
+    return v_type
+
+
+def check_for_verb_stem_ending(kana_list, curr_chars, start_pos, char_len):
     """
     if the given curr_chars has a verb stem reading then try to match it with an one of the listed verb endings
     otherwise return/use its .romaji property
@@ -294,35 +310,66 @@ def get_romaji_from_kanji(kana_list, curr_chars, start_pos, char_len):
     endings[u"ます"] = "masu"
     endings[u"よう"] = "you"  # ichidan
     endings[u"ない"] = "nai"
+    endings[u"た"] = "ta"  # ichidan
+    endings[u"て"] = "te"  # ichidan
     endings[u"ろ"] = "ro"  # ichidan
     endings[u"う"] = "u"
 
     dict_entry = None
-    romaji = curr_chars.romaji
 
-    if "verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["w_type"]:
-        dict_entry = UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]
+    if "verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars]["w_type"]:
+        dict_entry = UnicodeRomajiMapping.kanji_mapping[curr_chars]
 
-    elif "other_readings" in UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]:
+    elif "other_readings" in UnicodeRomajiMapping.kanji_mapping[curr_chars]:
 
-        if "godan verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["other_readings"]:
+        if "godan verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars]["other_readings"]:
             dict_entry = {
-                "romaji": UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["other_readings"]["godan verb stem"]
+                "romaji": UnicodeRomajiMapping.kanji_mapping[curr_chars]["other_readings"]["godan verb stem"]
             }
-        elif "ichidan verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["other_readings"]:
+        elif "ichidan verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars]["other_readings"]:
             dict_entry = {
-                "romaji": UnicodeRomajiMapping.kanji_mapping[curr_chars.kanji]["other_readings"]["ichidan verb stem"]
+                "romaji": UnicodeRomajiMapping.kanji_mapping[curr_chars]["other_readings"]["ichidan verb stem"]
             }
-
+    e_k = None
+    e_r = None
     if dict_entry is not None:
         for e in endings.keys():
-            possible_conj = curr_chars.kanji + e
-            actual_conj = curr_chars.kanji + "".join(kana_list[start_pos + 1: (start_pos + char_len + len(e) - 1)])
+            possible_conj = curr_chars + e
+            actual_conj = "".join(kana_list[start_pos: (start_pos + char_len + len(e))])
             if possible_conj == actual_conj:
-                for i in range(start_pos + char_len - 1 + len(e) - 1, start_pos, -1):
-                    del kana_list[i]
-                romaji = dict_entry["romaji"] + endings[e] + " "
+                e_k = e
+                e_r = endings[e] + " "
                 break
+
+    return e_k, e_r
+
+
+def has_non_verb_stem_reading(curr_chars):
+    res = False
+
+    if "verb stem" not in UnicodeRomajiMapping.kanji_mapping[curr_chars]["w_type"]:
+        res = True
+
+    elif "other_readings" in UnicodeRomajiMapping.kanji_mapping[curr_chars]:
+        if any(["verb stem" not in ork
+                for ork in UnicodeRomajiMapping.kanji_mapping[curr_chars]["other_readings"].keys()]):
+            res = True
+
+    return res
+
+
+def get_verb_stem_romaji(verb_stem_kanji):
+    romaji = None
+    if "verb stem" in UnicodeRomajiMapping.kanji_mapping[verb_stem_kanji]["w_type"]:
+        romaji = UnicodeRomajiMapping.kanji_mapping[verb_stem_kanji]["romaji"]
+    elif "other_readings" in UnicodeRomajiMapping.kanji_mapping[verb_stem_kanji]:
+        for k in UnicodeRomajiMapping.kanji_mapping[verb_stem_kanji]["other_readings"].keys():
+            if "verb stem" in k:
+                romaji = UnicodeRomajiMapping.kanji_mapping[verb_stem_kanji]["other_readings"][k]
+                break
+
+    if romaji is None:
+        raise
 
     return romaji
 
@@ -339,10 +386,29 @@ def prepare_kana_list(kana):
         while start_pos < len(kana_list) - char_len + 1:
             curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
             if curr_chars in UnicodeRomajiMapping.kanji_mapping:
-                for i in range(start_pos + char_len - 1, start_pos - 1, -1):
-                    del kana_list[i]
-                kana_list.insert(start_pos,
-                                 KanjiBlock(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
+                verb_stem_type = get_type_if_verb_stem(curr_chars)
+                ending_match_found = False
+                if verb_stem_type is not None:
+                    ending_kana, ending_romaji = check_for_verb_stem_ending(kana_list, curr_chars, start_pos, char_len)
+                    if ending_kana is not None and ending_romaji is not None:
+                        ending_match_found = True
+                        conjugated_val = {
+                            "romaji": get_verb_stem_romaji(curr_chars) + ending_romaji,
+                            "w_type": "conjugated " + verb_stem_type
+                        }
+
+                        for i in range(start_pos + char_len - 1 + len(ending_kana), start_pos - 1, -1):
+                            del kana_list[i]
+
+                        kana_list.insert(start_pos,
+                                         KanjiBlock(curr_chars + ending_kana, conjugated_val))
+
+                if ending_match_found is False and has_non_verb_stem_reading(curr_chars):
+                    for i in range(start_pos + char_len - 1, start_pos - 1, -1):
+                        del kana_list[i]
+                    kana_list.insert(start_pos,
+                                     KanjiBlock(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
+
             start_pos += 1
     return kana_list
 
@@ -351,7 +417,7 @@ def translate_kanji(kana_list):
     i = 0
     while i < len(kana_list):
         if type(kana_list[i]) == KanjiBlock:
-            kana_list[i] = get_romaji_from_kanji(kana_list, kana_list[i], i, len(kana_list[i].kanji))
+            kana_list[i] = kana_list[i].romaji
         i += 1
 
     kana = "".join(kana_list)
