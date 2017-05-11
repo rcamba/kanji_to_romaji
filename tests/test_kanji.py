@@ -20,7 +20,8 @@ class TestKanji(unittest.TestCase):
             u"日本": "nihon",
             u"日和": "hiyori",
             u"明日": "ashita",
-            u"昨日": "kinou"
+            u"昨日": "kinou",
+            u"今日は": "kyou wa"
         }
 
         for key in test_and_expected.keys():

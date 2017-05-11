@@ -146,6 +146,7 @@ def main():
                                 print k_.text
 
     del auto_jm_dict[u"々"]
+    del auto_jm_dict[u"今日は"]
 
     return auto_jm_dict
 
