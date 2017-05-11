@@ -382,10 +382,16 @@ if __name__ == "__main__":
                 ck, cr = c_func(k)
                 # assume first is a more common reading and second/others will have alt readings
                 if ck not in conjugated_mappings:
-                    conjugated_mappings[ck] = {
-                        "romaji": cr,
-                        "w_type": "godan verb stem"
-                    }
+                    if "conjugate" in c_func.func_name or "get_godan_e_stem" == c_func.func_name:
+                        conjugated_mappings[ck] = {
+                            "romaji": cr,
+                            "w_type": "conjugated godan verb"
+                        }
+                    else:
+                        conjugated_mappings[ck] = {
+                            "romaji": cr,
+                            "w_type": "godan verb stem"
+                        }
 
     okd_str = json.dumps(conjugated_mappings, indent=2, ensure_ascii=False, encoding="utf-8",
                          separators=(',', ': '))
