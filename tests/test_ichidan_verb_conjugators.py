@@ -12,7 +12,7 @@ from generators.ichidan_verb_conjugators import conjugate_ichidan_plain_te_form,
     conjugate_ichidan_polite_te_form_negative, set_global_ichidan
 
 
-class TestGodanVerbConjugators(unittest.TestCase):
+class TestIchidanVerbConjugators(unittest.TestCase):
     def setUp(self):
         print "\nStarting " + self.__module__ + ": " + self._testMethodName
 
