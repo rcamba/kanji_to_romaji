@@ -179,6 +179,64 @@ class TestKanji(unittest.TestCase):
         self.assertEqual(kana_to_romaji(u"灯りました"), "tomorimashita")
         self.assertEqual(kana_to_romaji(u"灯りを見ます"), "akari wo mimasu")
 
+    def test_irregular_conjugation(self):
+        test_and_expected = {
+            # 勉強 not a listed suru verb
+            u"勉強する": "benkyou suru",
+            u"勉強しない": "benkyou shinai",
+            u"勉強しません": "benkyou shimasen",
+            u"勉強した": "benkyou shita",
+            u"勉強しました": "benkyou shimashita",
+            u"勉強しなかった": "benkyou shinakatta",
+            u"勉強しませんでした": "benkyou shimasendeshita",
+            u"勉強して": "benkyou shite",
+            u"勉強しまして": "benkyou shimashite",
+            u"勉強しないで": "benkyou shinaide",
+            u"勉強しませんで": "benkyou shimasende",
+            u"勉強しよう": "benkyou shiyou",
+            u"勉強しましょう": "benkyou shimashou",
+            u"勉強しろ": "benkyou shiro",
+            u"勉強しなさい": "benkyou shinasai",
+            u"勉強しなさるな": "benkyou shinasaruna",
+
+            # 理解 a listed suru verb
+            u"理解する": "rikaisuru",
+            u"理解しない": "rikai shinai",
+            u"理解しません": "rikai shimasen",
+            u"理解した": "rikai shita",
+            u"理解しました": "rikai shimashita",
+            u"理解しなかった": "rikai shinakatta",
+            u"理解しませんでした": "rikai shimasen deshita",
+            u"理解して": "rikai shite",
+            u"理解しまして": "rikai shimashite",
+            u"理解しないで": "rikai shinaide",
+            u"理解しませんで": "rikai shimasende",
+            u"理解しよう": "rikai shiyou",
+            u"理解しましょう": "rikai shimashou",
+            u"理解しろ": "rikai shiro",
+            u"理解しなさい": "rikai shinasai",
+            u"理解しなさるな": "rikai shinasaruna",
+
+            u"付いて来ます": "tsuite kimasu",
+            u"付いて来ない": "tsuite konai",
+            u"付いて来ません": "tsuite kimasen",
+            u"付いて来た": "tsuite kita",
+            u"付いて来ました": "tsuite kimashita",
+            u"付いて来なかった": "tsuite konakatta",
+            u"付いて来ませんでした": "tsuite kimasen deshita",
+            u"付いて来て": "tsuite kite",
+            u"付いて来まして": "tsuite kimashite",
+            u"付いて来ないで": "tsuite konaide",
+            u"付いて来ませんで": "tsuite kimasende",
+            u"付いて来よう": "tsuite koyou",
+            u"付いて来ましょう": "tsuite kimashou",
+            u"付いて来い": "tsuite koi",
+            u"付いて来なさい": "tsuite kinasai",
+            u"付いて来なさるな": "tsuite kinasaruna"
+        }
+
+        for key in test_and_expected.keys():
+            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
 
 if __name__ == "__main__":
     unittest.main()
