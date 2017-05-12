@@ -49,10 +49,10 @@ def load_kanji_mappings_dict():
 
     kanji_romaji_mapping = {}
     f_list = os.listdir(JP_MAPPINGS_PATH)
-    f_list.remove("conjugated_godan_kanji.json")
-    f_list.remove("conjugated_ichidan_kanji.json")
-    f_list.append("conjugated_godan_kanji.json")
-    f_list.append("conjugated_ichidan_kanji.json")
+    for f in f_list[:]:  # shift all conjugated files to end, lower priority for verb stems
+        if "conjugated" in f:
+            f_list.remove(f)
+            f_list.append(f)
 
     for f in f_list:
         if os.path.splitext(f)[1] == ".json" and "kanji" in f:
