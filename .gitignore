@@ -2,5 +2,7 @@
 .idea
 *.pyc
 *.log
+run_checks.bat
+wscrape/*
 tests/__pycache__
 tests/__pycache__/*

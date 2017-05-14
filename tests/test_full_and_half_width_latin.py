@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import kana_to_romaji
+from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
 
 
 class TestHiraganaRomajiTranslation(unittest.TestCase):
@@ -105,9 +105,8 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             "～": "~"
         }
         for k in d.keys():
-            self.assertEqual(kana_to_romaji(k), d[k])
-            self.assertTrue(ord(kana_to_romaji(k)) < 127)
-            print ord(kana_to_romaji(k))
+            self.assertEqual(kanji_to_romaji(k), d[k])
+            self.assertTrue(ord(kanji_to_romaji(k)) < 127)
 
 
 if __name__ == "__main__":
