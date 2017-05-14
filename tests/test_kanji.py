@@ -170,8 +170,8 @@ class TestKanji(unittest.TestCase):
     def test_not_using_verb_stem_by_itself(self):
         self.assertEqual(kana_to_romaji(u"反映"), "hanei")
         self.assertEqual(kana_to_romaji(u"反映 して"), "hanei shite")
-        # TODO prioritize non-verb stems first?
-        # self.assertEqual(kana_to_romaji(u"反映して"), "hanutsushite")
+
+        self.assertEqual(kana_to_romaji(u"反映して"), "hanei shite")
 
         self.assertEqual(kana_to_romaji(u"映して"), "utsushite")
         self.assertEqual(kana_to_romaji(u"映し"), "eigashi")

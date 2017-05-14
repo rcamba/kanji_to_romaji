@@ -13,7 +13,6 @@ from models import UnicodeRomajiMapping
 from models import KanjiBlock
 from models import Particle
 
-
 PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
 
@@ -381,9 +380,10 @@ def prepare_kana_list(kana):
     max_char_len = len(kana)
     kana_list = list(kana)
 
-    for char_len in range(max_char_len, 0, -1):
-        start_pos = 0
-        while start_pos < len(kana_list) - char_len + 1:
+    start_pos = 0
+    while start_pos < max_char_len:
+        char_len = len(kana_list) - start_pos
+        while char_len > 0:
             curr_chars = "".join(kana_list[start_pos: (start_pos + char_len)])
             if curr_chars in UnicodeRomajiMapping.kanji_mapping:
                 verb_stem_type = get_type_if_verb_stem(curr_chars)
@@ -408,8 +408,8 @@ def prepare_kana_list(kana):
                         del kana_list[i]
                     kana_list.insert(start_pos,
                                      KanjiBlock(curr_chars, UnicodeRomajiMapping.kanji_mapping[curr_chars]))
-
-            start_pos += 1
+            char_len -= 1
+        start_pos += 1
     return kana_list
 
 
