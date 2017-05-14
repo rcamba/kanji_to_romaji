@@ -3,7 +3,7 @@ import os
 import json
 import xml.etree.ElementTree
 from collections import OrderedDict
-from kana_to_romaji.kana_to_romaji import kana_to_romaji
+from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
 
 
 PATH_TO_MODULE = os.path.dirname(__file__)
@@ -128,7 +128,7 @@ def main():
                         try:
                             if freq_counter > 0 and freq_counter > auto_jm_dict[k_.text]["freq"]:
                                 auto_jm_dict[k_.text] = {
-                                    "romaji": kana_to_romaji(most_common_reading),
+                                    "romaji": kanji_to_romaji(most_common_reading),
                                     "w_type": stripped_first_pos,
                                     "freq": freq_counter
                                 }
@@ -140,7 +140,7 @@ def main():
                     else:
                         try:
                             auto_jm_dict[k_.text] = {
-                                    "romaji": kana_to_romaji(most_common_reading),
+                                    "romaji": kanji_to_romaji(most_common_reading),
                                     "w_type": stripped_first_pos,
                                     "freq": freq_counter
                                 }

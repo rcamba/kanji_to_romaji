@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import translate_to_romaji, kana_to_romaji, translate_long_vowel, \
+from kanji_to_romaji.kanji_to_romaji import translate_to_romaji, kanji_to_romaji, translate_long_vowel, \
     translate_kana_iteration_mark, translate_dakuten_equivalent, convert_katakana_to_hiragana
 
 
@@ -47,7 +47,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             u"リャ リュ リョ": "rya ryu ryo"
         }
         for k in kana_expected_dict.keys():
-            self.assertEqual(kana_to_romaji(translate_to_romaji(k)), kana_expected_dict[k])
+            self.assertEqual(kanji_to_romaji(translate_to_romaji(k)), kana_expected_dict[k])
 
     def test_soukon(self):
         kana_expected_dict = {
@@ -56,7 +56,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             u"ハッピョウケッカ": "happyoukekka",
         }
         for k in kana_expected_dict.keys():
-            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
+            self.assertEqual(kanji_to_romaji(k), kana_expected_dict[k])
 
     def test_long_vowel(self):
         kana_expected_dict = {
@@ -75,7 +75,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             u"チュー": "chuu"
         }
         for k in kana_expected_dict.keys():
-            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
+            self.assertEqual(kanji_to_romaji(k), kana_expected_dict[k])
 
     def test_u_and_small_vowel(self):
         kana_expected_dict = {
@@ -90,7 +90,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             u"クァルテット": "kwarutetto"
         }
         for k in kana_expected_dict.keys():
-            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
+            self.assertEqual(kanji_to_romaji(k), kana_expected_dict[k])
 
         kana_expected_dict_s = {
             u"ウィ": "wi",
@@ -141,7 +141,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         }
 
         for k in kana_expected_dict_s.keys():
-            self.assertEqual(kana_to_romaji(k), kana_expected_dict_s[k])
+            self.assertEqual(kanji_to_romaji(k), kana_expected_dict_s[k])
 
     def test_soukon_ch(self):
         kana_expected_dict = {
@@ -152,7 +152,7 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             u"ミッチ": "mitchi"
         }
         for k in kana_expected_dict.keys():
-            self.assertEqual(kana_to_romaji(k), kana_expected_dict[k])
+            self.assertEqual(kanji_to_romaji(k), kana_expected_dict[k])
 
     def test_convert_hiragana_to_katakana(self):
         iroha_h = u"いろ は にほへと ちりぬる を わ か よ たれ そ つね ならむ うゐ の おくやま けふ こえて あさき ゆめ みし ゑひ も せす"
@@ -177,8 +177,8 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(translate_kana_iteration_mark(u"カヽキヽクヽケヽコヽ"), u"カカキキククケケココ")
         self.assertEqual(translate_kana_iteration_mark(u"カヾキヾクヾケヾコヾ"), u"カガキギクグケゲコゴ")
 
-        self.assertEqual(kana_to_romaji(u"カヾールッチ"), u"kagaarutchi")
-        self.assertEqual(kana_to_romaji(u"コヽーミッチヾ"), u"kokoomitchiji")
+        self.assertEqual(kanji_to_romaji(u"カヾールッチ"), u"kagaarutchi")
+        self.assertEqual(kanji_to_romaji(u"コヽーミッチヾ"), u"kokoomitchiji")
 
     def test_translate_dakuten_equivalent(self):
         self.assertEqual(

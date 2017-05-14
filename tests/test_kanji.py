@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import kana_to_romaji
+from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
 
 
 class TestKanji(unittest.TestCase):
@@ -25,7 +25,7 @@ class TestKanji(unittest.TestCase):
         }
 
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_match_starting_at_full(self):
         test_and_expected = {
@@ -34,20 +34,20 @@ class TestKanji(unittest.TestCase):
         }
 
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_kanji_iteration_mark(self):
         # regular
-        self.assertEqual(kana_to_romaji(u"若"), "waka")
-        self.assertEqual(kana_to_romaji(u"若々しい"), "wakawakashii")
+        self.assertEqual(kanji_to_romaji(u"若"), "waka")
+        self.assertEqual(kanji_to_romaji(u"若々しい"), "wakawakashii")
 
-        x = kana_to_romaji(u"在")
-        self.assertEqual(kana_to_romaji(u"在"), x)
-        self.assertEqual(kana_to_romaji(u"在々"), x * 2)
+        x = kanji_to_romaji(u"在")
+        self.assertEqual(kanji_to_romaji(u"在"), x)
+        self.assertEqual(kanji_to_romaji(u"在々"), x * 2)
 
         # irregular that has to be listed in dict
-        self.assertEqual(kana_to_romaji(u"精々"), "seizei")
-        self.assertEqual(kana_to_romaji(u"日々"), "hibi")
+        self.assertEqual(kanji_to_romaji(u"精々"), "seizei")
+        self.assertEqual(kanji_to_romaji(u"日々"), "hibi")
 
     def test_no_particle(self):
         test_and_expected = {
@@ -58,7 +58,7 @@ class TestKanji(unittest.TestCase):
         }
 
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_wa_particle(self):
         test_and_expected = {
@@ -69,7 +69,7 @@ class TestKanji(unittest.TestCase):
         }
 
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_he_particle(self):
         test_and_expected = {
@@ -79,7 +79,7 @@ class TestKanji(unittest.TestCase):
             u"更に向こうへ": u"sarani mukou e"  # is last character and previous is noun
         }
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_to_particle(self):
         test_and_expected = {
@@ -89,7 +89,7 @@ class TestKanji(unittest.TestCase):
         }
 
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_ni_particle(self):
         test_and_expected = {
@@ -99,7 +99,7 @@ class TestKanji(unittest.TestCase):
         }
 
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_mo_particle(self):
         test_and_expected = {
@@ -108,13 +108,13 @@ class TestKanji(unittest.TestCase):
         }
 
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_type_changes(self):
-        self.assertEqual(kana_to_romaji(u"ごと."), "goto.")
+        self.assertEqual(kanji_to_romaji(u"ごと."), "goto.")
 
     def test_kanjiblock_curr_chars_rep(self):
-        self.assertEqual(kana_to_romaji(u"食べる存在"), "taberu sonzai")
+        self.assertEqual(kanji_to_romaji(u"食べる存在"), "taberu sonzai")
 
     def test_particle_followed_by_particle(self):
         test_and_expected = {
@@ -129,55 +129,55 @@ class TestKanji(unittest.TestCase):
             u"私にはにだいめ": "watashi NI WA NIdaime".lower()
         }
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
     def test_godan_conjugations(self):
-        self.assertEqual(kana_to_romaji(u"遊びます"), "asobimasu")
-        self.assertEqual(kana_to_romaji(u"遊ばない"), "asobanai")
-        self.assertEqual(kana_to_romaji(u"遊びません"), "asobimasen")
-        self.assertEqual(kana_to_romaji(u"遊んだ"), "asonda")
-        self.assertEqual(kana_to_romaji(u"遊びました"), "asobimashita")
-        self.assertEqual(kana_to_romaji(u"遊ばなかった"), "asobanakatta")
-        self.assertEqual(kana_to_romaji(u"遊びませんでした"), "asobimasen deshita")
-        self.assertEqual(kana_to_romaji(u"遊んで"), "asonde")
-        self.assertEqual(kana_to_romaji(u"遊びまして"), "asobimashite")
-        self.assertEqual(kana_to_romaji(u"遊ばないで"), "asobanaide")
-        self.assertEqual(kana_to_romaji(u"遊びませんで"), "asobimasende")
-        self.assertEqual(kana_to_romaji(u"遊ぼう"), "asobou")
-        self.assertEqual(kana_to_romaji(u"遊びましょう"), "asobimashou")
-        self.assertEqual(kana_to_romaji(u"遊べ"), "asobe")
-        self.assertEqual(kana_to_romaji(u"遊びなさい"), "asobinasai")
-        self.assertEqual(kana_to_romaji(u"遊びなさるな"), "asobinasaruna")
+        self.assertEqual(kanji_to_romaji(u"遊びます"), "asobimasu")
+        self.assertEqual(kanji_to_romaji(u"遊ばない"), "asobanai")
+        self.assertEqual(kanji_to_romaji(u"遊びません"), "asobimasen")
+        self.assertEqual(kanji_to_romaji(u"遊んだ"), "asonda")
+        self.assertEqual(kanji_to_romaji(u"遊びました"), "asobimashita")
+        self.assertEqual(kanji_to_romaji(u"遊ばなかった"), "asobanakatta")
+        self.assertEqual(kanji_to_romaji(u"遊びませんでした"), "asobimasen deshita")
+        self.assertEqual(kanji_to_romaji(u"遊んで"), "asonde")
+        self.assertEqual(kanji_to_romaji(u"遊びまして"), "asobimashite")
+        self.assertEqual(kanji_to_romaji(u"遊ばないで"), "asobanaide")
+        self.assertEqual(kanji_to_romaji(u"遊びませんで"), "asobimasende")
+        self.assertEqual(kanji_to_romaji(u"遊ぼう"), "asobou")
+        self.assertEqual(kanji_to_romaji(u"遊びましょう"), "asobimashou")
+        self.assertEqual(kanji_to_romaji(u"遊べ"), "asobe")
+        self.assertEqual(kanji_to_romaji(u"遊びなさい"), "asobinasai")
+        self.assertEqual(kanji_to_romaji(u"遊びなさるな"), "asobinasaruna")
 
     def test_ichidan_conjugations(self):
-        self.assertEqual(kana_to_romaji(u"食べます"), "tabemasu")
-        self.assertEqual(kana_to_romaji(u"食べない"), "tabenai")
-        self.assertEqual(kana_to_romaji(u"食べません"), "tabemasen")
-        self.assertEqual(kana_to_romaji(u"食べた"), "tabeta")
-        self.assertEqual(kana_to_romaji(u"食べました"), "tabemashita")
-        self.assertEqual(kana_to_romaji(u"食べなかった"), "tabenakatta")
-        self.assertEqual(kana_to_romaji(u"食べませんでした"), "tabemasen deshita")
-        self.assertEqual(kana_to_romaji(u"食べて"), "tabete")
-        self.assertEqual(kana_to_romaji(u"食べまして"), "tabemashite")
-        self.assertEqual(kana_to_romaji(u"食べないで"), "tabenaide")
-        self.assertEqual(kana_to_romaji(u"食べませんで"), "tabemasende")
-        self.assertEqual(kana_to_romaji(u"食べよう"), "tabeyou")
-        self.assertEqual(kana_to_romaji(u"食べましょう"), "tabemashou")
-        self.assertEqual(kana_to_romaji(u"食べろ"), "tabero")
-        self.assertEqual(kana_to_romaji(u"食べなさい"), "tabenasai")
-        self.assertEqual(kana_to_romaji(u"食べなさるな"), "tabenasaruna")
+        self.assertEqual(kanji_to_romaji(u"食べます"), "tabemasu")
+        self.assertEqual(kanji_to_romaji(u"食べない"), "tabenai")
+        self.assertEqual(kanji_to_romaji(u"食べません"), "tabemasen")
+        self.assertEqual(kanji_to_romaji(u"食べた"), "tabeta")
+        self.assertEqual(kanji_to_romaji(u"食べました"), "tabemashita")
+        self.assertEqual(kanji_to_romaji(u"食べなかった"), "tabenakatta")
+        self.assertEqual(kanji_to_romaji(u"食べませんでした"), "tabemasen deshita")
+        self.assertEqual(kanji_to_romaji(u"食べて"), "tabete")
+        self.assertEqual(kanji_to_romaji(u"食べまして"), "tabemashite")
+        self.assertEqual(kanji_to_romaji(u"食べないで"), "tabenaide")
+        self.assertEqual(kanji_to_romaji(u"食べませんで"), "tabemasende")
+        self.assertEqual(kanji_to_romaji(u"食べよう"), "tabeyou")
+        self.assertEqual(kanji_to_romaji(u"食べましょう"), "tabemashou")
+        self.assertEqual(kanji_to_romaji(u"食べろ"), "tabero")
+        self.assertEqual(kanji_to_romaji(u"食べなさい"), "tabenasai")
+        self.assertEqual(kanji_to_romaji(u"食べなさるな"), "tabenasaruna")
 
     def test_not_using_verb_stem_by_itself(self):
-        self.assertEqual(kana_to_romaji(u"反映"), "hanei")
-        self.assertEqual(kana_to_romaji(u"反映 して"), "hanei shite")
+        self.assertEqual(kanji_to_romaji(u"反映"), "hanei")
+        self.assertEqual(kanji_to_romaji(u"反映 して"), "hanei shite")
 
-        self.assertEqual(kana_to_romaji(u"反映して"), "hanei shite")
+        self.assertEqual(kanji_to_romaji(u"反映して"), "hanei shite")
 
-        self.assertEqual(kana_to_romaji(u"映して"), "utsushite")
-        self.assertEqual(kana_to_romaji(u"映し"), "eigashi")
+        self.assertEqual(kanji_to_romaji(u"映して"), "utsushite")
+        self.assertEqual(kanji_to_romaji(u"映し"), "eigashi")
 
-        self.assertEqual(kana_to_romaji(u"灯りました"), "tomorimashita")
-        self.assertEqual(kana_to_romaji(u"灯りを見ます"), "akari wo mimasu")
+        self.assertEqual(kanji_to_romaji(u"灯りました"), "tomorimashita")
+        self.assertEqual(kanji_to_romaji(u"灯りを見ます"), "akari wo mimasu")
 
     def test_irregular_conjugation(self):
         test_and_expected = {
@@ -255,7 +255,7 @@ class TestKanji(unittest.TestCase):
         }
 
         for key in test_and_expected.keys():
-            self.assertEqual(kana_to_romaji(key), test_and_expected[key])
+            self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
 
 if __name__ == "__main__":
     unittest.main()

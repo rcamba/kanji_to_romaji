@@ -3,7 +3,7 @@ import os
 import json
 from collections import OrderedDict
 
-from kana_to_romaji.kana_to_romaji import kana_to_romaji
+from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
 
 PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     for k in jm_dict.keys():
         if jm_dict[k]["w_type"] == "ichidan verb":
             conjugated_mappings[k[:-1]] = {
-                "romaji": kana_to_romaji(k)[:-2],
+                "romaji": kanji_to_romaji(k)[:-2],
                 "w_type": "ichidan verb stem"
             }
 

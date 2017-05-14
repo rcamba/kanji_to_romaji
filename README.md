@@ -3,7 +3,7 @@ Formerly kana\_to\_romaji
 *Tries* to translate Kanji to Romaji with the help of [JMdict](http://www.edrdg.org/jmdict/edict_doc.html)
 
 ## Installation ##
-`git clone https://github.com/rcamba/kana_to_romaji`  
+`git clone https://github.com/rcamba/kanji_to_romaji`  
 Run `install.bat` or `python setup.py install --record installed_files.txt`  
 `installed_files.txt` will keep track of location of copied files for uninstallation if neccessary  
 Having `simplejson` installed will make the initial loading of json mappings be significantly faster
@@ -23,8 +23,8 @@ tomodachi ni aimashita
 
 The more common usage will likely to be used in anoother programs:  
 ```
-from kana_to_romaji.kana_to_romaji imnport kana_to_romaji  
-kana_to_romaji(u"友達に会いました")  
+from kanji_to_romaji.kanji_to_romaji imnport kanji_to_romaji  
+kanji_to_romaji(u"友達に会いました")  
 ```
 Argument must be in **u**nicode  
 

@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kana_to_romaji.kana_to_romaji import kana_to_romaji
+from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
 from generators.ichidan_verb_conjugators import conjugate_ichidan_plain_te_form, \
     conjugate_ichidan_plain_te_form_negative, \
     conjugate_ichidan_plain_volitional, conjugate_ichidan_polite_volitional, conjugate_ichidan_plain_imperative, \
@@ -24,7 +24,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_present_affirmative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -36,7 +36,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_plain_negative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -48,7 +48,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_present_negative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -60,7 +60,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_plain_past()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -72,7 +72,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_past()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -84,7 +84,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_plain_past_negative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -96,7 +96,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_past_negative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -108,7 +108,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_plain_te_form()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -120,7 +120,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_te_form()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -132,7 +132,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_plain_te_form_negative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -144,7 +144,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_te_form_negative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -156,7 +156,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_plain_volitional()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -168,7 +168,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_volitional()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -180,7 +180,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_plain_imperative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -192,7 +192,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_imperative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 
@@ -204,7 +204,7 @@ class TestIchidanVerbConjugators(unittest.TestCase):
         }
 
         for k in ichidan_expected.keys():
-            set_global_ichidan(k[:-1], kana_to_romaji(k)[:-2])
+            set_global_ichidan(k[:-1], kanji_to_romaji(k)[:-2])
             ck, cr = conjugate_ichidan_polite_imperative_negative()
             self.assertEqual(ichidan_expected[k], (ck, cr))
 

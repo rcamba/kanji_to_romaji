@@ -542,7 +542,7 @@ def translate_kana_iteration_mark(kana):
     return partial_kana
 
 
-def kana_to_romaji(kana):
+def kanji_to_romaji(kana):
     if type(kana) == str:
         kana = kana.decode("utf-8")
     pk = translate_kana_iteration_mark(kana)
@@ -558,7 +558,7 @@ def kana_to_romaji(kana):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        print kana_to_romaji((sys.argv[1]).decode('unicode-escape'))
+        print kanji_to_romaji((sys.argv[1]).decode('unicode-escape'))
     else:
         print "Missing Kana character argument\n" \
-              "e.g: kana_to_romaji.py \u30D2"
+              "e.g: kanji_to_romaji.py \u30D2"

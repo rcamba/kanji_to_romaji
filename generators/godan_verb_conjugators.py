@@ -2,7 +2,7 @@
 import os
 import json
 from collections import OrderedDict
-from kana_to_romaji.kana_to_romaji import kana_to_romaji
+from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
 
 
 PATH_TO_MODULE = os.path.dirname(__file__)
@@ -377,7 +377,7 @@ if __name__ == "__main__":
     conjugated_mappings = OrderedDict({})
     for k in jm_dict.keys():
         if jm_dict[k]["w_type"] == "godan verb":
-            set_global_godan(kana_to_romaji(k), kana_to_romaji(k[-1]))
+            set_global_godan(kanji_to_romaji(k), kanji_to_romaji(k[-1]))
             for c_func in conjugator_funcs:
                 ck, cr = c_func(k)
                 # assume first is a more common reading and second/others will have alt readings
