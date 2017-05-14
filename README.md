@@ -16,15 +16,15 @@ Having `simplejson` installed will make the initial loading of json mappings be 
 tomodachi ni aimashita
 
 
-Although Windows cmd doesn't seem to natively support CJK characters so you can use unicode if you'd like...  
+Although Windows cmd doesn't seem to natively support CJK characters so you can use unicode escaped strings if you'd like...  
 \> ktr.py \u53cb\u9054\u306b\u4f1a\u3044\u307e\u3057\u305f  
 tomodachi ni aimashita
 
 
-The more common usage will likely to be used in anoother programs:  
+The more common usage will probably to be used in another program:  
 ```
-from kanji_to_romaji.kanji_to_romaji imnport kanji_to_romaji  
-kanji_to_romaji(u"友達に会いました")  
+from kanji_to_romaji import kanji_to_romaji  
+print kanji_to_romaji(u"友達に会いました")  
 ```
 Argument must be in **u**nicode  
 
