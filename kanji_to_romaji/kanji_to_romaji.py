@@ -558,7 +558,7 @@ def kanji_to_romaji(kana):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        print kanji_to_romaji((sys.argv[1]).decode('unicode-escape'))
+        print kanji_to_romaji(("".join(sys.argv[1:])).decode('unicode-escape'))
     else:
-        print "Missing Kana character argument\n" \
+        print "Missing Kanji/Kana character argument\n" \
               "e.g: kanji_to_romaji.py \u30D2"
