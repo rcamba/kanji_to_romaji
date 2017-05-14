@@ -49,7 +49,7 @@ def strip_pos(pos_type):
         res = "adjective"
     elif "pronoun" in pos_type:
         res = "pronoun"
-    elif "noun" in pos_type:
+    elif "noun" in pos_type and "aux. verb suru" not in pos_type:
         res = "noun"
     elif "adverb" in pos_type:
         res = "adverb"
@@ -116,6 +116,10 @@ def main():
         raw_first_pos = e.iterfind("sense").next().iterfind("pos").next().text
         misc = [m.text for m in e.iterfind("sense").next().iterfind("misc")]
         stripped_first_pos = strip_pos(raw_first_pos)
+
+        if stripped_first_pos == "suru verb" or stripped_first_pos == "kuru verb":
+            most_common_reading = most_common_reading[:-2] + " " + most_common_reading[-2:]
+
         if stripped_first_pos != "unclassified" and "archaism" not in misc:
 
             for k_ele in e.iterfind("k_ele"):
