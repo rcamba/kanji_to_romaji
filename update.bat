@@ -1,1 +1,1 @@
-python setup.py install --force
+python setup.py install --record installed_files.txt --force
