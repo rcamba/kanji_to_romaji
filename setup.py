@@ -15,5 +15,6 @@ setuptools.setup(
     description='Try to translate Kanji to Romaji.',
     extras_require={
         'fasterjson': ["simplejson>=3.10.0"],
-    }
+    },
+    scripts=['scripts/ktr.py']
 )
