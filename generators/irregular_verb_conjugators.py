@@ -27,6 +27,7 @@ if __name__ == "__main__":
         u"しよう": "shiyou",
         u"しましょう": "shimashou",
         u"しい": "shii",
+        u"しろ": "shiro",
         u"しなさい": "shinasai",
         u"しなさるな": "shinasaruna",
     }
@@ -36,7 +37,7 @@ if __name__ == "__main__":
         if jm_dict[k]["w_type"] == "suru verb":
             for vk in svt.keys():
                 suru_conjugated_mappings[k[:-2] + vk] = {
-                    "romaji": jm_dict[k]["romaji"][:-4] + " " + svt[vk],
+                    "romaji": jm_dict[k]["romaji"][:-4].strip() + " " + svt[vk].strip(),
                     "w_type": "conjugated suru verb"
                 }
 
@@ -81,7 +82,7 @@ if __name__ == "__main__":
         if jm_dict[k]["w_type"] == "kuru verb":
             for vk in kvt.keys():
                 kuru_conjugated_mappings[k[:-2] + vk] = {
-                    "romaji": jm_dict[k]["romaji"][:-4] + " " + kvt[vk],
+                    "romaji": jm_dict[k]["romaji"][:-4].strip() + " " + kvt[vk].strip(),
                     "w_type": "conjugated kuru verb"
                 }
 
