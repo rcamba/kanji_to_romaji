@@ -123,7 +123,7 @@ class TestKanji(unittest.TestCase):
             u"ボタンとはなんですか": "botan TO WA nandesuka".lower(),
 
             u"僕にも責任があるんだ": "boku NI MO sekinin ga arunda".lower(),
-            u"どんな子供でもそのくらい答えられる": "donnakodomo DE MO sonokuraikotae rareru".lower(),
+            u"どんな子供でもそのくらい答えられる": "donna kodomo DE MO sonokurai kotae rareru".lower(),
 
             u"部屋にははいります": "heya NI WA HAirimasu".lower(),
             u"私にはにだいめ": "watashi NI WA NIdaime".lower()
@@ -256,6 +256,12 @@ class TestKanji(unittest.TestCase):
 
         for key in test_and_expected.keys():
             self.assertEqual(kanji_to_romaji(key), test_and_expected[key])
+
+    def test_spacing_before_kanji(self):
+        self.assertEqual(kanji_to_romaji(u"車はどこに行きましたか"), "kuruma wa doko ni ikimashita ka")
+        # no being read as particle
+        self.assertEqual(kanji_to_romaji(u"どの電車を取るべきですか"), "do no densha wo toru bekidesuka")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -249,7 +249,7 @@ def translate_kanji_iteration_mark(kana_list):
     prev_c = ""
     for i in range(0, len(kana_list)):
         if kana_list[i] == unicode_kanji_iteration_mark:
-            kana_list[i] = prev_c.romaji
+            kana_list[i] = prev_c.romaji.strip()
         prev_c = kana_list[i]
 
 

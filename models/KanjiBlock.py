@@ -6,12 +6,12 @@ class KanjiBlock(str):
 
         obj.kanji = kanji
         if len(kanji) == 1:
-            obj.romaji = kanji_dict["romaji"]
+            obj.romaji = " " + kanji_dict["romaji"]
         else:
             if "verb stem" in kanji_dict["w_type"]:
-                obj.romaji = kanji_dict["romaji"]
+                obj.romaji = " " + kanji_dict["romaji"]
             else:
-                obj.romaji = kanji_dict["romaji"] + " "
+                obj.romaji = " " + kanji_dict["romaji"] + " "
 
         if "other_readings" in kanji_dict:
             obj.w_type = [kanji_dict["w_type"]]
