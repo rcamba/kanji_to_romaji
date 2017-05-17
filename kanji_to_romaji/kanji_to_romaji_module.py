@@ -215,26 +215,27 @@ def translate_particles(kana_list):
         if kana_list[i] == no_hira_char:
             if (is_noun(prev_c) and is_noun(next_c)) or \
                     type_changes(prev_c, next_c) or \
-                    is_noun(prev_c) and is_last_char:
+                    (is_noun(prev_c) and is_last_char):
                 kana_list[i] = no_prtcle
 
         elif kana_list[i] == ha_hira_char:
             if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or \
                     type_changes(prev_c, next_c) or \
                     particle_imm_follows(prev_c, [e_prtcle, to_prtcle, ni_prtcle, de_prtcle]) or \
-                    is_noun(prev_c) and is_last_char:
+                    (is_noun(prev_c) and is_last_char):
                 kana_list[i] = wa_prtcle
 
         elif kana_list[i] == mo_hira_char:
             if (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or \
                     type_changes(prev_c, next_c) or \
                     particle_imm_follows(prev_c, [ni_prtcle, de_prtcle]) or \
-                    is_noun(prev_c) and is_last_char:
+                    (is_noun(prev_c) and is_last_char):
                 kana_list[i] = mo_prtcle
 
-        elif (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or \
+        elif kana_list[i] in [he_hira_char, to_hira_char, ni_hira_char, de_hira_char, ga_hira_char] and \
+                (is_noun(prev_c) and isinstance(next_c, KanjiBlock)) or \
                 type_changes(prev_c, next_c) or \
-                is_noun(prev_c) and is_last_char:
+                (is_noun(prev_c) and is_last_char):
 
             if kana_list[i] == he_hira_char:
                 kana_list[i] = e_prtcle
@@ -457,8 +458,14 @@ def translate_to_romaji(kana):
                     start_pos -= 1
             start_pos += 1
 
-    kana = kana.replace(" ]", "]")
-    kana = " ".join(kana.split()).strip()
+    while "  " in kana:
+        kana = kana.replace("  ", " ")
+    kana = kana.strip()
+
+    lines = kana.split("\n")
+    for i in range(0, len(lines)):
+        lines[i] = lines[i].strip()
+    kana = "\n".join(lines)
     return kana
 
 

@@ -105,11 +105,6 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
             u"がぎぐげござじずぜぞだぢづでどばびぶべぼ")
         self.assertEqual(translate_dakuten_equivalent(u"がぎぐげござじずぜぞだぢづでどばびぶべぼ"), u"")
 
-    def test_unknown_character(self):
-        self.assertEqual(kanji_to_romaji(u"駲"), "\u99f2")
-        self.assertEqual(kanji_to_romaji(u"駲").decode("unicode_escape"), u"駲")
-        self.assertEqual("\u99f2".decode("unicode_escape"), u"駲")
-
 
 if __name__ == "__main__":
     unittest.main()

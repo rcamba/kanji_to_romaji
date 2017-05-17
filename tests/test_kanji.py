@@ -263,6 +263,11 @@ class TestKanji(unittest.TestCase):
         # no being read as particle
         self.assertEqual(kanji_to_romaji(u"どの電車を取るべきですか"), "do no densha wo toru bekidesuka")
 
+    def test_unknown_character(self):
+        self.assertEqual(kanji_to_romaji(u"駲"), "\u99f2")
+        self.assertEqual(kanji_to_romaji(u"駲").decode("unicode_escape"), u"駲")
+        self.assertEqual("\u99f2".decode("unicode_escape"), u"駲")
+
 
 if __name__ == "__main__":
     unittest.main()
