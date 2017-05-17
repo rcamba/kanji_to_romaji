@@ -20,6 +20,11 @@ hiragana_iter_mark = u"\u309D"
 hiragana_voiced_iter_mark = u"\u309E"
 katakana_iter_mark = u"\u30FD"
 katakana_voiced_iter_mark = u"\u30FE"
+kanji_iteration_mark = u"\u3005"
+
+hirgana_soukon_unicode_char = u"\u3063"
+katakana_soukon_unicode_char = u"\u30C3"
+katakana_long_vowel_mark = u"\u30FC"
 
 
 def load_kana_mappings_dict():
@@ -104,7 +109,7 @@ def convert_hiragana_to_katakana(hiragana):
     converted_str = ""
 
     for c in hiragana:
-        if is_hiragana(c) or c == hiragana_iter_mark or c == hiragana_voiced_iter_mark:
+        if is_hiragana(c) or c in [hiragana_iter_mark, hiragana_voiced_iter_mark, hirgana_soukon_unicode_char]:
             converted_str += _convert_hira_kata_char(c)
         else:
             converted_str += c.encode('utf-8')
@@ -115,7 +120,8 @@ def convert_katakana_to_hiragana(katakana):
     converted_str = ""
 
     for c in katakana:
-        if is_katakana(c) or c == katakana_iter_mark or c == katakana_voiced_iter_mark:
+        if is_katakana(c) or c in [katakana_iter_mark, katakana_voiced_iter_mark,
+                                   katakana_soukon_unicode_char]:
             converted_str += _convert_hira_kata_char(c, h_to_k=False)
         else:
             converted_str += c.encode('utf-8')
@@ -125,13 +131,16 @@ def convert_katakana_to_hiragana(katakana):
 def is_hiragana(c):
     hiragana_starting_unicode = u"\u3041"
     hiragana_ending_unicode = u"\u3096"
-    return hiragana_starting_unicode <= c <= hiragana_ending_unicode
+    return c not in [hiragana_iter_mark, hiragana_voiced_iter_mark, hirgana_soukon_unicode_char] and \
+        hiragana_starting_unicode <= c <= hiragana_ending_unicode
 
 
 def is_katakana(c):
     katakana_starting_unicode = u"\u30A1"
     katakana_ending_unicode = u"\u30F6"
-    return katakana_starting_unicode <= c <= katakana_ending_unicode
+    return c not in [katakana_iter_mark, katakana_voiced_iter_mark,
+                     katakana_soukon_unicode_char, katakana_long_vowel_mark] and \
+        katakana_starting_unicode <= c <= katakana_ending_unicode
 
 
 def is_kanji(c):
@@ -140,7 +149,7 @@ def is_kanji(c):
     if isinstance(c, KanjiBlock):
         return True
     else:
-        return cjk_start_range <= c <= cjk_end_range
+        return c != kanji_iteration_mark and cjk_start_range <= c <= cjk_end_range
 
 
 def get_kana_type(c):
@@ -244,11 +253,9 @@ def translate_particles(kana_list):
 
 
 def translate_kanji_iteration_mark(kana_list):
-    unicode_kanji_iteration_mark = u"\u3005"
-
     prev_c = ""
     for i in range(0, len(kana_list)):
-        if kana_list[i] == unicode_kanji_iteration_mark:
+        if kana_list[i] == kanji_iteration_mark:
             kana_list[i] = prev_c.romaji.strip()
         prev_c = kana_list[i]
 
@@ -456,8 +463,6 @@ def translate_to_romaji(kana):
 
 
 def translate_soukon(partial_kana):
-    hirgana_soukon_unicode_char = u"\u3063"
-    katakana_soukon_unicode_char = u"\u30C3"
     prev_char = ""
 
     for c in reversed(partial_kana):
@@ -468,10 +473,9 @@ def translate_soukon(partial_kana):
 
 
 def translate_long_vowel(partial_kana):
-    long_vowel_mark = u"\u30FC"  # katakana
     prev_c = ""
     for c in partial_kana:
-        if c == long_vowel_mark:
+        if c == katakana_long_vowel_mark:
             if prev_c[-1] in list("aeiou"):
                 partial_kana = partial_kana.replace(c, prev_c[-1], 1)
             else:
@@ -488,8 +492,6 @@ def translate_soukon_ch(kana):
     :return:
     """
 
-    hirgana_soukon_unicode_char = u"\u3063"
-    katakana_soukon_unicode_char = u"\u30c3"
     prev_char = ""
     hiragana_chi_unicode_char = u"\u3061"
     katakana_chi_unicode_char = u"\u30C1"

@@ -85,7 +85,8 @@ class TestKanji(unittest.TestCase):
         test_and_expected = {
             u"私と猫-ちゃん": u"watashi to neko-chan",  # noun followed by KanjiBlock
             u"運命という": u"unmei to iu",  # type change between to character (kanji to hira)
-            u"わたしとねこ-ちゃん": u"watashitoneko-chan"  # no KanjiBlocks and no change in type
+            u"わたしとねこ-ちゃん": u"watashitoneko-chan",  # no KanjiBlocks and no change in type
+            u"やっと眼を覚ましたかい": u"yatto me wo samashita kai"  # no type change, soukon not considered as hiragana
         }
 
         for key in test_and_expected.keys():
