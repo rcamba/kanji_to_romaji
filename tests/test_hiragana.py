@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kanji_to_romaji.kanji_to_romaji import translate_to_romaji, kanji_to_romaji, convert_hiragana_to_katakana, \
+from kanji_to_romaji.kanji_to_romaji_module import translate_to_romaji, kanji_to_romaji, convert_hiragana_to_katakana, \
     translate_kana_iteration_mark, translate_dakuten_equivalent
 
 

@@ -3,7 +3,7 @@ import os
 import json
 import xml.etree.ElementTree
 from collections import OrderedDict
-from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
+from kanji_to_romaji.kanji_to_romaji_module import kanji_to_romaji
 
 
 PATH_TO_MODULE = os.path.dirname(__file__)

@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
+from kanji_to_romaji.kanji_to_romaji_module import kanji_to_romaji
 from generators.godan_verb_conjugators import conjugate_godan_plain_te_form, conjugate_godan_plain_te_form_negative, \
     conjugate_godan_plain_volitional, conjugate_godan_polite_volitional, conjugate_godan_plain_imperative, \
     conjugate_godan_polite_imperative, conjugate_godan_polite_present_affirmative, conjugate_godan_plain_negative, \

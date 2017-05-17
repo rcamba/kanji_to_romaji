@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
+from kanji_to_romaji.kanji_to_romaji_module import kanji_to_romaji
 from generators.ichidan_verb_conjugators import conjugate_ichidan_plain_te_form, \
     conjugate_ichidan_plain_te_form_negative, \
     conjugate_ichidan_plain_volitional, conjugate_ichidan_polite_volitional, conjugate_ichidan_plain_imperative, \

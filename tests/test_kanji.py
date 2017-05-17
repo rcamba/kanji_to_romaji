@@ -1,6 +1,6 @@
 # coding=utf-8
 import unittest
-from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
+from kanji_to_romaji.kanji_to_romaji_module import kanji_to_romaji
 
 
 class TestKanji(unittest.TestCase):

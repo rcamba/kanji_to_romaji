@@ -3,7 +3,7 @@ import os
 import json
 from collections import OrderedDict
 
-from kanji_to_romaji.kanji_to_romaji import kanji_to_romaji
+from kanji_to_romaji.kanji_to_romaji_module import kanji_to_romaji
 
 PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
