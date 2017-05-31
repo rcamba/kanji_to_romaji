@@ -1,12 +1,13 @@
 ﻿# Kanji\_to\_Romaji #
 Formerly kana\_to\_romaji  
-*Tries* to translate Kanji to Romaji with the help of [JMdict](http://www.edrdg.org/jmdict/edict_doc.html)
+*Tries* to translate Kanji to Romaji with the help of [JMdict](http://www.edrdg.org/jmdict/edict_doc.html)  
+Some typograhic characters are also translated since one of the original goals was to make the string printable in ascii  
 
 ## Installation ##
 `git clone https://github.com/rcamba/kanji_to_romaji`  
 Run `install.bat` or `python setup.py install --record installed_files.txt`  
 `installed_files.txt` will keep track of location of copied files for uninstallation if neccessary  
-Having `simplejson` installed will make the initial loading of json mappings be significantly faster
+Having [`simplejson`](https://pypi.python.org/pypi/simplejson/) installed will make the initial loading of json mappings be significantly faster
 
 
 ## Usage ##
@@ -16,7 +17,7 @@ Having `simplejson` installed will make the initial loading of json mappings be 
 tomodachi ni aimashita
 
 
-Although Windows cmd doesn't seem to natively support CJK characters so you can use unicode escaped strings if you'd like...  
+Although Windows cmd doesn't seem to natively support unicode characters so you can use unicode escaped strings if you'd like...  
 \> ktr.py \u53cb\u9054\u306b\u4f1a\u3044\u307e\u3057\u305f  
 tomodachi ni aimashita
 
@@ -34,6 +35,7 @@ Argument must be in **u**nicode
 更に向こうへ: sarani mukou e  
 友達に会いました: tomodachi ni aimashita  
 車には一人分の空きがあった: kuruma ni wa hitoribun no aki ga atta  
+bl∞dy☆: bl dy
 
 See `tests\test_kanji.py` for more examples  
 **Note**: The particles は (ha/wa) or へ (he/e) won't always be translated properly. 

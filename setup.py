@@ -9,7 +9,7 @@ setuptools.setup(
     packages=['kanji_to_romaji', 'models', 'jp_mappings'],
     package_data={"jp_mappings": ["./*.json"]},
     url='https://github.com/rcamba/kanji_to_romaji',
-    license='',
+    license='Mozilla Public License Version 2.0',
     author='Robert Camba',
     author_email='rcamba@users.noreply.github.com',
     description='Try to translate Kanji to Romaji.',
