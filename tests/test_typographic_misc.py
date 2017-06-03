@@ -56,5 +56,9 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(kanji_to_romaji(test_text).decode("unicode_escape"),
                          expected)
 
+    def test_typo_not_overwritten(self):
+        self.assertEqual(kanji_to_romaji(u"～未来への絆～"), "~ mirai e no kizuna~")
+
+
 if __name__ == "__main__":
     unittest.main()

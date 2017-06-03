@@ -149,14 +149,24 @@ def main():
                                 del auto_jm_dict[k_.text]
                                 print k_.text
 
-    del auto_jm_dict[u"々"]
-    del auto_jm_dict[u"今日は"]
-
     return auto_jm_dict
 
 
 if __name__ == "__main__":
     ajd = main()
+
+    del ajd[u"々"]
+    del ajd[u"今日は"]
+
+    items_to_delete = {}
+    mapping_flist = ["full_and_half_width_latin.json", "typographic_misc.json"]
+    for f in mapping_flist:
+        with open(os.path.join(JP_MAPPINGS_PATH, f)) as reader:
+            items_to_delete.update(json.load(reader))
+
+    for k in items_to_delete.keys():
+        if k in ajd:
+            del ajd[k]
 
     for k in ajd.keys():
         del ajd[k]["freq"]
