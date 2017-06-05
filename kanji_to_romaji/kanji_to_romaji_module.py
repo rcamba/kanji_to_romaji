@@ -9,12 +9,12 @@ try:
 except ImportError:
     import json
 
-from models import UnicodeRomajiMapping
-from models import KanjiBlock
-from models import Particle
+from kanji_to_romaji.models import UnicodeRomajiMapping
+from kanji_to_romaji.models import KanjiBlock
+from kanji_to_romaji.models import Particle
 
 PATH_TO_MODULE = os.path.dirname(__file__)
-JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
+JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, "jp_mappings")
 
 hiragana_iter_mark = u"ゝ"
 hiragana_voiced_iter_mark = u"ゞ"

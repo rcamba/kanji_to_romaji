@@ -1,13 +1,10 @@
-import os
-import setuptools
+from distutils.core import setup
 
-PATH_TO_MODULE = os.path.dirname(__file__)
-
-setuptools.setup(
+setup(
     name='Kanji_to_Romaji',
-    version='1.0',
-    packages=['kanji_to_romaji', 'models', 'jp_mappings'],
-    package_data={"jp_mappings": ["./*.json"]},
+    version='1.0.0',
+    packages=['kanji_to_romaji', 'kanji_to_romaji/models'],
+    package_data={"kanji_to_romaji": ["jp_mappings/*.json"]},
     url='https://github.com/rcamba/kanji_to_romaji',
     license='Mozilla Public License Version 2.0',
     author='Robert Camba',
