@@ -27,7 +27,7 @@ The more common usage will probably to be used in another program:
 from kanji_to_romaji import kanji_to_romaji  
 print kanji_to_romaji(u"友達に会いました")  
 ```
-Argument must be in **u**nicode  
+Argument must be in unicode  
 
 
 ## More examples ##
@@ -35,8 +35,9 @@ Argument must be in **u**nicode
 更に向こうへ: sarani mukou e  
 友達に会いました: tomodachi ni aimashita  
 車には一人分の空きがあった: kuruma ni wa hitoribun no aki ga atta  
-bl∞dy☆: bl dy
-乷: \u4e77
+bl∞dy☆: bl dy  
+乷: \u4e77 (not in Kanji unicode range)  
+
 
 See `tests\test_kanji.py` for more examples  
 **Note**: The particles は (ha/wa) or へ (he/e) won't always be translated properly. 
