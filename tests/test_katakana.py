@@ -181,10 +181,10 @@ class TestHiraganaRomajiTranslation(unittest.TestCase):
         self.assertEqual(kanji_to_romaji(u"コヽーミッチヾ"), u"kokoomitchiji")
 
     def test_translate_dakuten_equivalent(self):
-        self.assertEqual(
-            translate_dakuten_equivalent(u"カキクケコサシスセソタチツテトハヒフヘホ"),
-            u"ガギグゲゴザジズゼゾダヂヅデドバビブベボ")
-        self.assertEqual(translate_dakuten_equivalent(u"ガギグゲゴザジズゼゾダヂヅデドバビブベボ"), u"")
+        for test_c, expected in zip(list(u"カキクケコサシスセソタチツテトハヒフヘホ"),
+                                    list(u"ガギグゲゴザジズゼゾダヂヅデドバビブベボ")):
+            self.assertEqual(translate_dakuten_equivalent(test_c), expected)
+        self.assertEqual(translate_dakuten_equivalent(u"ガ"), u"")
 
 if __name__ == "__main__":
     unittest.main()

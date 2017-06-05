@@ -16,15 +16,15 @@ from models import Particle
 PATH_TO_MODULE = os.path.dirname(__file__)
 JP_MAPPINGS_PATH = os.path.join(PATH_TO_MODULE, os.pardir, "jp_mappings")
 
-hiragana_iter_mark = u"\u309D"
-hiragana_voiced_iter_mark = u"\u309E"
-katakana_iter_mark = u"\u30FD"
-katakana_voiced_iter_mark = u"\u30FE"
-kanji_iteration_mark = u"\u3005"
+hiragana_iter_mark = u"ゝ"
+hiragana_voiced_iter_mark = u"ゞ"
+katakana_iter_mark = u"ヽ"
+katakana_voiced_iter_mark = u"ヾ"
+kanji_iteration_mark = u"々"
 
-hirgana_soukon_unicode_char = u"\u3063"
-katakana_soukon_unicode_char = u"\u30C3"
-katakana_long_vowel_mark = u"\u30FC"
+hirgana_soukon_unicode_char = u"っ"
+katakana_soukon_unicode_char = u"ッ"
+katakana_long_vowel_mark = u"ー"
 
 
 def load_kana_mappings_dict():
@@ -85,7 +85,7 @@ def _convert_hira_kata_char(hira_or_kata_char, h_to_k=True):
     e.g hiragana u3041 -> 0x3041 + 0x6 = 0x30A1 -> katakana u30A1
 
     :param hira_or_kata_char: unicode hiragana character
-    :return:
+    :return: converterd hiragana or katakana depending on h_to_k value
     """
     if h_to_k:
         suffix_offset = 6
@@ -100,12 +100,6 @@ def _convert_hira_kata_char(hira_or_kata_char, h_to_k=True):
 
 
 def convert_hiragana_to_katakana(hiragana):
-    """
-    hiragana unicode only has same matching katakana between u"\u3041" and u"\u3096";
-    :param hiragana: unicode hiragana characters
-    :return: katanana in unicode
-    """
-
     converted_str = ""
 
     for c in hiragana:
@@ -152,25 +146,45 @@ def is_kanji(c):
         return c != kanji_iteration_mark and cjk_start_range <= c <= cjk_end_range
 
 
-def get_kana_type(c):
-    kana_type = None
+def get_char_type(c):
+    """
+    determine type of passed character by checking if it belongs in a certan unicode range
+    :param c: kana or kanji character
+    :return: type of character
+    """
+    char_type = None
     if is_hiragana(c):
-        kana_type = "hiragana"
+        char_type = "hiragana"
     elif is_katakana(c):
-        kana_type = "katakana"
+        char_type = "katakana"
     elif is_kanji(c):
-        kana_type = "kanji"
+        char_type = "kanji"
 
-    return kana_type
+    return char_type
 
 
 def translate_particles(kana_list):
+    """
+    try to find particles which are in hirgana and turn them in to Particle objects
+    Particle will provide spacing and will be translated in to appropriate romaji (e.g wa instead of ha for は)
+
+    rules (varies depending on the hiragana char):
+        char between two KanjiBlocks(that can be nouns) then assume to be a particle
+            e.g: 私は嬉 -> KanjiBlock(私), は, KanjiBlock(嬉) -> は is particle use wa instead of ha
+        type(Kanji, Hiragana, Katakana) changes adjacent to the char
+            e.g: アパートへくる -> ト, へ, く -> katakana, へ, hiragana -> へ is a particle, use e instead of he
+        char is last char and previous char is a noun
+            e.g: 会いました友達に -> KanjiBlock(友達) which is a noun, に
+
+    :param kana_list: list of kana characters and KanjiBlock objects
+    :return: None; update the kana_list that is passed
+    """
     def is_noun(k_block):
         return hasattr(k_block, "w_type") and ("noun" in k_block.w_type or "pronoun" in k_block.w_type)
 
     def type_changes(p, n):
-        if get_kana_type(p) is not None and get_kana_type(n) is not None:
-            return get_kana_type(p) != get_kana_type(n)
+        if get_char_type(p) is not None and get_char_type(n) is not None:
+            return get_char_type(p) != get_char_type(n)
         else:
             return False
 
@@ -254,6 +268,13 @@ def translate_particles(kana_list):
 
 
 def translate_kanji_iteration_mark(kana_list):
+    """
+    translate kanji_iteration_mark: 々
+    e.g:
+        在々: zaizai
+    :param kana_list: unicode consisting of kana and kanji chars
+    :return: unicode with kanji iteration marks translated
+    """
     prev_c = ""
     for i in range(0, len(kana_list)):
         if kana_list[i] == kanji_iteration_mark:
@@ -262,6 +283,12 @@ def translate_kanji_iteration_mark(kana_list):
 
 
 def get_type_if_verb_stem(curr_chars):
+    """
+    get verb type for given verb stem. verb types can be ichidan, godan or None.
+    No stem for irregulars
+    :param curr_chars: kanji chars that is a verb stem
+    :return: type of verb stem
+    """
     v_type = None
 
     if "verb stem" in UnicodeRomajiMapping.kanji_mapping[curr_chars]["w_type"]:
@@ -300,7 +327,7 @@ def check_for_verb_stem_ending(kana_list, curr_chars, start_pos, char_len):
     :param curr_chars: KanjiBlock current characters to parse out of entire kana_list
     :param start_pos:
     :param char_len:
-    :return:
+    :return: ending kanji, ending romaji; both will be None if ending not found
     """
     endings = OrderedDict({})
     endings[u"ませんでした"] = "masen deshita"
@@ -352,6 +379,11 @@ def check_for_verb_stem_ending(kana_list, curr_chars, start_pos, char_len):
 
 
 def has_non_verb_stem_reading(curr_chars):
+    """
+    check if curr_chars has an alternative reading aside from the verb stem
+    :param curr_chars: unicode kanji chars to check
+    :return: true/false depending on if curr_chars has a verb stem reading
+    """
     res = False
 
     if "verb stem" not in UnicodeRomajiMapping.kanji_mapping[curr_chars]["w_type"]:
@@ -366,6 +398,11 @@ def has_non_verb_stem_reading(curr_chars):
 
 
 def get_verb_stem_romaji(verb_stem_kanji):
+    """
+    find romaji for verb stem within kanji_mapping
+    :param verb_stem_kanji: unicode verb stem kanji
+    :return: romaji for verb stem kanji
+    """
     romaji = None
     if "verb stem" in UnicodeRomajiMapping.kanji_mapping[verb_stem_kanji]["w_type"]:
         romaji = UnicodeRomajiMapping.kanji_mapping[verb_stem_kanji]["romaji"]
@@ -375,18 +412,22 @@ def get_verb_stem_romaji(verb_stem_kanji):
                 romaji = UnicodeRomajiMapping.kanji_mapping[verb_stem_kanji]["other_readings"][k]
                 break
 
-    if romaji is None:
-        raise
-
     return romaji
 
 
-def prepare_kana_list(kana):
+def prepare_kanjiblocks(kchar_list):
+    """
+    create and replace matched Kanji characters that are within kanji_mapping with KanjiBlock
+    KanjiBlock will be used for spacing and particle translation later
+    if the kanji found is a verb stem then try to find an ending to match it with what's in kchar_list
+    :param kchar_list: list containing kana and kanji characters
+    :return: kchar_list with all found Kanji characters turned in to KanjiBlock objects
+    """
     if len(UnicodeRomajiMapping.kanji_mapping) == 0:
         UnicodeRomajiMapping.kanji_mapping = load_kanji_mappings_dict()
 
-    max_char_len = len(kana)
-    kana_list = list(kana)
+    max_char_len = len(kchar_list)
+    kana_list = list(kchar_list)
 
     start_pos = 0
     while start_pos < max_char_len:
@@ -435,14 +476,18 @@ def translate_kanji(kana_list):
 def prep_kanji(kana):
     kana_list = list(kana)
     if any([is_kanji(k) for k in kana]):
-        kana_list = prepare_kana_list(kana)
-
+        kana_list = prepare_kanjiblocks(kana)
         translate_kanji_iteration_mark(kana_list)
 
     return kana_list
 
 
 def translate_to_romaji(kana):
+    """
+    translate hiragana, katakana, typographic, and fhw latin
+    :param kana: unicode kana(+kanji) characters
+    :return: translated base kana characters to romaji as well as typographic, and fhw latin
+    """
     if len(UnicodeRomajiMapping.kana_mapping) == 0:
         UnicodeRomajiMapping.kana_mapping = load_kana_mappings_dict()
 
@@ -470,6 +515,13 @@ def translate_to_romaji(kana):
 
 
 def translate_soukon(partial_kana):
+    """
+    translate both hiragana and katakana soukon: っ, ッ; repeats next consonant
+    e.g:
+        ちょっと willl be choっto by the time iit is passed to this method and then becomes chotto
+    :param partial_kana: partially translated kana with base kana chars already translated to romaji
+    :return: partial kana with soukon translated
+    """
     prev_char = ""
 
     for c in reversed(partial_kana):
@@ -480,6 +532,13 @@ def translate_soukon(partial_kana):
 
 
 def translate_long_vowel(partial_kana):
+    """
+    translate katakana long vowel ー; repeats previous vowel
+    e.g:
+        メール will be meーru by the time it is passed to this method and then becomes meeru
+    :param partial_kana: partially translated kana with base kana chars already translated to romaji
+    :return: partial kana with long vowel translated
+    """
     prev_c = ""
     for c in partial_kana:
         if c == katakana_long_vowel_mark:
@@ -512,17 +571,16 @@ def translate_soukon_ch(kana):
 
 
 def _translate_dakuten_equivalent_char(kana_char):
-    dakuten_mapping = {u'\u3061': u'\u3062', u'\u3064': u'\u3065', u'\u3066': u'\u3067', u'\u3068': u'\u3069',
-                       u'\u304B': u'\u304C', u'\u304D': u'\u304E', u'\u304F': u'\u3050', u'\u3051': u'\u3052',
-                       u'\u3053': u'\u3054', u'\u3072': u'\u3073', u'\u3055': u'\u3056', u'\u306F': u'\u3070',
-                       u'\u3057': u'\u3058', u'\u3078': u'\u3079', u'\u3059': u'\u305A', u'\u3075': u'\u3076',
-                       u'\u305B': u'\u305C', u'\u305D': u'\u305E', u'\u307B': u'\u307C', u'\u305F': u'\u3060',
-
-                       U'\u30C1': U'\u30C2', U'\u30D5': U'\u30D6', U'\u30C4': U'\u30C5', U'\u30C6': U'\u30C7',
-                       u'\u30C8': u'\u30C9', u'\u30AB': u'\u30AC', u'\u30AD': u'\u30AE', u'\u30AF': u'\u30B0',
-                       u'\u30B1': u'\u30B2', u'\u30B3': u'\u30B4', u'\u30D2': u'\u30D3', u'\u30B5': u'\u30B6',
-                       u'\u30CF': u'\u30D0', u'\u30B7': u'\u30B8', u'\u30B9': u'\u30BA', u'\u30D8': u'\u30D9',
-                       u'\u30DB': u'\u30DC', u'\u30BD': u'\u30BE', u'\u30BB': u'\u30BC', u'\u30BF': u'\u30C0'}
+    dakuten_mapping = {
+        u"か": u"が", u"き": u"ぎ", u"く": u"ぐ", u"け": u"げ", u"こ": u"ご",
+        u"さ": u"ざ", u"し": u"じ", u"す": u"ず", u"せ": u"ぜ", u"そ": u"ぞ",
+        u"た": u"だ", u"ち": u"ぢ", u"つ": u"づ", u"て": u"で", u"と": u"ど",
+        u"は": u"ば", u"ひ": u"び", u"ふ": u"ぶ", u"へ": u"べ", u"ほ": u"ぼ",
+        u"タ": u"ダ", u"チ": u"ヂ", u"ツ": u"ヅ", u"テ": u"デ", u"ト": u"ド",
+        u"カ": u"ガ", u"キ": u"ギ", u"ク": u"グ", u"ケ": u"ゲ", u"コ": u"ゴ",
+        u"サ": u"ザ", u"シ": u"ジ", u"ス": u"ズ", u"セ": u"ゼ", u"ソ": u"ゾ",
+        u"ハ": u"バ", u"ヒ": u"ビ", u"フ": u"ブ", u"ヘ": u"ベ", u"ホ": u"ボ"
+    }
 
     dakuten_equiv = ""
     if kana_char in dakuten_mapping:
@@ -531,14 +589,29 @@ def _translate_dakuten_equivalent_char(kana_char):
     return dakuten_equiv
 
 
-def translate_dakuten_equivalent(kana):
-    res = ""
-    for c in kana:
-        res += _translate_dakuten_equivalent_char(c)
-    return res
+def translate_dakuten_equivalent(kana_char):
+    """
+    translate hiragana and katakana character to their dakuten equivalent
+    e.g:
+        ヒ: ビ
+        く: ぐ
+        み: ""
+    :param kana_char: unicode kana char
+    :return: dakuten equivalent if it exists otherwise empty string
+    """
+    return _translate_dakuten_equivalent_char(kana_char)
 
 
 def translate_kana_iteration_mark(kana):
+    """
+    translate hiragana and katakana iteration marks: ゝ, ゞ, ヽ, ヾ
+    e.g:
+        こゝ: koko
+        タヾ: tada
+        かゞみち: kagaみち
+    :param kana: unicode consisting of kana chars
+    :return: unicode with kana iteration marks translated
+    """
     prev_char = ""
     partial_kana = kana
     for c in kana:
