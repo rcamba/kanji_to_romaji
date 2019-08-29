@@ -23,7 +23,7 @@ class KanjiBlock(str):
         return obj
 
     def __repr__(self):
-        return self.kanji.encode("unicode_escape")
+        return self.kanji
 
     def __str__(self):
-        return self.romaji.encode("utf-8")
+        return self.romaji

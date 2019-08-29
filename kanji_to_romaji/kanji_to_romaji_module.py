@@ -31,7 +31,7 @@ def load_kana_mappings_dict():
     kana_romaji_mapping = {}
     for f in os.listdir(JP_MAPPINGS_PATH):
         if os.path.splitext(f)[1] == ".json" and "kanji" not in f:
-            with open(os.path.join(JP_MAPPINGS_PATH, f)) as data_file:
+            with open(os.path.join(JP_MAPPINGS_PATH, f), encoding='utf-8') as data_file:
                 kana_romaji_mapping.update(json.load(data_file))
     return kana_romaji_mapping
 
@@ -60,7 +60,7 @@ def load_kanji_mappings_dict():
 
     for f in f_list:
         if os.path.splitext(f)[1] == ".json" and "kanji" in f:
-            with open(os.path.join(JP_MAPPINGS_PATH, f)) as data_file:
+            with open(os.path.join(JP_MAPPINGS_PATH, f), encoding='utf-8') as data_file:
                 data_file_dict = json.load(data_file)
                 for k in data_file_dict.keys():
                     if k in kanji_romaji_mapping and \
@@ -91,11 +91,11 @@ def _convert_hira_kata_char(hira_or_kata_char, h_to_k=True):
         suffix_offset = 6
     else:
         suffix_offset = -6
-    unicode_second_last_char = list(hira_or_kata_char.encode("unicode_escape"))[-2]
+    unicode_second_last_char = list(hira_or_kata_char)[-2]
     suffix = hex(int(unicode_second_last_char, 16) + suffix_offset)
-    char_list = list(hira_or_kata_char.encode("unicode_escape"))
+    char_list = list(hira_or_kata_char)
     char_list[-2] = suffix[-1]
-    result_char = "".join(char_list).decode('unicode-escape').encode('utf-8')
+    result_char = "".join(char_list)
     return result_char
 
 
@@ -106,8 +106,8 @@ def convert_hiragana_to_katakana(hiragana):
         if is_hiragana(c) or c in [hiragana_iter_mark, hiragana_voiced_iter_mark, hirgana_soukon_unicode_char]:
             converted_str += _convert_hira_kata_char(c)
         else:
-            converted_str += c.encode('utf-8')
-    return converted_str.decode("utf-8")
+            converted_str += c
+    return converted_str
 
 
 def convert_katakana_to_hiragana(katakana):
@@ -118,8 +118,8 @@ def convert_katakana_to_hiragana(katakana):
                                    katakana_soukon_unicode_char]:
             converted_str += _convert_hira_kata_char(c, h_to_k=False)
         else:
-            converted_str += c.encode('utf-8')
-    return converted_str.decode("utf-8")
+            converted_str += c
+    return converted_str
 
 
 def is_hiragana(c):
@@ -626,7 +626,7 @@ def translate_kana_iteration_mark(kana):
 
 def kanji_to_romaji(kana):
     if type(kana) == str:
-        kana = kana.decode("utf-8")
+        kana = kana
     pk = translate_kana_iteration_mark(kana)
     pk = translate_soukon_ch(pk)
     pk_list = prep_kanji(pk)
@@ -635,12 +635,12 @@ def kanji_to_romaji(kana):
     pk = translate_to_romaji(pk)
     pk = translate_soukon(pk)
     r = translate_long_vowel(pk)
-    return r.encode("unicode_escape").replace("\\\\", "\\")
+    return r.replace("\\\\", "\\")
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        print kanji_to_romaji(("".join(sys.argv[1:])).decode('unicode-escape'))
+        print(kanji_to_romaji(("".join(sys.argv[1:]))))
     else:
-        print "Missing Kanji/Kana character argument\n" \
-              "e.g: kanji_to_romaji.py \u30D2"
+        print("Missing Kanji/Kana character argument\n"
+              "e.g: kanji_to_romaji.py \u30D2")
